@@ -1,8 +1,32 @@
-import * as Graph from "../types/graph-schema";
 import { omitEmpty } from "./object";
 
-const toSharpFit = (fit: Graph.ResizeFit) => fit.toLowerCase();
-const toSharpPosition = (position: Graph.ResizePosition) =>
+export interface ResizeOptions {
+  width: number;
+  height?: number;
+  fit?: ResizeFit;
+  position?: ResizePosition;
+}
+
+export enum ResizeFit {
+  Cover = "COVER",
+  Contain = "CONTAIN",
+  Fill = "FILL",
+}
+
+export enum ResizePosition {
+  Center = "CENTER",
+  Top = "TOP",
+  RightTop = "RIGHT_TOP",
+  Right = "RIGHT",
+  RightBottom = "RIGHT_BOTTOM",
+  Bottom = "BOTTOM",
+  LeftBottom = "LEFT_BOTTOM",
+  Left = "LEFT",
+  LeftTop = "LEFT_TOP",
+}
+
+const toSharpFit = (fit: ResizeFit) => fit.toLowerCase();
+const toSharpPosition = (position: ResizePosition) =>
   position
     .toLowerCase()
     .replace("top", "north")
@@ -11,12 +35,12 @@ const toSharpPosition = (position: Graph.ResizePosition) =>
     .replace("right", "east")
     .replace("_", "");
 
-export const stringifyOptions = (opts: Graph.ResizeInput) => {
+export const stringifyOptions = (opts: ResizeOptions) => {
   const willScale = !!opts.height && !!opts.width;
 
   // Only default fit and position if both height and width are set
   const defaults = willScale
-    ? { fit: Graph.ResizeFit.Cover, position: Graph.ResizePosition.Center }
+    ? { fit: ResizeFit.Cover, position: ResizePosition.Center }
     : { width: "auto", height: "auto" };
 
   const final = { ...defaults, ...omitEmpty(opts) };
@@ -30,8 +54,8 @@ export const stringifyOptions = (opts: Graph.ResizeInput) => {
     .join("_");
 };
 
-export const resizedUrl = (url: string, options: Graph.ResizeInput) =>
+export const resizedUrl = (url: string, options: ResizeOptions) =>
   url.replace(/\.([a-zA-Z0-9]+)$/, `.${stringifyOptions(options)}.$1`);
 
-export const resizedOrOriginal = (url: string, options?: Graph.ResizeInput) =>
+export const resizedOrOriginal = (url: string, options?: ResizeOptions) =>
   options ? resizedUrl(url, options) : url;

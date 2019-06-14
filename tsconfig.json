@@ -15,7 +15,7 @@
     "emitDecoratorMetadata": true,
     "lib": ["es2015"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "db-ops/**/*.ts"],
-  "files": ["src/types/global.d.ts", "src/index.ts", "db-ops/sync.ts"],
+  "include": ["src/**/*"],
+  "files": ["src/global.d.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

@@ -7,7 +7,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "sourceMap": true,
-    "outDir": "dist",
     "baseUrl": ".",
     "skipLibCheck": true,
     "strictNullChecks": true,

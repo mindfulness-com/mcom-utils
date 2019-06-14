@@ -2,7 +2,6 @@ import { writeFileSync } from "fs";
 import * as AWS from "aws-sdk";
 
 import { fileSafeId } from "./id";
-import { InvalidArgs } from "./error";
 import { take } from "lodash";
 import { getEnvVar, onlyInLocalEnv } from "./env";
 import { audioConfig, videoConfig } from "./transcoder.config";
@@ -92,7 +91,7 @@ export const getJobStatus = async (jobId: string): Promise<JobStatus> => {
     .getJob({ Id: jobId })
     .promise();
   if (!Job) {
-    throw new InvalidArgs(`Invalid job id: ${jobId}`);
+    throw new Error(`Invalid job id: ${jobId}`);
   }
 
   const status = Job.Status as JobStatus;

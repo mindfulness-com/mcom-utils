@@ -1,0 +1,37 @@
+---
+overwrite: true
+schema: src/**/schema.gql
+documents:
+require:
+  - ts-node/register
+generates:
+  src/types/graphql-server.codegen.ts:
+    config:
+      contextType: src/app/types#RequestContext
+      avoidOptionals: true
+      optionalType: undefined
+      scalars:
+        JSON: "{ [key: string]: any }"
+        DateTime: Date
+        URL: string
+        HexCode: string
+    plugins:
+      - add: |-
+          // [[READONLY GENERATED FILE]] THIS HAS BEEN GENERATED FROM THE GRAPHQL SCHEMA.GQL FILE.
+          /* eslint-disable */
+      - typescript-common
+      - typescript-server
+      - typescript-resolvers
+  src/types/graphql-client.codegen.ts:
+    config:
+      avoidOptionals: true
+      optionalType: undefined
+    plugins:
+      - add: |-
+          // [[READONLY GENERATED FILE]] THIS HAS BEEN GENERATED FROM THE GRAPHQL SCHEMA.GQL FILE.
+          /* eslint-disable */
+      - typescript-server
+      - typescript-common
+  src/types/graphql-introspected.codegen.json:
+    plugins:
+      - introspection

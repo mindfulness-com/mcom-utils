@@ -1,36 +1,11 @@
 {
-  "name": "mcom-api",
-  "version": "0.0.3",
-  "description": "Mindfulness.com Typescript graphql api.",
-  "main": "src/index.ts",
-  "scripts": {
-    "start": "npm-run-all -p start:server start:linting start:codegen",
-    "start:server": "nodemon",
-    "start:linting": "chokidar \"src\" -d 5000 -t 15000 -c \"npm run lint\"",
-    "start:tests": "chokidar \"src\" -d 5000 -t 15000 -c \"jest -o\"",
-    "start:codegen": "chokidar \"src/**/*!(spec).gql\" -d 1000 -t 0 -c \"npm run codegen\"",
-    "setup": "npm i && npm run env:setup",
-    "env:setup": "cp .env-template .env",
-    "db:drop": "dropdb mcom",
-    "db:create": "createdb mcom",
-    "db:sync": "ts-node --files ./db-ops/sync && npm run db:migrate",
-    "db:reset": "sequelize db:seed:undo:all && FORCE=true npm run db:sync",
-    "db:setup": "npm run db:sync",
-    "db:seed": "npm run build:migrations && sequelize db:seed:all",
-    "db:migrate": "npm run build:migrations && sequelize db:migrate",
-    "db:migrate:undo": "npm run build:migrations && sequelize db:migrate:undo",
-    "db:migrate:generate": "sequelize migration:generate --name unnamed",
-    "test": "jest --maxWorkers=2",
-    "serve": "node ./dist/src/index.js",
-    "build": "gulp build",
-    "build:migrations": "tsc ./db-ops/**/*.ts",
-    "deploy": "gulp deploy",
-    "lint": "eslint -c ./.eslintrc \"src/**/*.ts\"",
-    "codegen": "gql-gen --config graphql-gen.yml"
-  },
+  "name": "mcom-utils",
+  "version": "0.0.1",
+  "description": "Mindfulness.com shared typescript utils",
+  "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git@github.com:mindfulness-com/mcom-api.git"
+    "url": "git@github.com:mindfulness-com/mcom-utils.git"
   },
   "keywords": [
     "typescript",

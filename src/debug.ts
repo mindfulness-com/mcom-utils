@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import * as Sentry from "@sentry/node";
 import { getEnvVar, skipInLocalEnv, onlyInLocalEnv } from "./env";
 
@@ -8,20 +10,21 @@ skipInLocalEnv(() => {
   });
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const debug = (...messages: any[]) =>
   onlyInLocalEnv(() => console.log(...messages));
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const log = (message: Error | string | Record<string, any>) => {
-  console.log(message);
+export const log = (
+  message: Error | string | Record<string, any>,
+  extra?: Record<string, any>,
+) => {
+  onlyInLocalEnv(() => console.log(message, extra));
 
   if (message instanceof Error) {
     Sentry.captureException(message);
   } else if (typeof message === "string") {
-    Sentry.captureMessage(message);
+    Sentry.captureEvent({ message, extra });
   } else {
-    Sentry.captureMessage(JSON.stringify(message));
+    Sentry.captureEvent({ message: JSON.stringify(message), extra });
   }
 };
 

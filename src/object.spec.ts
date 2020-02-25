@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/camelcase */
 
-import { omitEmpty, keysDeep, filterKeys } from "./object";
+import { omitEmpty, keysDeep, keysToSnakeCase } from "./object";
 
 test("should only strip null and undefiend", () => {
   const test: Record<string, any> = {
@@ -42,15 +42,18 @@ test("should return deeply nested fields", () => {
   ]);
 });
 
-test("should clip prefix from key paths", () => {
-  const keys = [
-    "prop1",
-    "prop1.prop2a",
-    "prop1.prop2b",
-    "prop1.prop2c",
-    "prop1.prop2c.prop3a",
-    "prop1.prop2c.prop3b",
-    "prop4",
-  ];
-  expect(filterKeys(keys, "prop1.prop2c.")).toEqual(["prop3a", "prop3b"]);
+test("should convert object keys to snake case", () => {
+  expect(
+    keysToSnakeCase({
+      somethingCamel: "yes",
+      a: "b",
+      WhatTheFoo: "boi",
+      alread_there: "dep",
+    }),
+  ).toEqual({
+    something_camel: "yes",
+    a: "b",
+    what_the_foo: "boi",
+    alread_there: "dep",
+  });
 });

@@ -1,5 +1,10 @@
 import * as sendgrid from "@sendgrid/mail";
 import { getEnvVar } from "./env";
+import { shortId } from "./id";
+
+export const cleanEmail = (email: string) => email.trim().toLowerCase();
+export const teamEmailAlias = (email: string) =>
+  email.replace(/\+\@mindfulness\.com$/gi, `+${shortId(4)}@mindfulness.com`);
 
 sendgrid.setApiKey(getEnvVar("SENDGRID_API_KEY"));
 

@@ -4,6 +4,7 @@ export const getEnv = jest.fn().mockReturnValue("development");
 export const getEnvVar = jest.fn(
   (name: string) => process.env[name] || "value",
 );
+export const getInfraEnv = () => "test";
 export const getEnvVarBool = () => true;
 export const getInfraSuffix = () => "-test";
 export const isEnvVarSet = () => false;

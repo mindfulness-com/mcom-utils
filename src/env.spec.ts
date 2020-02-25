@@ -84,6 +84,6 @@ test("should test for truthy", () => {
 });
 
 test("environment variables are loaded from .env file", () => {
-  const secrets = readFileSync(join(__dirname, "../.env")).toString();
+  const secrets = readFileSync(join(__dirname, "../../.env")).toString();
   expect(secrets.length).toBeGreaterThan(0);
 });

@@ -1,7 +1,7 @@
 import { find } from "lodash";
 
-type Pred<T> = (t: T) => boolean;
-type Fn<T, R> = (t: T) => R;
+export type Pred<T> = (t: T) => boolean;
+export type Fn<T, R> = (t: T) => R;
 
 export const otherwise = <T>(_?: T) => true;
 export const defined = <T>(t: Maybe<T>): t is T => !!t;

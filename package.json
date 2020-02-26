@@ -10,9 +10,8 @@
   "scripts": {
     "start:linting": "chokidar \"src\" -d 5000 -t 15000 -c \"npm run lint\"",
     "start:tests": "chokidar \"src\" -d 5000 -t 15000 -c \"jest -o\"",
-    "build": "tsc",
+    "build": "tsc ./tsconfig.json",
     "prepare": "npm run build",
-    "postinstall": "npm run build",
     "test": "jest --maxWorkers=2",
     "lint": "eslint -c ./.eslintrc \"src/**/*.ts\""
   },

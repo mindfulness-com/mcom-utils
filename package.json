@@ -5,13 +5,14 @@
   "main": "dist/*.js",
   "types": "dist/*.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "start:linting": "chokidar \"src\" -d 5000 -t 15000 -c \"npm run lint\"",
     "start:tests": "chokidar \"src\" -d 5000 -t 15000 -c \"jest -o\"",
     "build": "tsc",
-    "publish": "npm run build",
+    "prepare": "tsc",
     "test": "jest --maxWorkers=2",
     "lint": "eslint -c ./.eslintrc \"src/**/*.ts\""
   },

@@ -2,12 +2,13 @@
   "name": "mcom-utils",
   "version": "0.0.1",
   "description": "Mindfulness.com shared typescript utils",
-  "main": "dist/*",
-  "types": "dist/*.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "start:linting": "chokidar \"src\" -d 5000 -t 15000 -c \"npm run lint\"",
     "start:tests": "chokidar \"src\" -d 5000 -t 15000 -c \"jest -o\"",
-    "prepare": "tsc",
+    "build": "tsc",
+    "prepare": "npm run build",
     "test": "jest --maxWorkers=2",
     "lint": "eslint -c ./.eslintrc \"src/**/*.ts\""
   },

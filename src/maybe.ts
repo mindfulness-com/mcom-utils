@@ -2,6 +2,9 @@
 
 import { every } from "lodash";
 
+export type Nothing = undefined;
+export type Maybe<T> = T | Nothing;
+
 export const identity = <T>(thing: T): T => thing;
 
 export const isString = (val: string | any): val is string =>

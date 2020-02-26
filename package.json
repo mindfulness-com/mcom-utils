@@ -9,7 +9,7 @@
     "start:tests": "chokidar \"src\" -d 5000 -t 15000 -c \"jest -o\"",
     "build": "tsc",
     "publish": "npm run test && npm run build",
-    "test": "jest --maxWorkers=2",
+    "test": "TZ=UTC jest --maxWorkers=2",
     "lint": "eslint -c ./.eslintrc \"src/**/*.ts\""
   },
   "repository": {

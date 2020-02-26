@@ -8,7 +8,6 @@
     "start:linting": "chokidar \"src\" -d 5000 -t 15000 -c \"npm run lint\"",
     "start:tests": "chokidar \"src\" -d 5000 -t 15000 -c \"jest -o\"",
     "build": "tsc",
-    "postinstall": "mv ./dist/* ./",
     "test": "jest --maxWorkers=2",
     "lint": "eslint -c ./.eslintrc \"src/**/*.ts\""
   },
@@ -28,10 +27,8 @@
   "author": "Mindfulness.com",
   "license": "ISC",
   "dependencies": {
-    "@okgrow/graphql-scalars": "^0.4.5",
     "@sendgrid/mail": "^6.4.0",
     "@sentry/node": "^5.2.0",
-    "analytics-node": "^3.3.0",
     "bluebird": "^3.5.4",
     "change-case": "^3.1.0",
     "date-fns": "^1.30.1",

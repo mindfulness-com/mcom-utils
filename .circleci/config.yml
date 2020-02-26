@@ -67,21 +67,6 @@ jobs:
       - run:
           name: "Running jest test suite."
           command: npm run test
-  deploy:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - restore_cache:
-          key: source-{{ .Branch }}-{{ .Revision }}
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Running db migrations;
-          command: npx gulp migrateRemoteDb
-      - run:
-          name: Deploy to EB
-          command: npx gulp pushToEB
 workflows:
   version: 2
   build_and_deploy:
@@ -96,12 +81,3 @@ workflows:
       - test:
           requires:
             - build
-      - deploy:
-          requires:
-            - build
-            - test
-          filters:
-            branches:
-              only:
-                - master
-                - develop

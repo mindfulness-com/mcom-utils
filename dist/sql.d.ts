@@ -1,0 +1,11 @@
+export declare const column: (name: string) => string;
+export declare const table: (name: string) => string;
+export declare type Primitive = string | number | Date | boolean | undefined | null;
+export declare type PrimitiveRecord = Record<string, Primitive>;
+export declare const literal: (value: Primitive) => string;
+export declare const toSet: (update: Record<string, Primitive>) => string;
+export declare const toArray: (items: Primitive[]) => string;
+export declare const toValues: (item: Record<string, Primitive>) => string;
+export declare const toColumns: (item: Record<string, Primitive>) => string;
+export declare const insert: (table: string, items: Record<string, Primitive> | Record<string, Primitive>[]) => string;
+export declare const upsert: (table: string, items: Record<string, Primitive> | Record<string, Primitive>[], onConflictKeys: string | string[], updateKeys: string | string[]) => string;

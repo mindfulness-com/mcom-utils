@@ -11,8 +11,8 @@
   "scripts": {
     "start:linting": "chokidar \"src\" -d 5000 -t 15000 -c \"npm run lint\"",
     "start:tests": "chokidar \"src\" -d 5000 -t 15000 -c \"jest -o\"",
-    "build": "tsc",
-    "postinstall": "tsc && mv ./dist/* ./",
+    "build": "tsc -p ./tsconfig.json",
+    "postinstall": "tsc -p ./tsconfig.json && mv ./dist/* ./",
     "test": "jest --maxWorkers=2",
     "lint": "eslint -c ./.eslintrc \"src/**/*.ts\""
   },

@@ -60,7 +60,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: "Setup fake env vars for testing."
-          command: npm run env:setup
+          command: cp .env-template .env
       - run:
           name: "Running eslint validation."
           command: npm run lint

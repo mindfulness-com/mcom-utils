@@ -1,4 +1,5 @@
 /// <reference types="lodash" />
+import { Maybe } from "./maybe";
 export declare const omitEmpty: <T, K extends keyof T>(obj: T) => Partial<T>;
 export declare const keysDeep: (obj: Record<string, string | Record<string, any>>, parent?: Maybe<string>) => string[];
 export declare const hasChanges: <T>(a: T, b: Maybe<T>) => boolean;

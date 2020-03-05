@@ -1,3 +1,4 @@
+import { Maybe } from "./maybe";
 export declare const ensureArray: <T>(input: T | T[]) => T[];
 export declare const compareInt: <T>(p: (t: T) => number) => (t1: T, t2: T) => number;
 export declare const sortByInt: <T>(arr: T[], p: (t: T) => number) => T[];

@@ -1,3 +1,4 @@
+import { Maybe } from "./maybe";
 export declare type Pred<T> = (t: T) => boolean;
 export declare type Fn<T, R> = (t: T) => R;
 export declare const otherwise: <T>(_?: T | undefined) => boolean;

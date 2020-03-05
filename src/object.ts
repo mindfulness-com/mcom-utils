@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-object-literal-type-assertion,  @typescript-eslint/no-explicit-any */
 
+import { Maybe } from "./maybe";
 import {
   isNil,
   reduce,

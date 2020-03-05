@@ -1,5 +1,5 @@
 import { chain, reduce, isArray } from "lodash";
-import { isDefined } from "./maybe";
+import { isDefined, Maybe } from "./maybe";
 
 export const ensureArray = <T>(input: T | T[]): T[] =>
   isArray(input) ? input : [input];

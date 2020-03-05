@@ -1,4 +1,5 @@
 import { find } from "lodash";
+import { Maybe } from "./maybe";
 
 export type Pred<T> = (t: T) => boolean;
 export type Fn<T, R> = (t: T) => R;

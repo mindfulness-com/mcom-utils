@@ -1,4 +1,4 @@
-import { isDefined } from "./maybe";
+import { isDefined, Maybe } from "./maybe";
 
 export const getOrElse = <T>(val: Maybe<T>, defaultValue: T): T =>
   isDefined(val) ? val : defaultValue;

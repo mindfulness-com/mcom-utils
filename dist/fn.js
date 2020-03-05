@@ -4,14 +4,21 @@ const lodash_1 = require("lodash");
 exports.otherwise = (_) => true;
 exports.defined = (t) => !!t;
 exports.not = (p) => t => !p(t);
-exports.wiith = (fn, afn) => fn(afn());
-exports.using = (a, fn) => fn(a);
-exports.guard = (guards) => ts => exports.wiith(guard => {
+function wiith(fn, args) {
+    return fn(...args());
+}
+exports.wiith = wiith;
+function using(a, fn) {
+    return fn(...a);
+}
+exports.using = using;
+exports.guard = (guards) => ts => {
+    const guard = lodash_1.find(guards, ([guard]) => guard(ts));
     if (!guard) {
         throw new Error("No matching guards found.");
     }
     return guard[1](ts);
-}, () => lodash_1.find(guards, ([guard]) => guard(ts)));
+};
 // Example usage of guards
 exports.max = exports.guard([
     [xs => xs.length === 0, () => 0],

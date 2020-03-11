@@ -13,6 +13,4 @@ set -e;
 
 VER=$(npm version patch)
 
-git push origin
-git tag -a $VER
-git push origin $VER;
+git push origin $VER

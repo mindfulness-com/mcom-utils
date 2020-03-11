@@ -23,15 +23,16 @@ describe("composelAsync", () => {
 
   test("should wait for each value response", async () => {
     const d1 = new Deferred<string>();
-    const fn1 = jest.fn(async () => d1.promise);
+    const fn1 = jest.fn(() => d1.promise);
 
     const d2 = new Deferred<string>();
-    const fn2 = jest.fn(async () => d2.promise);
+    const fn2 = jest.fn(() => d2.promise);
 
     const d3 = new Deferred<string>();
-    const fn3 = jest.fn(async () => d3.promise);
+    const fn3 = jest.fn(() => d3.promise);
 
-    const waiting = composelAsync(fn1, fn2, fn3)("nothing");
+    const fn = composelAsync(fn1, fn2, fn3);
+    const waiting = fn("nothing");
 
     // Let above first promise resolve
     await new Promise(r => setTimeout(r, 10));

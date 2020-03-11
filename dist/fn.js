@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 exports.otherwise = (_) => true;
@@ -19,10 +28,19 @@ exports.guard = (guards) => ts => {
     }
     return guard[1](ts);
 };
-// Example usage of guards
-exports.max = exports.guard([
-    [xs => xs.length === 0, () => 0],
-    [exports.not(exports.defined), ([m]) => m],
-    [exports.otherwise, ([x, ...xs]) => (x > exports.max(xs) ? x : exports.max(xs))],
-]);
+var fp_1 = require("lodash/fp");
+exports.composel = fp_1.pipe;
+exports.curry = fp_1.curry;
+exports.partial = fp_1.partial;
+exports.__ = fp_1.__;
+exports.id = (t) => () => t;
+exports._ = exports.id;
+function composelAsync(...fns) {
+    return (a) => lodash_1.reduce(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return Promise.resolve(v).then(fn); }), Promise.resolve(a));
+}
+exports.composelAsync = composelAsync;
+function composeAsync(...fns) {
+    return (a) => lodash_1.reduceRight(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return Promise.resolve(v).then(fn); }), Promise.resolve(a));
+}
+exports.composeAsync = composeAsync;
 //# sourceMappingURL=fn.js.map

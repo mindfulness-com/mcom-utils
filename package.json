@@ -1,6 +1,6 @@
 {
   "name": "@mcom/utils",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Mindfulness.com shared typescript utils",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

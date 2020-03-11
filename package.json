@@ -11,7 +11,7 @@
     "start:linting": "chokidar \"src\" -d 5000 -t 15000 -c \"npm run lint\"",
     "start:tests": "chokidar \"src\" -d 5000 -t 15000 -c \"jest -o\"",
     "build": "tsc",
-    "publish": "npm run test && npm run build && git stage . && git commit -C && git tag -a $(npm version patch)",
+    "publish": "npm run test && npm run build && chmod 755 ./publish.sh && ./publish.sh",
     "publish:major": "npm run test && npm run build",
     "postinstall": "[ -d './src' ] || cp -rf ./dist/* ./",
     "test": "TZ=UTC jest --maxWorkers=2",

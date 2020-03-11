@@ -90,11 +90,7 @@ export function composelAsync<T1, T2, R>(
 ): (a?: T1) => Promise<R>;
 export function composelAsync<T1, R>(...fns: Fn<any, Promise<any>>[]) {
   return (a?: T1): Promise<R> =>
-    reduce(
-      fns,
-      async (v, fn) => Promise.resolve(v).then(fn),
-      Promise.resolve(a) as any,
-    );
+    reduce(fns, async (v, fn) => fn(await v), a as any);
 }
 
 export function composeAsync<T1, T2, T3, T4, T5, R>(
@@ -121,9 +117,5 @@ export function composeAsync<T1, T2, R>(
 ): (a?: T1) => Promise<R>;
 export function composeAsync<T1, R>(...fns: Fn<any, Promise<any>>[]) {
   return (a?: T1): Promise<R> =>
-    reduceRight(
-      fns,
-      async (v, fn) => Promise.resolve(v).then(fn),
-      Promise.resolve(a) as any,
-    );
+    reduceRight(fns, async (v, fn) => fn(await v), a as any);
 }

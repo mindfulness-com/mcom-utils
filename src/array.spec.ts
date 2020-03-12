@@ -5,6 +5,8 @@ import {
   indexBy,
   maybeMap,
   ensureArray,
+  lookup,
+  maybeLookup,
 } from "./array";
 
 test("ensure array always returns arrays", () => {
@@ -86,4 +88,38 @@ test("maybe map only returns defined values", () => {
   expect(
     maybeMap([1, 2, 3, 4, 5, 6], a => (a % 2 === 0 ? true : false)),
   ).toEqual([false, true, false, true, false, true]);
+});
+
+describe("lookup", () => {
+  test("throws an error when not found in lookup", () => {
+    expect(() =>
+      lookup([{ id: 1 }, { id: 2 }], t => String(t.id))("3"),
+    ).toThrow();
+  });
+
+  test("uses fallback when lookup not found", () => {
+    expect(
+      lookup(
+        [{ id: 1 }, { id: 2 }],
+        t => String(t.id),
+        () => ({ id: -1 }),
+      )("3"),
+    ).toEqual({ id: -1 });
+  });
+
+  test("maybeLookup returns undefined when not found", () => {
+    expect(
+      maybeLookup([{ id: 1 }, { id: 2 }], t => String(t.id))("3"),
+    ).toBeUndefined();
+  });
+
+  test("returns the value searching for", () => {
+    expect(
+      maybeLookup([{ id: 1 }, { id: 2 }], t => String(t.id))("2"),
+    ).toEqual({ id: 2 });
+
+    expect(lookup([{ id: 1 }, { id: 2 }], t => String(t.id))("2")).toEqual({
+      id: 2,
+    });
+  });
 });

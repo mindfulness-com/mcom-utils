@@ -38,19 +38,28 @@ export const indexBy = <T>(
   return result;
 };
 
-export const lookup = <T, R>(
+export const lookup = <T>(
   items: T[],
   pick: (i: T) => Maybe<string | string[]>,
-  fallback: () => R,
+  fallback?: () => T,
 ) => {
   const hash = indexBy(items, pick);
-  return (key: string) => hash[key] || fallback();
+  return (key: string) => {
+    const r = hash[key] || fallback?.();
+    if (!r) {
+      throw new Error("Item not found.");
+    }
+    return r;
+  };
 };
 
 export const maybeLookup = <T>(
   items: T[],
   pick: (i: T) => Maybe<string | string[]>,
-) => lookup<T, Maybe<T>>(items, pick, () => undefined);
+) => {
+  const hash = indexBy(items, pick);
+  return (key: string) => hash[key];
+};
 
 export const maybeMap = <T, R>(items: T[], map: (i: T) => Maybe<R>): R[] =>
   reduce(

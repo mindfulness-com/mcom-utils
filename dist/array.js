@@ -27,7 +27,7 @@ exports.lookup = (items, pick, fallback) => {
     const hash = exports.indexBy(items, pick);
     return (key) => {
         var _a;
-        const r = hash[key] || ((_a = fallback) === null || _a === void 0 ? void 0 : _a());
+        const r = hash[key] || ((_a = fallback) === null || _a === void 0 ? void 0 : _a(key));
         if (!r) {
             throw new Error("Item not found.");
         }

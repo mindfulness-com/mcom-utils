@@ -41,11 +41,11 @@ export const indexBy = <T>(
 export const lookup = <T>(
   items: T[],
   pick: (i: T) => Maybe<string | string[]>,
-  fallback?: () => T,
+  fallback?: (k: string) => T,
 ) => {
   const hash = indexBy(items, pick);
   return (key: string) => {
-    const r = hash[key] || fallback?.();
+    const r = hash[key] || fallback?.(key);
     if (!r) {
       throw new Error("Item not found.");
     }

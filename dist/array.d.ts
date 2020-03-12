@@ -7,6 +7,6 @@ export declare const pluckUnique: <T>(selector: (tag: T) => Maybe<string>) => (t
 export declare const indexBy: <T>(items: T[], pick: (i: T) => Maybe<string | string[]>) => {
     [key: string]: T;
 };
-export declare const lookup: <T, R>(items: T[], pick: (i: T) => Maybe<string | string[]>, fallback: () => R) => (key: string) => T | R;
-export declare const maybeLookup: <T>(items: T[], pick: (i: T) => Maybe<string | string[]>) => (key: string) => Maybe<T>;
+export declare const lookup: <T>(items: T[], pick: (i: T) => Maybe<string | string[]>, fallback?: (() => T) | undefined) => (key: string) => T;
+export declare const maybeLookup: <T>(items: T[], pick: (i: T) => Maybe<string | string[]>) => (key: string) => T;
 export declare const maybeMap: <T, R>(items: T[], map: (i: T) => Maybe<R>) => R[];

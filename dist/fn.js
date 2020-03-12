@@ -36,11 +36,11 @@ exports.__ = fp_1.__;
 exports.id = (t) => () => t;
 exports._ = exports.id;
 function composelAsync(...fns) {
-    return (a) => lodash_1.reduce(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return Promise.resolve(v).then(fn); }), Promise.resolve(a));
+    return (a) => __awaiter(this, void 0, void 0, function* () { return lodash_1.reduce(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return fn(yield v); }), a); });
 }
 exports.composelAsync = composelAsync;
 function composeAsync(...fns) {
-    return (a) => lodash_1.reduceRight(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return Promise.resolve(v).then(fn); }), Promise.resolve(a));
+    return (a) => __awaiter(this, void 0, void 0, function* () { return lodash_1.reduceRight(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return fn(yield v); }), a); });
 }
 exports.composeAsync = composeAsync;
 //# sourceMappingURL=fn.js.map

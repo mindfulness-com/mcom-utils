@@ -25,9 +25,19 @@ exports.indexBy = (items, pick) => {
 };
 exports.lookup = (items, pick, fallback) => {
     const hash = exports.indexBy(items, pick);
-    return (key) => hash[key] || fallback();
+    return (key) => {
+        var _a;
+        const r = hash[key] || ((_a = fallback) === null || _a === void 0 ? void 0 : _a());
+        if (!r) {
+            throw new Error("Item not found.");
+        }
+        return r;
+    };
 };
-exports.maybeLookup = (items, pick) => exports.lookup(items, pick, () => undefined);
+exports.maybeLookup = (items, pick) => {
+    const hash = exports.indexBy(items, pick);
+    return (key) => hash[key];
+};
 exports.maybeMap = (items, map) => lodash_1.reduce(items, (agg, i) => {
     const r = map(i);
     if (maybe_1.isDefined(r)) {

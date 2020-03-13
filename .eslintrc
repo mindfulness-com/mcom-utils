@@ -1,14 +1,14 @@
 {
   "parser": "@typescript-eslint/parser",
   "extends": [
-    "import",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended",
     "prettier"
   ],
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": ["@typescript-eslint", "import", "prettier"],
   "parserOptions": { "ecmaVersion": 2018, "sourceType": "module" },
+
   "rules": {
     "prettier/prettier": "error",
     "import/named": "error",
@@ -34,7 +34,13 @@
     }
   ],
   "settings": {
-    "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] },
-    "import/resolver": { "typescript": {} }
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts"]
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"]
+      }
+    }
   }
 }

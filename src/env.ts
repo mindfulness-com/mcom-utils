@@ -36,7 +36,7 @@ export const onlyOnProdInfraEnv = onlyRunIn(isProdInfraEnv);
 export const skipInLocalEnv = onlyRunIn(() => !isLocalInfraEnv());
 export const onlyInLocalEnv = onlyRunIn(() => isLocalInfraEnv());
 
-export const getInfraSuffix = (isPublic: boolean = false) => {
+export const getInfraSuffix = (isPublic = false) => {
   switch (getInfraEnv()) {
     case "prod":
       return isPublic ? "" : "-prod";
@@ -58,7 +58,7 @@ export const isEnvVarSet = (name: string): boolean => {
 };
 
 export const getEnvVar = (name: string): string => {
-  let val =
+  const val =
     process.env[`${name}_${getInfraEnv().toUpperCase()}`] || process.env[name];
 
   if (!val) {

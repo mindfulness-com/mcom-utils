@@ -13,10 +13,10 @@ const alphabets = {
 export const generate = (): string => uuid();
 export const publicId = (): string => nanoid(alphabets.default, 10);
 
-export const shortId = (length: number = 10): string =>
+export const shortId = (length = 10): string =>
   nanoid(alphabets.default, length);
 
-export const fileSafeId = (length: number = 10): string =>
+export const fileSafeId = (length = 10): string =>
   nanoid(alphabets.filename, length);
 
 export const memorableId = (length: number): string =>

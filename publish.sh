@@ -9,6 +9,7 @@ npm run build
 set +e;
 git stage .
 git commit -m "Build changes before package bump."
+git push origin
 set -e;
 
 VER=$(npm version patch)

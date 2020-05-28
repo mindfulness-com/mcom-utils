@@ -1,5 +1,5 @@
 "use strict";
-/* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-object-literal-type-assertion,  @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const change_case_1 = require("change-case");

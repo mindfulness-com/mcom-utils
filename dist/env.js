@@ -46,7 +46,7 @@ exports.isEnvVarSet = (name) => {
     return !lodash_1.isNil(process.env[name]);
 };
 exports.getEnvVar = (name) => {
-    let val = process.env[`${name}_${exports.getInfraEnv().toUpperCase()}`] || process.env[name];
+    const val = process.env[`${name}_${exports.getInfraEnv().toUpperCase()}`] || process.env[name];
     if (!val) {
         throw new Error(`Missing environment variable: ${name}`);
     }

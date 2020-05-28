@@ -13,6 +13,4 @@ set -e;
 
 VER=$(npm version patch)
 
-git push origin
-
 git push origin $VER

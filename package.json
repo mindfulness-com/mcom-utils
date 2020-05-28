@@ -13,6 +13,7 @@
     "build": "tsc",
     "publish": "chmod 755 ./publish.sh && ./publish.sh",
     "postinstall": "[ -d './src' ] || cp -rf ./dist/* ./",
+    "postpack": "[ -d './src' ] || cp -rf ./dist/* ./",
     "test": "TZ=UTC jest --maxWorkers=2",
     "lint": "eslint -c ./.eslintrc \"src/**/*.ts\""
   },

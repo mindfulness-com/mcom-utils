@@ -22,7 +22,8 @@ var InfraEnv;
 exports.getInfraEnv = () => process.env.INFRA_ENV;
 exports.isNonProdInfraEnv = () => exports.getInfraEnv() !== "prod";
 exports.isProdInfraEnv = () => exports.getInfraEnv() === "prod";
-exports.isLocalInfraEnv = () => exports.getInfraEnv() === "local";
+// Include ci/cd (NODE_ENV=test) in local env definition
+exports.isLocalInfraEnv = () => exports.getInfraEnv() === "local" || process.env.NODE_ENV === "test";
 exports.skipOnProdInfraEnv = exports.onlyRunIn(exports.isNonProdInfraEnv);
 exports.onlyOnProdInfraEnv = exports.onlyRunIn(exports.isProdInfraEnv);
 exports.skipInLocalEnv = exports.onlyRunIn(() => !exports.isLocalInfraEnv());

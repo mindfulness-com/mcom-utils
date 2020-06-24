@@ -29,7 +29,10 @@ export const getInfraEnv = (): InfraEnv => process.env.INFRA_ENV as InfraEnv;
 
 export const isNonProdInfraEnv = () => getInfraEnv() !== "prod";
 export const isProdInfraEnv = () => getInfraEnv() === "prod";
-export const isLocalInfraEnv = () => getInfraEnv() === "local";
+
+// Include ci/cd (NODE_ENV=test) in local env definition
+export const isLocalInfraEnv = () =>
+  getInfraEnv() === "local" || process.env.NODE_ENV === "test";
 
 export const skipOnProdInfraEnv = onlyRunIn(isNonProdInfraEnv);
 export const onlyOnProdInfraEnv = onlyRunIn(isProdInfraEnv);

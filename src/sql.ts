@@ -57,11 +57,27 @@ export const literal = (value: Primitive | string[]): string => {
   return value.toString();
 };
 
+export const toArray = (items: Primitive[]) => `(${items.join(", ")})`;
+export const toLiteralArray = (items: Primitive[]) =>
+  toArray(items.map(literal));
+
 export const toSet = (update: Record<string, Primitive>) =>
   map(
     toPairs(update),
     ([key, value]) => `${column(key)} = ${literal(value)}`,
   ).join(", ");
+
+const uniqColumns = <T = PrimitiveRecord>(items: T[]) =>
+  keys(
+    reduce(
+      items,
+      (acc, i) => ({
+        ...acc,
+        ...i,
+      }),
+      {},
+    ),
+  );
 
 export const toValues = <T = PrimitiveRecord>(
   items: T[],
@@ -76,26 +92,10 @@ export const toValues = <T = PrimitiveRecord>(
   return items.map(i => `${toArray(extractValues(i))}`).join(", ");
 };
 
-const uniqColumns = <T = PrimitiveRecord>(items: T[]) =>
-  keys(
-    reduce(
-      items,
-      (acc, i) => ({
-        ...acc,
-        ...i,
-      }),
-      {},
-    ),
-  );
-
 export const toColumns = <T = PrimitiveRecord>(items: T[]) => {
   // Map all items into one object to get union of fields
   return `${toArray(uniqColumns(items).map(column))}`;
 };
-
-export const toArray = (items: Primitive[]) => `(${items.join(", ")})`;
-export const toLiteralArray = (items: Primitive[]) =>
-  toArray(items.map(literal));
 
 const formatReturning = (fields: Maybe<string | string[]>) =>
   fields && !isEmpty(fields)

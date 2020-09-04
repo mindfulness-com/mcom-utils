@@ -33,7 +33,10 @@ exports.literal = (value) => {
     // Literal string value
     return value.toString();
 };
+exports.toArray = (items) => `(${items.join(", ")})`;
+exports.toLiteralArray = (items) => exports.toArray(items.map(exports.literal));
 exports.toSet = (update) => lodash_1.map(lodash_1.toPairs(update), ([key, value]) => `${exports.column(key)} = ${exports.literal(value)}`).join(", ");
+const uniqColumns = (items) => lodash_1.keys(lodash_1.reduce(items, (acc, i) => (Object.assign(Object.assign({}, acc), i)), {}));
 exports.toValues = (items, columns = uniqColumns(items)) => {
     const extractValues = (i) => columns.map((c) => {
         const v = lodash_1.get(i, c);
@@ -41,13 +44,10 @@ exports.toValues = (items, columns = uniqColumns(items)) => {
     });
     return items.map(i => `${exports.toArray(extractValues(i))}`).join(", ");
 };
-const uniqColumns = (items) => lodash_1.keys(lodash_1.reduce(items, (acc, i) => (Object.assign(Object.assign({}, acc), i)), {}));
 exports.toColumns = (items) => {
     // Map all items into one object to get union of fields
     return `${exports.toArray(uniqColumns(items).map(exports.column))}`;
 };
-exports.toArray = (items) => `(${items.join(", ")})`;
-exports.toLiteralArray = (items) => exports.toArray(items.map(exports.literal));
 const formatReturning = (fields) => fields && !lodash_1.isEmpty(fields)
     ? `RETURNING ${array_1.ensureArray(fields).join(", ")}`
     : "";

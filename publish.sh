@@ -3,7 +3,7 @@
 set -e;
 
 npm run test
-
+npm run lint
 npm run build
 
 set +e;

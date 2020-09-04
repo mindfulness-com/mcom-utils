@@ -36,13 +36,13 @@ test("insert sql generator", () => {
 });
 
 test("it should format sql values", () => {
-  expect(toValues({ a: "a", b: "b", c: 5 })).toEqual("('a', 'b', 5)");
+  expect(toValues([{ a: "a", b: "b", c: 5 }])).toEqual("('a', 'b', 5)");
 });
 
 test("it should format sql columns", () => {
-  expect(toColumns({ a: "a", b: "b", c: 5 })).toEqual("(a, b, c)");
+  expect(toColumns([{ a: "a", b: "b", c: 5 }])).toEqual("(a, b, c)");
 
-  expect(toColumns({ aColumn: "a", bColumn: "b", cColumn: 5 })).toEqual(
+  expect(toColumns([{ aColumn: "a", bColumn: "b", cColumn: 5 }])).toEqual(
     "(a_column, b_column, c_column)",
   );
 });

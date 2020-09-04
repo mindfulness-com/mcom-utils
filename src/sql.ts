@@ -1,30 +1,59 @@
 import { snakeCase } from "change-case";
-import { isDate, keys, values, map, toPairs, without } from "lodash";
-import { format } from "date-fns";
+import {
+  isDate,
+  keys,
+  map,
+  toPairs,
+  without,
+  get,
+  isObject,
+  isEmpty,
+  isArray,
+  reduce,
+} from "lodash";
 import * as pgEscape from "pg-escape";
+import { format } from "date-fns";
+
+import { Primitive, PrimitiveRecord } from "./types";
 import { ensureArray } from "./array";
+import { Maybe } from "./maybe";
 
 export const column = (name: string): string => snakeCase(name);
 export const table = (name: string): string => snakeCase(name);
 
-export type Primitive = string | number | Date | boolean | undefined | null;
-export type PrimitiveRecord = Record<string, Primitive>;
+// For backwards compatibility
+export { Primitive, PrimitiveRecord } from "./types";
 
-export const literal = (value: Primitive) => {
+export const literal = (value: Primitive | string[]): string => {
+  // Treat null as NULL
   if (value === null) {
     return "NULL";
   }
+
+  // Treat undefined as empty
   if (value === undefined) {
     return "";
   }
+
+  // Format dates in UTC
   if (isDate(value)) {
-    return `'${format(value, "YYYY-MM-DD HH:mm:ss.SSSZZ")}'`; // Format in UTC
+    return `'${format(value, "YYYY-MM-DD HH:mm:ss.SSSZZ")}'`;
   }
 
   if (typeof value === "string") {
     return pgEscape.literal(value);
   }
 
+  if (isArray(value)) {
+    return `[${value.map(literal).join(",")}]`;
+  }
+
+  // JSON blobs
+  if (isObject(value)) {
+    return pgEscape.literal(JSON.stringify(value));
+  }
+
+  // Literal string value
   return value.toString();
 };
 
@@ -34,34 +63,81 @@ export const toSet = (update: Record<string, Primitive>) =>
     ([key, value]) => `${column(key)} = ${literal(value)}`,
   ).join(", ");
 
-export const toArray = (items: Primitive[]) => `(${items.join(", ")})`;
-
-export const toValues = (item: Record<string, Primitive>) =>
-  toArray(values(item).map(literal));
-
-export const toColumns = (item: Record<string, Primitive>) =>
-  toArray(keys(item).map(column));
-
-export const insert = (
-  table: string,
-  items: PrimitiveRecord | PrimitiveRecord[],
+export const toValues = <T = PrimitiveRecord>(
+  items: T[],
+  columns: string[] = uniqColumns(items),
 ) => {
-  const allItems = ensureArray<PrimitiveRecord>(items);
+  const extractValues = (i: T) =>
+    columns.map((c: string) => {
+      const v = get(i, c);
+      return v === undefined ? "DEFAULT" : literal(v);
+    });
+
+  return items.map(i => `${toArray(extractValues(i))}`).join(", ");
+};
+
+const uniqColumns = <T = PrimitiveRecord>(items: T[]) =>
+  keys(
+    reduce(
+      items,
+      (acc, i) => ({
+        ...acc,
+        ...i,
+      }),
+      {},
+    ),
+  );
+
+export const toColumns = <T = PrimitiveRecord>(items: T[]) => {
+  // Map all items into one object to get union of fields
+  return `${toArray(uniqColumns(items).map(column))}`;
+};
+
+export const toArray = (items: Primitive[]) => `(${items.join(", ")})`;
+export const toLiteralArray = (items: Primitive[]) =>
+  toArray(items.map(literal));
+
+const formatReturning = (fields: Maybe<string | string[]>) =>
+  fields && !isEmpty(fields)
+    ? `RETURNING ${ensureArray(fields).join(", ")}`
+    : "";
+
+export const insert = <T = PrimitiveRecord>(
+  table: string,
+  items: T | T[],
+  returnFields?: Maybe<string | string[]>,
+) => {
+  const all = ensureArray(items);
+  if (isEmpty(items)) {
+    throw new Error("Can't insert empty array.");
+  }
+  const columns = uniqColumns(all);
+
   return `
-    INSERT INTO ${table} ${allItems.map(toColumns)}
-    VALUES ${allItems.map(toValues)}
+    INSERT INTO ${table} ${toArray(columns.map(column))}
+    VALUES ${toValues(all, columns)}
+    ${formatReturning(returnFields)}
   `;
 };
 
-export const upsert = (
+export const upsert = <T = PrimitiveRecord>(
   table: string,
-  items: PrimitiveRecord | PrimitiveRecord[],
+  items: T | T[],
   onConflictKeys: string | string[],
   updateKeys: string | string[],
-) => `
-  ${insert(table, ensureArray<PrimitiveRecord>(items))}
-  ON CONFLICT ${toArray(ensureArray(onConflictKeys).map(column))} DO
-  UPDATE SET ${without(ensureArray(updateKeys), "updated_at")
-    .map(k => `${column(k)} = excluded.${column(k)}`)
-    .join(", ")}, updated_at = now()
-`;
+  returnFields?: Maybe<string | string[]>,
+) => {
+  const all = ensureArray(items);
+  if (isEmpty(items)) {
+    throw new Error("Can't upsert empty array.");
+  }
+  return `
+    INSERT INTO ${table} ${toColumns(all)}
+    VALUES ${toValues(all)}
+    ON CONFLICT ${toArray(map(ensureArray(onConflictKeys), column))} DO
+    UPDATE SET ${without(map(ensureArray(updateKeys), column), "updated_at")
+      .map(k => `${k} = excluded.${k}`)
+      .join(", ")}, updated_at = now()
+    ${formatReturning(returnFields)}
+  `;
+};

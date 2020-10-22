@@ -1,4 +1,4 @@
-import { wiith, using, composelAsync } from "./fn";
+import { wiith, using, composelAsync, until } from "./fn";
 import { Deferred } from "ts-deferred";
 
 test("should run wiith function using arge generator func", () => {
@@ -62,5 +62,68 @@ describe("composelAsync", () => {
     await d3.promise;
 
     expect(await waiting).toBe("3");
+  });
+});
+
+describe("until", () => {
+  test("falls back to last non-undefined value", async () => {
+    expect(
+      await until(
+        () => undefined,
+        () => 2,
+        () => 1,
+      ),
+    ).toBe(2);
+
+    expect(
+      await until(
+        () => 2,
+        () => 1,
+      ),
+    ).toBe(2);
+
+    expect(
+      await until(
+        () => undefined,
+        () => undefined,
+        () => 2,
+        () => 1,
+      ),
+    ).toBe(2);
+  });
+
+  test("supports promise chaining", async () => {
+    expect(
+      await until(
+        () => undefined,
+        async () => 2,
+        () => 1,
+      ),
+    ).toBe(2);
+
+    expect(
+      await until(
+        async () => undefined,
+        async () => undefined,
+        async () => 2,
+        () => 1,
+      ),
+    ).toBe(2);
+  });
+
+  test("throws errors correctly", async () => {
+    let error: Error;
+    try {
+      await until(
+        () => undefined,
+        () => {
+          throw new Error("Failed");
+        },
+      );
+    } catch (err) {
+      error = err;
+    }
+    expect(error).toBeDefined();
+    expect(error.message).toEqual("Failed");
   });
 });

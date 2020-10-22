@@ -8,6 +8,39 @@ export const otherwise = <T>(_?: T) => true;
 export const defined = <T>(t: Maybe<T>): t is T => !!t;
 export const not = <T>(p: Pred<T>): Pred<T> => t => !p(t);
 
+export function until<R>(
+  f5: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
+  f4: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
+  f3: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
+  f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
+  f1: Fn<void, Promise<R> | R>,
+): Promise<R>;
+export function until<T1, T2, T3, T4, R>(
+  f4: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
+  f3: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
+  f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
+  f1: Fn<void, Promise<R> | R>,
+): Promise<R>;
+export function until<T1, T2, T3, R>(
+  f3: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
+  f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
+  f1: Fn<void, Promise<R> | R>,
+): Promise<R>;
+export function until<T1, T2, R>(
+  f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
+  f1: Fn<void, Promise<R> | R>,
+): Promise<R>;
+export function until<R>(...fns: Fn<void, Promise<R>>[]) {
+  return reduce(
+    fns,
+    async (
+      v: Promise<Maybe<R>> | Maybe<R>,
+      fn: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
+    ) => (await v) || fn(),
+    undefined,
+  );
+}
+
 export function wiith<T1, T2, T3, T4, T5, R>(
   fn: (...args: [T1, T2, T3, T4, T5]) => R,
   args: Fn<void, [T1, T2, T3, T4, T5]>,

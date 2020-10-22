@@ -112,7 +112,7 @@ describe("until", () => {
   });
 
   test("throws errors correctly", async () => {
-    let error: Error;
+    let error;
     try {
       await until(
         () => undefined,

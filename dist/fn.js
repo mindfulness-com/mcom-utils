@@ -13,6 +13,10 @@ const lodash_1 = require("lodash");
 exports.otherwise = (_) => true;
 exports.defined = (t) => !!t;
 exports.not = (p) => t => !p(t);
+function until(...fns) {
+    return lodash_1.reduce(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return (yield v) || fn(); }), undefined);
+}
+exports.until = until;
 function wiith(fn, args) {
     return fn(...args());
 }

@@ -1,5 +1,6 @@
 import { chain, reduce, isArray } from "lodash";
 import { isDefined, Maybe } from "./maybe";
+import { Fn } from "./fn";
 
 export const ensureArray = <T>(input: T | T[]): T[] =>
   isArray(input) ? input : [input];
@@ -56,9 +57,9 @@ export const lookup = <T>(
 export const maybeLookup = <T>(
   items: T[],
   pick: (i: T) => Maybe<string | string[]>,
-) => {
+): Fn<string, Maybe<T>> => {
   const hash = indexBy(items, pick);
-  return (key: string) => hash[key];
+  return key => hash[key];
 };
 
 export const maybeMap = <T, R>(items: T[], map: (i: T) => Maybe<R>): R[] =>

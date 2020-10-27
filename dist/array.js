@@ -35,7 +35,7 @@ exports.lookup = (items, pick, fallback) => {
 };
 exports.maybeLookup = (items, pick) => {
     const hash = exports.indexBy(items, pick);
-    return (key) => hash[key];
+    return key => hash[key];
 };
 exports.maybeMap = (items, map) => lodash_1.reduce(items, (agg, i) => {
     const r = map(i);

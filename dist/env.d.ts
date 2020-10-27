@@ -30,5 +30,5 @@ export declare const getEnvPEM: (name: string) => string;
 export declare const envOption: (options: {
     prod: string;
     dev: string;
-    local?: Maybe<string>;
+    local?: string | undefined;
 }) => string;

@@ -47,18 +47,18 @@ export function fallback<R>(
   f3: Fn<void, Maybe<R>>,
   f2: Fn<void, Maybe<R>>,
   f1: Fn<void, R>,
-): Promise<R>;
+): R;
 export function fallback<T1, T2, T3, T4, R>(
   f4: Fn<void, Maybe<R>>,
   f3: Fn<void, Maybe<R>>,
   f2: Fn<void, Maybe<R>>,
   f1: Fn<void, R>,
-): Promise<R>;
+): R;
 export function fallback<T1, T2, T3, R>(
   f3: Fn<void, Maybe<R>>,
   f2: Fn<void, Maybe<R>>,
   f1: Fn<void, R>,
-): Promise<R>;
+): R;
 export function fallback<T1, T2, R>(f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
 export function fallback<R>(...fns: Fn<void, R>[]) {
   return reduce(

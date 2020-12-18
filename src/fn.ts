@@ -41,6 +41,33 @@ export function until<R>(...fns: Fn<void, Promise<R>>[]) {
   );
 }
 
+export function fallback<R>(
+  f5: Fn<void, Maybe<R>>,
+  f4: Fn<void, Maybe<R>>,
+  f3: Fn<void, Maybe<R>>,
+  f2: Fn<void, Maybe<R>>,
+  f1: Fn<void, R>,
+): Promise<R>;
+export function fallback<T1, T2, T3, T4, R>(
+  f4: Fn<void, Maybe<R>>,
+  f3: Fn<void, Maybe<R>>,
+  f2: Fn<void, Maybe<R>>,
+  f1: Fn<void, R>,
+): Promise<R>;
+export function fallback<T1, T2, T3, R>(
+  f3: Fn<void, Maybe<R>>,
+  f2: Fn<void, Maybe<R>>,
+  f1: Fn<void, R>,
+): Promise<R>;
+export function fallback<T1, T2, R>(f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
+export function fallback<R>(...fns: Fn<void, R>[]) {
+  return reduce(
+    fns,
+    (v: Maybe<R>, fn: Fn<void, Maybe<R>>) => v || fn(),
+    undefined,
+  );
+}
+
 export function wiith<T1, T2, T3, T4, T5, R>(
   fn: (...args: [T1, T2, T3, T4, T5]) => R,
   args: Fn<void, [T1, T2, T3, T4, T5]>,

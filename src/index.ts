@@ -9,6 +9,7 @@ import * as env from "./env";
 import * as profile from "./profile";
 import * as time from "./time";
 import * as date from "./date";
+import * as debug from "./debug";
 import * as fn from "./fn";
 import * as logic from "./logic";
 import * as promise from "./promise";
@@ -22,6 +23,7 @@ export {
   currency,
   id,
   object,
+  debug,
   array,
   env,
   profile,

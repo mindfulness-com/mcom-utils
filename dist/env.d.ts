@@ -26,7 +26,6 @@ export declare const getEnv: () => Env;
 export declare const isEnvVarSet: (name: string) => boolean;
 export declare const getEnvVar: (name: string) => string;
 export declare const getEnvVarBool: (name: string) => boolean | undefined;
-export declare const getEnvPEM: (name: string) => string;
 export declare const envOption: (options: {
     prod: string;
     dev: string;

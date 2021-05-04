@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
-const fs_1 = require("fs");
-const change_case_1 = require("change-case");
 var Env;
 (function (Env) {
     Env["Development"] = "development";
@@ -59,30 +57,6 @@ exports.getEnvVarBool = (name) => {
         return process.env[name] === "true";
     }
     return undefined;
-};
-// PEM secret files
-exports.getEnvPEM = (name) => {
-    let pem = process.env[name];
-    if (pem) {
-        // Replace newlines from environment variable formatting
-        pem = pem.replace(/\\n/gi, "\n");
-    }
-    // Try read from certs folder
-    if (!pem) {
-        const certName = change_case_1.hyphenCase(name).toLowerCase();
-        const certFile = `${__dirname}/../../certs/${certName}.pem`;
-        try {
-            pem = fs_1.readFileSync(certFile).toString();
-        }
-        catch (_a) {
-            console.log(`No cert found in cert folder with name: ${certName}`);
-            // Throw error later
-        }
-    }
-    if (!pem) {
-        throw new Error(`Missing environment variable PEM key: ${name}`);
-    }
-    return pem;
 };
 exports.envOption = (options) => options[exports.getInfraEnv()] || options["dev"];
 //# sourceMappingURL=env.js.map

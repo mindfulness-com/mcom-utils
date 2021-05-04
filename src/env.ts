@@ -1,6 +1,4 @@
 import { isNil, values, includes } from "lodash";
-import { readFileSync } from "fs";
-import { hyphenCase } from "change-case";
 import { Maybe } from "./maybe";
 
 export enum Env {
@@ -79,33 +77,6 @@ export const getEnvVarBool = (name: string): Maybe<boolean> => {
   }
 
   return undefined;
-};
-
-// PEM secret files
-export const getEnvPEM = (name: string): string => {
-  let pem = process.env[name];
-
-  if (pem) {
-    // Replace newlines from environment variable formatting
-    pem = pem.replace(/\\n/gi, "\n");
-  }
-
-  // Try read from certs folder
-  if (!pem) {
-    const certName = hyphenCase(name).toLowerCase();
-    const certFile = `${__dirname}/../../certs/${certName}.pem`;
-    try {
-      pem = readFileSync(certFile).toString();
-    } catch {
-      console.log(`No cert found in cert folder with name: ${certName}`);
-      // Throw error later
-    }
-  }
-
-  if (!pem) {
-    throw new Error(`Missing environment variable PEM key: ${name}`);
-  }
-  return pem;
 };
 
 export const envOption = (options: {

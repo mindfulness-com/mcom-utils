@@ -1,7 +1,5 @@
 jest.unmock("./env");
 
-import { readFileSync } from "fs";
-import { join } from "path";
 import {
   getEnv,
   getEnvVarBool,
@@ -81,9 +79,4 @@ test("should test for truthy", () => {
 
   delete process.env.blah;
   expect(isEnvVarSet("blah")).toBe(false);
-});
-
-test("environment variables are loaded from .env file", () => {
-  const secrets = readFileSync(join(__dirname, "../.env")).toString();
-  expect(secrets.length).toBeGreaterThan(0);
 });

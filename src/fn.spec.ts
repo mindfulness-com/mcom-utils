@@ -1,4 +1,4 @@
-import { wiith, using, composelAsync, until } from "./fn";
+import { wiith, using, composelAsync, until, fallback } from "./fn";
 import { Deferred } from "ts-deferred";
 
 test("should run wiith function using arge generator func", () => {
@@ -125,5 +125,49 @@ describe("until", () => {
     }
     expect(error).toBeDefined();
     expect(error.message).toEqual("Failed");
+  });
+});
+
+describe("fallback", () => {
+  test("behaves correctly for numbers", () => {
+    expect(
+      fallback(
+        () => undefined,
+        () => 0,
+        () => 7,
+      ),
+    ).toBe(0);
+
+    expect(
+      fallback(
+        () => undefined,
+        () => 7,
+      ),
+    ).toBe(7);
+
+    expect(
+      fallback(
+        () => undefined,
+        () => -7,
+        () => 7,
+      ),
+    ).toBe(-7);
+  });
+
+  test("behaves correctly for bools", () => {
+    expect(
+      fallback(
+        () => undefined,
+        () => false,
+        () => true,
+      ),
+    ).toBe(false);
+
+    expect(
+      fallback(
+        () => undefined,
+        () => true,
+      ),
+    ).toBe(true);
   });
 });

@@ -63,7 +63,7 @@ export function fallback<T1, T2, R>(f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
 export function fallback<R>(...fns: Fn<void, R>[]) {
   return reduce(
     fns,
-    (v: Maybe<R>, fn: Fn<void, Maybe<R>>) => v || fn(),
+    (v: Maybe<R>, fn: Fn<void, Maybe<R>>) => v ?? fn(),
     undefined,
   );
 }

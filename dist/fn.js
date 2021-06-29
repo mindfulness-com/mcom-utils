@@ -18,7 +18,7 @@ function until(...fns) {
 }
 exports.until = until;
 function fallback(...fns) {
-    return lodash_1.reduce(fns, (v, fn) => v || fn(), undefined);
+    return lodash_1.reduce(fns, (v, fn) => v !== null && v !== void 0 ? v : fn(), undefined);
 }
 exports.fallback = fallback;
 function wiith(fn, args) {

@@ -15,6 +15,7 @@ import * as logic from "./logic";
 import * as promise from "./promise";
 import * as cache from "./cache";
 import * as definetly from "./definetly";
+import * as semvar from "./semvar";
 import * as maybe from "./maybe";
 import * as timezone from "./timezone";
 import * as sql from "./sql";
@@ -37,4 +38,5 @@ export {
   maybe,
   timezone,
   sql,
+  semvar,
 };

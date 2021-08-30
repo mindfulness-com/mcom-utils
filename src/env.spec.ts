@@ -4,6 +4,7 @@ import {
   getEnv,
   getEnvVarBool,
   getEnvVar,
+  tryGetEnvVar,
   isEnvVarSet,
   InfraEnv,
   skipOnProdInfraEnv,
@@ -79,4 +80,16 @@ test("should test for truthy", () => {
 
   delete process.env.blah;
   expect(isEnvVarSet("blah")).toBe(false);
+});
+
+test("doesn't throw errors for tryGetEnvVar", () => {
+  process.env.empty = undefined;
+  expect(tryGetEnvVar("empty")).toBeUndefined();
+  delete process.env.empty;
+});
+
+test("returns undefined for serverless 'undefined' values", () => {
+  process.env.serverless_empty = "undefined";
+  expect(tryGetEnvVar("serverless_empty")).toBeUndefined();
+  delete process.env.serverless_empty;
 });

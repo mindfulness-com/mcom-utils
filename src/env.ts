@@ -54,13 +54,20 @@ export const getEnv = (): Env => {
   throw new Error(`Env ${env} not known.`);
 };
 
-export const isEnvVarSet = (name: string): boolean => {
-  return !isNil(process.env[name]);
-};
+const clean = (value: Maybe<string>) =>
+  value === "undefined" ? undefined : value;
+
+export const tryGetEnvVar = (name: string) =>
+  // Try find a env specific version of the var e.g. DB_CONNECTION_DEV
+  clean(process.env[`${name}_${getInfraEnv().toUpperCase()}`]) ||
+  // Try get the value as it is
+  clean(process.env[name]);
+
+export const isEnvVarSet = (name: string): boolean =>
+  !isNil(tryGetEnvVar(name));
 
 export const getEnvVar = (name: string): string => {
-  const val =
-    process.env[`${name}_${getInfraEnv().toUpperCase()}`] || process.env[name];
+  const val = tryGetEnvVar(name);
 
   if (!val) {
     throw new Error(`Missing environment variable: ${name}`);

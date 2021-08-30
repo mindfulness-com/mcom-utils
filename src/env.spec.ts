@@ -89,7 +89,7 @@ test("doesn't throw errors for tryGetEnvVar", () => {
 });
 
 test("returns undefined for serverless 'undefined' values", () => {
-  process.env.serverless_empty = "undefined";
-  expect(tryGetEnvVar("serverless_empty")).toBeUndefined();
-  delete process.env.serverless_empty;
+  process.env.SERVERLESS_EMPTY = "undefined";
+  expect(tryGetEnvVar("SERVERLESS_EMPTY")).toBeUndefined();
+  delete process.env.SERVERLESS_EMPTY;
 });

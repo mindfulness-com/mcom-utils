@@ -41,11 +41,15 @@ exports.getEnv = () => {
     }
     throw new Error(`Env ${env} not known.`);
 };
-exports.isEnvVarSet = (name) => {
-    return !lodash_1.isNil(process.env[name]);
-};
+const clean = (value) => value === "undefined" ? undefined : value;
+exports.tryGetEnvVar = (name) => 
+// Try find a env specific version of the var e.g. DB_CONNECTION_DEV
+clean(process.env[`${name}_${exports.getInfraEnv().toUpperCase()}`]) ||
+    // Try get the value as it is
+    clean(process.env[name]);
+exports.isEnvVarSet = (name) => !lodash_1.isNil(exports.tryGetEnvVar(name));
 exports.getEnvVar = (name) => {
-    const val = process.env[`${name}_${exports.getInfraEnv().toUpperCase()}`] || process.env[name];
+    const val = exports.tryGetEnvVar(name);
     if (!val) {
         throw new Error(`Missing environment variable: ${name}`);
     }

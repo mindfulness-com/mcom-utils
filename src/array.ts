@@ -6,7 +6,7 @@ import { Fn } from "./fn";
  * Take a value and check whether it is an array.
  * If it is and array return it unmodified, else return it as an array.
  * @param {<T>} input
- * @returns 
+ * @returns
  */
 export const ensureArray = <T>(input: T | T[]): T[] =>
   isArray(input) ? input : [input];

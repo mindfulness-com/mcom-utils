@@ -47,6 +47,8 @@
     "nanoid": "^2.0.1",
     "parse-bearer-token": "^1.0.1",
     "pg-escape": "^0.2.0",
+    "query-string": "^7.0.1",
+    "shorter": "^0.3.1",
     "timezone-support": "^1.8.1",
     "to-time": "^1.0.2",
     "util": "^0.11.1",

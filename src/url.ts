@@ -1,6 +1,5 @@
 import { stringify } from "query-string";
 import { isEmpty } from "lodash";
-import { compress, decompress } from "shorter";
 
 import { Maybe } from "./maybe";
 import { Fn, composel } from "./fn";
@@ -15,9 +14,9 @@ export const toQueryString = (params: Record<string, Maybe<Primitive>>) =>
 export const hashParams: Fn<
   Record<string, Maybe<string | boolean | number>>,
   string
-> = composel(JSON.stringify, compress, b => b.toString("base64"));
+> = composel(JSON.stringify, Buffer.from, b => b.toString("base64"));
 
 export const dehashParams: Fn<
   string,
   Record<string, Maybe<string | boolean | number>>
-> = composel((s: string) => Buffer.from(s, "base64"), decompress, JSON.parse);
+> = composel((s: string) => Buffer.from(s, "base64"), JSON.parse);

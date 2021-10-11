@@ -13,6 +13,5 @@ git push origin
 set -e;
 
 VER=$(npm version patch)
-npm publish
 
 git push origin $VER

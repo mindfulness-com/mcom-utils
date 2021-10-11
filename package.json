@@ -32,6 +32,8 @@
   "author": "Mindfulness.com",
   "license": "ISC",
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "bluebird": "^3.5.4",
     "change-case": "^3.1.0",
     "compare-versions": "^3.6.0",

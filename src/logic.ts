@@ -15,3 +15,8 @@ export const ifDo = <T>(
   }
   return undefined;
 };
+
+export const ifDo_ = <T>(
+  pred: Maybe<boolean> | Fn<void, Maybe<boolean>>,
+  work: Fn<void, T>,
+) => () => ifDo(pred, work);

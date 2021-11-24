@@ -2,26 +2,42 @@ import { toValues, toSet, toColumns, upsert, literal, insert } from "./sql";
 
 const ignoreWhitesace = (s: string) => s.replace(/\s/gi, "").trim();
 
-test("upsert sql generator", () => {
-  expect(
-    ignoreWhitesace(
-      upsert(
-        "table",
-        [{ aKey: "value1", bKey: 2 }],
-        ["aKey", "bKey"],
-        ["aKey"],
+describe("upsert", () => {
+  test("default cases", () => {
+    expect(
+      ignoreWhitesace(
+        upsert(
+          "table",
+          [{ aKey: "value1", bKey: 2 }],
+          ["aKey", "bKey"],
+          ["aKey"],
+        ),
       ),
-    ),
-  ).toEqual(
-    ignoreWhitesace(`
-      INSERT INTO table (a_key, b_key)
-      VALUES ('value1', 2)
-      ON CONFLICT (a_key, b_key) DO
-      UPDATE SET a_key = excluded.a_key, updated_at = now()
-  `),
-  );
-});
+    ).toEqual(
+      ignoreWhitesace(`
+        INSERT INTO table (a_key, b_key)
+        VALUES ('value1', 2)
+        ON CONFLICT (a_key, b_key) DO
+        UPDATE SET a_key = excluded.a_key, updated_at = now()
+    `),
+    );
+  });
 
+  test("no updates", () => {
+    expect(
+      ignoreWhitesace(
+        upsert("table", [{ aKey: "value1", bKey: 2 }], ["aKey"], [], "*"),
+      ),
+    ).toEqual(
+      ignoreWhitesace(`
+        INSERT INTO table (a_key, b_key)
+        VALUES ('value1', 2)
+        ON CONFLICT (a_key) DO NOTHING
+        RETURNING *
+    `),
+    );
+  });
+});
 test("insert sql generator", () => {
   expect(
     ignoreWhitesace(

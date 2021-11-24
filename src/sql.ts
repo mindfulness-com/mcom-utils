@@ -17,6 +17,8 @@ import { format } from "date-fns";
 import { Primitive, PrimitiveRecord } from "./types";
 import { ensureArray } from "./array";
 import { Maybe } from "./maybe";
+import { ifDo, ifDo_ } from "./logic";
+import { fallback } from "./fn";
 
 export const column = (name: string): string => snakeCase(name);
 export const table = (name: string): string => snakeCase(name);
@@ -135,9 +137,19 @@ export const upsert = <T = PrimitiveRecord>(
     INSERT INTO ${table} ${toColumns(all)}
     VALUES ${toValues(all)}
     ON CONFLICT ${toArray(map(ensureArray(onConflictKeys), column))} DO
-    UPDATE SET ${without(map(ensureArray(updateKeys), column), "updated_at")
-      .map(k => `${k} = excluded.${k}`)
-      .join(", ")}, updated_at = now()
+    ${fallback(
+      ifDo_(
+        !isEmpty(updateKeys),
+        () =>
+          ` UPDATE SET ${without(
+            map(ensureArray(updateKeys), column),
+            "updated_at",
+          )
+            .map(k => `${k} = excluded.${k}`)
+            .join(", ")}, updated_at = now()`,
+      ),
+      () => " NOTHING",
+    )}
     ${formatReturning(returnFields)}
   `;
 };

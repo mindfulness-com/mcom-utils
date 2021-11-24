@@ -5,6 +5,8 @@ const lodash_1 = require("lodash");
 const pgEscape = require("pg-escape");
 const date_fns_1 = require("date-fns");
 const array_1 = require("./array");
+const logic_1 = require("./logic");
+const fn_1 = require("./fn");
 exports.column = (name) => change_case_1.snakeCase(name);
 exports.table = (name) => change_case_1.snakeCase(name);
 exports.literal = (value) => {
@@ -72,9 +74,9 @@ exports.upsert = (table, items, onConflictKeys, updateKeys, returnFields) => {
     INSERT INTO ${table} ${exports.toColumns(all)}
     VALUES ${exports.toValues(all)}
     ON CONFLICT ${exports.toArray(lodash_1.map(array_1.ensureArray(onConflictKeys), exports.column))} DO
-    UPDATE SET ${lodash_1.without(lodash_1.map(array_1.ensureArray(updateKeys), exports.column), "updated_at")
+    ${fn_1.fallback(logic_1.ifDo_(!lodash_1.isEmpty(updateKeys), () => ` UPDATE SET ${lodash_1.without(lodash_1.map(array_1.ensureArray(updateKeys), exports.column), "updated_at")
         .map(k => `${k} = excluded.${k}`)
-        .join(", ")}, updated_at = now()
+        .join(", ")}, updated_at = now()`), () => " NOTHING")}
     ${formatReturning(returnFields)}
   `;
 };

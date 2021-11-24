@@ -9,4 +9,5 @@ exports.ifDo = (cond, val) => {
     }
     return undefined;
 };
+exports.ifDo_ = (pred, work) => () => exports.ifDo(pred, work);
 //# sourceMappingURL=logic.js.map

@@ -26,18 +26,35 @@ describe("upsert", () => {
   test("no updates", () => {
     expect(
       ignoreWhitesace(
-        upsert("table", [{ aKey: "value1", bKey: 2 }], ["aKey"], [], "*"),
+        upsert("table", [{ aKey: "value1", bKey: 2 }], ["aKey"], []),
       ),
     ).toEqual(
       ignoreWhitesace(`
         INSERT INTO table (a_key, b_key)
         VALUES ('value1', 2)
         ON CONFLICT (a_key) DO NOTHING
+    `),
+    );
+  });
+
+  test("no updates, but returning", () => {
+    // In order for RETURNING * to work, there needs to be an update (DO NOTHING doesn't work)
+    // therefore we set the updated_at to itself (no change)
+    expect(
+      ignoreWhitesace(
+        upsert("table", [{ aKey: "value1", bKey: 2 }], ["aKey"], [], "*"),
+      ),
+    ).toEqual(
+      ignoreWhitesace(`
+        INSERT INTO table (a_key, b_key)
+        VALUES ('value1', 2)
+        ON CONFLICT (a_key) DO UPDATE SET updated_at = table.updated_at
         RETURNING *
     `),
     );
   });
 });
+
 test("insert sql generator", () => {
   expect(
     ignoreWhitesace(

@@ -138,6 +138,7 @@ export const upsert = <T = PrimitiveRecord>(
     VALUES ${toValues(all)}
     ON CONFLICT ${toArray(map(ensureArray(onConflictKeys), column))} DO
     ${fallback(
+      // Update specified keys
       ifDo_(
         !isEmpty(updateKeys),
         () =>
@@ -148,6 +149,14 @@ export const upsert = <T = PrimitiveRecord>(
             .map(k => `${k} = excluded.${k}`)
             .join(", ")}, updated_at = now()`,
       ),
+      // In order for RETURNING * to work, there needs to be an update (DO NOTHING doesn't work)
+      // therefore we set the updated_at to itself (no change)
+      ifDo_(
+        !!returnFields,
+        () => ` UPDATE SET updated_at = ${table}.updated_at`,
+      ),
+
+      // Else do nothing
       () => " NOTHING",
     )}
     ${formatReturning(returnFields)}

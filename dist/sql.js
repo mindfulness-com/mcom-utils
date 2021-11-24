@@ -74,9 +74,16 @@ exports.upsert = (table, items, onConflictKeys, updateKeys, returnFields) => {
     INSERT INTO ${table} ${exports.toColumns(all)}
     VALUES ${exports.toValues(all)}
     ON CONFLICT ${exports.toArray(lodash_1.map(array_1.ensureArray(onConflictKeys), exports.column))} DO
-    ${fn_1.fallback(logic_1.ifDo_(!lodash_1.isEmpty(updateKeys), () => ` UPDATE SET ${lodash_1.without(lodash_1.map(array_1.ensureArray(updateKeys), exports.column), "updated_at")
+    ${fn_1.fallback(
+    // Update specified keys
+    logic_1.ifDo_(!lodash_1.isEmpty(updateKeys), () => ` UPDATE SET ${lodash_1.without(lodash_1.map(array_1.ensureArray(updateKeys), exports.column), "updated_at")
         .map(k => `${k} = excluded.${k}`)
-        .join(", ")}, updated_at = now()`), () => " NOTHING")}
+        .join(", ")}, updated_at = now()`), 
+    // In order for RETURNING * to work, there needs to be an update (DO NOTHING doesn't work)
+    // therefore we set the updated_at to itself (no change)
+    logic_1.ifDo_(!!returnFields, () => ` UPDATE SET updated_at = ${table}.updated_at`), 
+    // Else do nothing
+    () => " NOTHING")}
     ${formatReturning(returnFields)}
   `;
 };

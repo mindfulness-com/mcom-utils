@@ -122,6 +122,21 @@ export const insert = <T = PrimitiveRecord>(
   `;
 };
 
+export const update = <T>(
+  table: string,
+  update: Record<string, Primitive>,
+  condition: Partial<T>,
+) => `
+  UPDATE ${table}
+  SET ${toSet(update)}
+  WHERE ${keys(condition)
+    .map(
+      key =>
+        `${key} = ${literal((condition as Record<string, Primitive>)[key])}`,
+    )
+    .join(" AND ")}
+`;
+
 export const upsert = <T = PrimitiveRecord>(
   table: string,
   items: T | T[],

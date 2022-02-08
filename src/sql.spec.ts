@@ -1,6 +1,48 @@
-import { toValues, toSet, toColumns, upsert, literal, insert } from "./sql";
+import {
+  toValues,
+  toSet,
+  toColumns,
+  upsert,
+  literal,
+  insert,
+  update,
+} from "./sql";
 
 const ignoreWhitesace = (s: string) => s.replace(/\s/gi, "").trim();
+
+describe("update", () => {
+  test("produces correct update sql", () => {
+    expect(
+      ignoreWhitesace(
+        update("table", { value: "A", another: 23 }, { id: "an-id" }),
+      ),
+    ).toBe(
+      ignoreWhitesace(`
+        UPDATE table
+        SET value = 'A', another = 23
+        WHERE id = 'an-id'
+      `),
+    );
+  });
+
+  test("produces correct update sql for multiple conditions", () => {
+    expect(
+      ignoreWhitesace(
+        update(
+          "table",
+          { value: "A", another: 23 },
+          { id: "an-id", name: "james" },
+        ),
+      ),
+    ).toBe(
+      ignoreWhitesace(`
+        UPDATE table
+        SET value = 'A', another = 23
+        WHERE id = 'an-id' AND name = 'james'
+      `),
+    );
+  });
+});
 
 describe("upsert", () => {
   test("default cases", () => {

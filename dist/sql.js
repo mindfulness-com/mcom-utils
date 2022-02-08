@@ -65,6 +65,13 @@ exports.insert = (table, items, returnFields) => {
     ${formatReturning(returnFields)}
   `;
 };
+exports.update = (table, update, condition) => `
+  UPDATE ${table}
+  SET ${exports.toSet(update)}
+  WHERE ${lodash_1.keys(condition)
+    .map(key => `${key} = ${exports.literal(condition[key])}`)
+    .join(" AND ")}
+`;
 exports.upsert = (table, items, onConflictKeys, updateKeys, returnFields) => {
     const all = array_1.ensureArray(items);
     if (lodash_1.isEmpty(items)) {

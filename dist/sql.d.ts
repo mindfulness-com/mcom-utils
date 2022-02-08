@@ -10,4 +10,5 @@ export declare const toSet: (update: Record<string, Primitive>) => string;
 export declare const toValues: <T = Record<string, Primitive>>(items: T[], columns?: string[]) => string;
 export declare const toColumns: <T = Record<string, Primitive>>(items: T[]) => string;
 export declare const insert: <T = Record<string, Primitive>>(table: string, items: T | T[], returnFields?: Maybe<string | string[]>) => string;
+export declare const update: <T>(table: string, update: Record<string, Primitive>, condition: Partial<T>) => string;
 export declare const upsert: <T = Record<string, Primitive>>(table: string, items: T | T[], onConflictKeys: string | string[], updateKeys: string | string[], returnFields?: Maybe<string | string[]>) => string;

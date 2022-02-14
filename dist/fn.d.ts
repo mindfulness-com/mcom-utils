@@ -8,6 +8,9 @@ export declare function until<R>(f5: Fn<void, Promise<Maybe<R>> | Maybe<R>>, f4:
 export declare function until<T1, T2, T3, T4, R>(f4: Fn<void, Promise<Maybe<R>> | Maybe<R>>, f3: Fn<void, Promise<Maybe<R>> | Maybe<R>>, f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>, f1: Fn<void, Promise<R> | R>): Promise<R>;
 export declare function until<T1, T2, T3, R>(f3: Fn<void, Promise<Maybe<R>> | Maybe<R>>, f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>, f1: Fn<void, Promise<R> | R>): Promise<R>;
 export declare function until<T1, T2, R>(f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>, f1: Fn<void, Promise<R> | R>): Promise<R>;
+export declare function fallback<R>(f8: Fn<void, Maybe<R>>, f7: Fn<void, Maybe<R>>, f6: Fn<void, Maybe<R>>, f5: Fn<void, Maybe<R>>, f4: Fn<void, Maybe<R>>, f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
+export declare function fallback<R>(f7: Fn<void, Maybe<R>>, f6: Fn<void, Maybe<R>>, f5: Fn<void, Maybe<R>>, f4: Fn<void, Maybe<R>>, f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
+export declare function fallback<R>(f6: Fn<void, Maybe<R>>, f5: Fn<void, Maybe<R>>, f4: Fn<void, Maybe<R>>, f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
 export declare function fallback<R>(f5: Fn<void, Maybe<R>>, f4: Fn<void, Maybe<R>>, f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
 export declare function fallback<T1, T2, T3, T4, R>(f4: Fn<void, Maybe<R>>, f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
 export declare function fallback<T1, T2, T3, R>(f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;

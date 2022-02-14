@@ -42,6 +42,33 @@ export function until<R>(...fns: Fn<void, Promise<R>>[]) {
 }
 
 export function fallback<R>(
+  f8: Fn<void, Maybe<R>>,
+  f7: Fn<void, Maybe<R>>,
+  f6: Fn<void, Maybe<R>>,
+  f5: Fn<void, Maybe<R>>,
+  f4: Fn<void, Maybe<R>>,
+  f3: Fn<void, Maybe<R>>,
+  f2: Fn<void, Maybe<R>>,
+  f1: Fn<void, R>,
+): R;
+export function fallback<R>(
+  f7: Fn<void, Maybe<R>>,
+  f6: Fn<void, Maybe<R>>,
+  f5: Fn<void, Maybe<R>>,
+  f4: Fn<void, Maybe<R>>,
+  f3: Fn<void, Maybe<R>>,
+  f2: Fn<void, Maybe<R>>,
+  f1: Fn<void, R>,
+): R;
+export function fallback<R>(
+  f6: Fn<void, Maybe<R>>,
+  f5: Fn<void, Maybe<R>>,
+  f4: Fn<void, Maybe<R>>,
+  f3: Fn<void, Maybe<R>>,
+  f2: Fn<void, Maybe<R>>,
+  f1: Fn<void, R>,
+): R;
+export function fallback<R>(
   f5: Fn<void, Maybe<R>>,
   f4: Fn<void, Maybe<R>>,
   f3: Fn<void, Maybe<R>>,

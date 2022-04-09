@@ -1,7 +1,14 @@
-import { toSeconds, isGreaterThan, isLessThan, inPast, inFuture } from "./time";
+import {
+  toSeconds,
+  toMilliSeconds,
+  isGreaterThan,
+  isLessThan,
+  inPast,
+  inFuture,
+} from "./time";
 import { addDays, subDays } from "date-fns";
 
-test("should convert basic things", () => {
+test("toSeconds should convert basic things", () => {
   expect(toSeconds("1 year")).toBe(1 * 365 * 24 * 60 * 60);
   expect(toSeconds("1 years")).toBe(1 * 365 * 24 * 60 * 60);
   expect(toSeconds("1 y")).toBe(1 * 365 * 24 * 60 * 60);
@@ -16,6 +23,23 @@ test("should convert basic things", () => {
   // Doesn't support months
   expect(() => toSeconds("1 month")).toThrow();
   expect(() => toSeconds("1 months")).toThrow();
+});
+
+test("toMilliSeconds should convert basic things", () => {
+  expect(toMilliSeconds("1 year")).toBe(1 * 365 * 24 * 60 * 60 * 1000);
+  expect(toMilliSeconds("1 years")).toBe(1 * 365 * 24 * 60 * 60 * 1000);
+  expect(toMilliSeconds("1 y")).toBe(1 * 365 * 24 * 60 * 60 * 1000);
+
+  expect(toMilliSeconds("1 day")).toBe(24 * 60 * 60 * 1000);
+  expect(toMilliSeconds("1 days")).toBe(24 * 60 * 60 * 1000);
+  expect(toMilliSeconds("1 d")).toBe(24 * 60 * 60 * 1000);
+
+  expect(toMilliSeconds("1 minutes")).toBe(60 * 1000);
+  expect(toMilliSeconds("1 m")).toBe(60 * 1000);
+
+  // Doesn't support months
+  expect(() => toMilliSeconds("1 month")).toThrow();
+  expect(() => toMilliSeconds("1 months")).toThrow();
 });
 
 test("date comparison", () => {

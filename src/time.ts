@@ -9,7 +9,7 @@ export const toSeconds = (time: string): number => {
   return result;
 };
 
-export const toMilliSeconds = (time: string): number => toSeconds(time) * 100;
+export const toMilliSeconds = (time: string): number => toSeconds(time) * 1000;
 
 export const toMinutes = (seconds: number): number => Math.round(seconds / 60);
 

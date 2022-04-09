@@ -12,7 +12,7 @@ exports.toSeconds = (time) => {
     }
     return result;
 };
-exports.toMilliSeconds = (time) => exports.toSeconds(time) * 100;
+exports.toMilliSeconds = (time) => exports.toSeconds(time) * 1000;
 exports.toMinutes = (seconds) => Math.round(seconds / 60);
 const now_1 = require("./now");
 __export(require("./now"));

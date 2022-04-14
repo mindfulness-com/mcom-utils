@@ -1,5 +1,6 @@
 import { isNil, values, includes } from "lodash";
 import { Maybe } from "./maybe";
+import { Primitive } from "./types";
 
 export enum Env {
   Development = "development",
@@ -87,7 +88,7 @@ export const getEnvVarBool = (name: string): Maybe<boolean> => {
 };
 
 export const envOption = (options: {
-  prod: string;
-  dev: string;
-  local?: string;
+  prod: Primitive;
+  dev: Primitive;
+  local?: Primitive;
 }) => options[getInfraEnv()] || options["dev"];

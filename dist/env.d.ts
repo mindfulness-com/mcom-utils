@@ -1,5 +1,4 @@
 import { Maybe } from "./maybe";
-import { Primitive } from "./types";
 export declare enum Env {
     Development = "development",
     Test = "test",
@@ -28,8 +27,9 @@ export declare const tryGetEnvVar: (name: string) => string | undefined;
 export declare const isEnvVarSet: (name: string) => boolean;
 export declare const getEnvVar: (name: string) => string;
 export declare const getEnvVarBool: (name: string) => Maybe<boolean>;
-export declare const envOption: (options: {
-    prod: Primitive;
-    dev: Primitive;
-    local?: Primitive;
-}) => Primitive;
+export declare const envOption: <T>(options: {
+    test?: T | undefined;
+    dev: T;
+    prod: T;
+    local?: T | undefined;
+}) => T;

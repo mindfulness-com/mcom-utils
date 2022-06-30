@@ -23,9 +23,22 @@ export const isUndefined = <T>(x: Maybe<T>): x is undefined => {
 
 export default <T>(val: T | undefined | null): Maybe<T> => val || undefined;
 
+/**
+ * When something is truthy, do something with it.
+ * @param {T} thing - The `thing` to check for truthiness
+ * @param {function} doWork - What to do if the `thing` is true
+ * @returns {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
+ */
 export const when = <T, R>(thing: Maybe<T>, doWork: (inp: T) => R): Maybe<R> =>
   isDefined(thing) ? doWork(thing) : undefined;
 
+/**
+ * When something is truthy, do something with it.
+ * @async
+ * @param {T} thing - The `thing` to check for truthiness
+ * @param {function} doWork - What to do if the `thing` is true
+ * @returns {Promise<unknown>} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
+ */
 export const whenAsync = async <T, R>(
   thing: Maybe<T>,
   doWork: (inp: T) => Promise<R>,

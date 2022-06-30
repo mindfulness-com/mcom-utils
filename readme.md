@@ -2,15 +2,24 @@
 
 > A library of shared pure functions.
 
+- [Mindfulness.com Shared Utils](#mindfulnesscom-shared-utils)
+  - [Principles](#principles)
+  - [Running locally](#running-locally)
+  - [Consuming](#consuming)
+    - [NPM](#npm)
+    - [Git reference](#git-reference)
+  - [Publishing](#publishing)
+  - [Testing](#testing)
 ## Principles
 
 **Development:**
 
 1. Avoid complexity
-1. Use functional programming to reduce complexity
-1. Use strict typing where possible
-1. Peer review where possible
-1. Test application logic
+2. Use functional programming to reduce complexity
+3. Use strict typing where possible
+4. Peer review where possible
+5. Test application logic
+6. Provide detailed descriptions using [JSDoc](https://jsdoc.app/index.html) format.
 
 ## Running locally
 
@@ -18,7 +27,14 @@ This is a module, so the only way to run local is by running tests.
 
 ## Consuming
 
-This project is not deployed through NPM as in the future it will be a private repo.
+~~This project is not deployed through NPM as in the future it will be a private repo.~~
+
+### NPM
+
+This project is now available as a private package on npm.
+`npm install @mindfulness/utils`
+
+### Git reference
 
 For now the module is still fetched through npm using a git reference.
 

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
+
 import { map, filter, every } from "lodash";
 import { Fn, not } from "./fn";
 import { all as ball } from "bluebird";

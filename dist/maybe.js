@@ -21,6 +21,19 @@ exports.isUndefined = (x) => {
     return x === undefined || x === null;
 };
 exports.default = (val) => val || undefined;
+/**
+ * When something is truthy, do something with it.
+ * @param {T} thing - The `thing` to check for truthiness
+ * @param {function} doWork - What to do if the `thing` is true
+ * @returns {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
+ */
 exports.when = (thing, doWork) => exports.isDefined(thing) ? doWork(thing) : undefined;
+/**
+ * When something is truthy, do something with it.
+ * @async
+ * @param {T} thing - The `thing` to check for truthiness
+ * @param {function} doWork - What to do if the `thing` is true
+ * @returns {Promise<unknown>} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
+ */
 exports.whenAsync = (thing, doWork) => __awaiter(void 0, void 0, void 0, function* () { return exports.when(thing, doWork); });
 //# sourceMappingURL=maybe.js.map

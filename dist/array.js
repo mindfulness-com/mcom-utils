@@ -2,6 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const maybe_1 = require("./maybe");
+/**
+ * Take a value and check whether it is an array.
+ * If it is and array return it unmodified, else return it as an array.
+ * @param {<T>} input
+ * @returns
+ */
 exports.ensureArray = (input) => lodash_1.isArray(input) ? input : [input];
 exports.compareInt = (p) => (t1, t2) => p(t1) - p(t2);
 exports.sortByInt = (arr, p) => arr.sort(exports.compareInt(p));

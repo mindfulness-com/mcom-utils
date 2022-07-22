@@ -14,6 +14,7 @@
     "prepublishOnly": "chmod 755 ./publish.sh && ./publish.sh",
     "postinstall": "[ -d './src' ] || cp -rf ./dist/* ./",
     "test": "TZ=UTC jest --maxWorkers=2",
+    "test:one": "TZ=UTC jest --watch",
     "lint": "eslint -c ./.eslintrc \"src/**/*.ts\""
   },
   "repository": {

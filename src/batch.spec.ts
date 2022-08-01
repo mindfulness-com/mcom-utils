@@ -1,21 +1,22 @@
 import { Deferred } from "ts-deferred";
 
 import { batch, batchMap, paginate } from "./batch";
+import { times, uniq, map } from "lodash";
 
 describe("batch", () => {
   test("does everything sequentially if no concurrency passed in", async () => {
-    const fn = jest.fn(async () => "result");
+    const fn = jest.fn(async (g, t) => `${g}-${t}`);
     expect(await batch(fn, { total: 10 })).toEqual([
-      "result",
-      "result",
-      "result",
-      "result",
-      "result",
-      "result",
-      "result",
-      "result",
-      "result",
-      "result",
+      "0-10",
+      "1-10",
+      "2-10",
+      "3-10",
+      "4-10",
+      "5-10",
+      "6-10",
+      "7-10",
+      "8-10",
+      "9-10",
     ]);
   });
 
@@ -156,6 +157,26 @@ describe("batchMap", () => {
     expect(result).toEqual(["1-0", "2-1", "3-2", "4-3", "5-4"]);
   });
 
+  test("calls each correctly when different durations", async () => {
+    const fn = jest.fn(
+      async item =>
+        new Promise(r =>
+          setTimeout(() => {
+            r(`${item}`);
+          }, 500 * Math.round(Math.random() * 3)),
+        ),
+    );
+
+    const result = await batchMap(fn, {
+      items: [1, 2, 3, 4, 5],
+      concurrent: 3,
+    });
+
+    expect(fn).toHaveBeenCalledTimes(5);
+
+    expect(result).toEqual(["1", "2", "3", "4", "5"]);
+  });
+
   test("waits for all batches to complete", async () => {
     const d1 = new Deferred();
     const d2 = new Deferred();
@@ -183,5 +204,47 @@ describe("batchMap", () => {
     expect(fn).toHaveBeenCalledTimes(5);
 
     expect(await result).toEqual([1, 2, 3, 4, 5]);
+  });
+
+  test("large results", async () => {
+    const ids: number[] = [];
+
+    const result = await batchMap(
+      async item =>
+        new Promise(r =>
+          setTimeout(() => {
+            ids.push(item.id);
+            r(item);
+          }, 100 * Math.random()),
+        ),
+      {
+        items: times(1000, n => ({ id: n })),
+        concurrent: 100,
+      },
+    );
+
+    expect(uniq(map(result, (r: any) => r.id)).length).toEqual(1000);
+    expect(uniq(ids).length).toEqual(1000);
+  });
+
+  test("errors aren't thrown", async () => {
+    const ids: number[] = [];
+
+    const result = await batchMap(
+      async item => {
+        try {
+          throw new Error("Fak");
+        } catch (err) {
+          return;
+        }
+      },
+      {
+        items: times(1000, n => ({ id: n })),
+        concurrent: 100,
+      },
+    );
+
+    expect(result.length).toEqual(1000);
+    expect(result).toEqual([]);
   });
 });

@@ -40,8 +40,6 @@ export const paginate = async <T>(
   const concurrent = opts.concurrent || 1;
   const pages = Math.ceil(opts.total / opts.size) || 1;
 
-  console.log({ pages });
-
   return await batch((page, total) => fn(page, opts.size, total), {
     total: pages,
     concurrent,

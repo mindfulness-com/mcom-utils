@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.InfraEnv = exports.Env = exports.mockEnvVar = exports.mockInfraEnv = exports.restoreEnv = void 0;
 const env_1 = require("./env");
-exports.Env = env_1.Env;
-exports.InfraEnv = env_1.InfraEnv;
-exports.restoreEnv = () => {
+Object.defineProperty(exports, "Env", { enumerable: true, get: function () { return env_1.Env; } });
+Object.defineProperty(exports, "InfraEnv", { enumerable: true, get: function () { return env_1.InfraEnv; } });
+const restoreEnv = () => {
     const node = process.env.NODE_ENV;
     const infra = process.env.INFRA_ENV;
     return () => {
@@ -11,16 +12,19 @@ exports.restoreEnv = () => {
         process.env.INFRA_ENV = infra;
     };
 };
-exports.mockInfraEnv = (env) => {
-    const restore = exports.restoreEnv();
+exports.restoreEnv = restoreEnv;
+const mockInfraEnv = (env) => {
+    const restore = (0, exports.restoreEnv)();
     process.env.INFRA_ENV = env;
     return restore;
 };
-exports.mockEnvVar = (envVar, value) => {
+exports.mockInfraEnv = mockInfraEnv;
+const mockEnvVar = (envVar, value) => {
     const restore = process.env[envVar];
     process.env[envVar] = value;
     return () => {
         process.env[envVar] = restore;
     };
 };
+exports.mockEnvVar = mockEnvVar;
 //# sourceMappingURL=env.mock.js.map

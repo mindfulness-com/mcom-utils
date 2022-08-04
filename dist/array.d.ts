@@ -12,7 +12,7 @@ export declare const sortByInt: <T>(arr: T[], p: (t: T) => number) => T[];
 export declare const contains: <T>(arr: Maybe<T[]>, v: T) => boolean;
 export declare const containsAll: <T>(vals: T[], compare: T[]) => boolean;
 export declare const containsAny: <T>(vals: T[], compare: T[]) => boolean;
-export declare const pluckUnique: <T>(selector: (tag: T) => string | undefined) => (tags: T[]) => string[];
+export declare const pluckUnique: <T>(selector: (tag: T) => Maybe<string>) => (tags: T[]) => string[];
 export declare const indexBy: <T>(items: T[], pick: (i: T) => Maybe<string | string[]>) => {
     [key: string]: T;
 };

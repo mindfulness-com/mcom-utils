@@ -1,3 +1,4 @@
+/// <reference types="jest" />
 import { Maybe } from "./maybe";
 export declare enum Env {
     Development = "development",
@@ -23,7 +24,7 @@ export declare const skipInLocalEnv: <T>(input: () => T) => Maybe<T>;
 export declare const onlyInLocalEnv: <T>(input: () => T) => Maybe<T>;
 export declare const getInfraSuffix: (isPublic?: boolean) => "" | "-prod" | "-dev";
 export declare const getEnv: () => Env;
-export declare const tryGetEnvVar: (name: string) => string | undefined;
+export declare const tryGetEnvVar: (name: string) => Maybe<string>;
 export declare const isEnvVarSet: (name: string) => boolean;
 export declare const getEnvVar: (name: string) => string;
 export declare const getEnvVarBool: (name: string) => Maybe<boolean>;

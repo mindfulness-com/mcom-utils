@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import { map, filter, every } from "lodash";
 import { Fn, not } from "./fn";
 import { all as ball } from "bluebird";
 import { isDefined } from "./maybe";
+import { assertError } from "./error";
 
 type Resolvable<R> = R | PromiseLike<R> | void | PromiseLike<void>;
 
@@ -116,7 +117,7 @@ export async function some<T>(
       try {
         return await p;
       } catch (err) {
-        log?.(err);
+        log?.(assertError(err));
         return undefined;
       }
     }),
@@ -142,7 +143,7 @@ export const most = async <T>(
         return await p;
       } catch (err) {
         if (onError) {
-          onError(err);
+          onError(assertError(err));
         }
         return undefined;
       }

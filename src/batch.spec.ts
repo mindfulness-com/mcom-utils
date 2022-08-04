@@ -32,7 +32,7 @@ describe("batch", () => {
     expect(fn).toHaveBeenCalledTimes(0);
 
     // Allow promises to run inside batch
-    await new Promise(r => r());
+    await new Promise(r => r({}));
     expect(fn).toHaveBeenCalledTimes(5);
 
     d1.resolve("result");
@@ -62,7 +62,7 @@ describe("batch", () => {
 
     const result = batch(fn, { total: 10, concurrent: 100 });
 
-    await new Promise(r => r());
+    await new Promise(r => r({}));
 
     expect(fn).toHaveBeenCalledTimes(10);
 
@@ -190,7 +190,7 @@ describe("batchMap", () => {
     });
 
     // Allow promises to run inside batch
-    await new Promise(r => r());
+    await new Promise(r => r({}));
     expect(fn).toHaveBeenCalledTimes(2);
 
     d1.resolve("result");

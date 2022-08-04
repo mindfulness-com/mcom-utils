@@ -1,1 +1,1 @@
-{"version":3,"file":"now.js","sourceRoot":"","sources":["../src/now.ts"],"names":[],"mappings":";;AAAa,QAAA,GAAG,GAAG,GAAG,EAAE,CAAC,IAAI,IAAI,EAAE,CAAC"}
+{"version":3,"file":"now.js","sourceRoot":"","sources":["../src/now.ts"],"names":[],"mappings":";;;AAAO,MAAM,GAAG,GAAG,GAAG,EAAE,CAAC,IAAI,IAAI,EAAE,CAAC;AAAvB,QAAA,GAAG,OAAoB"}

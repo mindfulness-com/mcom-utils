@@ -1,5 +1,6 @@
 import { wiith, using, composelAsync, until, fallback } from "./fn";
 import { Deferred } from "ts-deferred";
+import { assertError } from "./error";
 
 test("should run wiith function using arge generator func", () => {
   const mock = jest.fn();
@@ -121,10 +122,10 @@ describe("until", () => {
         },
       );
     } catch (err) {
-      error = err;
+      error = assertError(err);
     }
     expect(error).toBeDefined();
-    expect(error.message).toEqual("Failed");
+    expect(error?.message).toEqual("Failed");
   });
 });
 

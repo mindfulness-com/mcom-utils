@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.omitEmpty = exports.maybeMap = exports.maybeLookup = exports.lookup = exports.indexBy = exports.pluckUnique = exports.containsAny = exports.containsAll = exports.contains = exports.sortByInt = exports.compareInt = exports.ensureArray = void 0;
 const lodash_1 = require("lodash");
 const maybe_1 = require("./maybe");
 /**
@@ -8,31 +9,39 @@ const maybe_1 = require("./maybe");
  * @param {<T>} input
  * @returns
  */
-exports.ensureArray = (input) => lodash_1.isArray(input) ? input : [input];
-exports.compareInt = (p) => (t1, t2) => p(t1) - p(t2);
-exports.sortByInt = (arr, p) => arr.sort(exports.compareInt(p));
-exports.contains = (arr, v) => !!arr && arr.indexOf(v) > -1;
-exports.containsAll = (vals, compare) => lodash_1.intersection(vals, compare).length === compare.length;
-exports.containsAny = (vals, compare) => lodash_1.intersection(vals, compare).length > 0;
-exports.pluckUnique = (selector) => tags => lodash_1.chain(tags)
+const ensureArray = (input) => (0, lodash_1.isArray)(input) ? input : [input];
+exports.ensureArray = ensureArray;
+const compareInt = (p) => (t1, t2) => p(t1) - p(t2);
+exports.compareInt = compareInt;
+const sortByInt = (arr, p) => arr.sort((0, exports.compareInt)(p));
+exports.sortByInt = sortByInt;
+const contains = (arr, v) => !!arr && arr.indexOf(v) > -1;
+exports.contains = contains;
+const containsAll = (vals, compare) => (0, lodash_1.intersection)(vals, compare).length === compare.length;
+exports.containsAll = containsAll;
+const containsAny = (vals, compare) => (0, lodash_1.intersection)(vals, compare).length > 0;
+exports.containsAny = containsAny;
+const pluckUnique = (selector) => tags => (0, lodash_1.chain)(tags)
     .map(selector)
     .filter(maybe_1.isDefined)
     .uniq()
     .value();
-exports.indexBy = (items, pick) => {
+exports.pluckUnique = pluckUnique;
+const indexBy = (items, pick) => {
     const result = {};
     items.forEach(item => {
         const keyOrKeys = pick(item);
-        if (maybe_1.isDefined(keyOrKeys)) {
-            exports.ensureArray(keyOrKeys).forEach(key => {
+        if ((0, maybe_1.isDefined)(keyOrKeys)) {
+            (0, exports.ensureArray)(keyOrKeys).forEach(key => {
                 result[key] = item;
             });
         }
     });
     return result;
 };
-exports.lookup = (items, pick, fallback) => {
-    const hash = exports.indexBy(items, pick);
+exports.indexBy = indexBy;
+const lookup = (items, pick, fallback) => {
+    const hash = (0, exports.indexBy)(items, pick);
     return (key) => {
         const r = hash[key] || (fallback === null || fallback === void 0 ? void 0 : fallback(key));
         if (!r) {
@@ -41,16 +50,20 @@ exports.lookup = (items, pick, fallback) => {
         return r;
     };
 };
-exports.maybeLookup = (items, pick) => {
-    const hash = exports.indexBy(items, pick);
+exports.lookup = lookup;
+const maybeLookup = (items, pick) => {
+    const hash = (0, exports.indexBy)(items, pick);
     return key => hash[key];
 };
-exports.maybeMap = (items, map) => lodash_1.reduce(items, (agg, i) => {
+exports.maybeLookup = maybeLookup;
+const maybeMap = (items, map) => (0, lodash_1.reduce)(items, (agg, i) => {
     const r = map(i);
-    if (maybe_1.isDefined(r)) {
+    if ((0, maybe_1.isDefined)(r)) {
         return [...agg, r];
     }
     return agg;
 }, []);
-exports.omitEmpty = (vals) => lodash_1.filter(vals, maybe_1.isDefined);
+exports.maybeMap = maybeMap;
+const omitEmpty = (vals) => (0, lodash_1.filter)(vals, maybe_1.isDefined);
+exports.omitEmpty = omitEmpty;
 //# sourceMappingURL=array.js.map

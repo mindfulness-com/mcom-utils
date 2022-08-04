@@ -10,13 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.usingAll = exports.waitFor = exports.mapMost = exports.most = exports.mapAll = exports.some = exports.all = void 0;
 const lodash_1 = require("lodash");
 const fn_1 = require("./fn");
 const bluebird_1 = require("bluebird");
 const maybe_1 = require("./maybe");
+const error_1 = require("./error");
 function all(values) {
     // @ts-ignore
-    return bluebird_1.all(values);
+    return (0, bluebird_1.all)(values);
 }
 exports.all = all;
 function some(values, log) {
@@ -27,34 +29,38 @@ function some(values, log) {
                 return yield p;
             }
             catch (err) {
-                log === null || log === void 0 ? void 0 : log(err);
+                log === null || log === void 0 ? void 0 : log((0, error_1.assertError)(err));
                 return undefined;
             }
         })));
-        if (lodash_1.every(res, fn_1.not(maybe_1.isDefined))) {
+        if ((0, lodash_1.every)(res, (0, fn_1.not)(maybe_1.isDefined))) {
             throw errors;
         }
         return res;
     });
 }
 exports.some = some;
-exports.mapAll = (things, toPromise) => __awaiter(void 0, void 0, void 0, function* () { return yield all(lodash_1.map(things, toPromise)); });
-exports.most = (promises, onError) => __awaiter(void 0, void 0, void 0, function* () {
+const mapAll = (things, toPromise) => __awaiter(void 0, void 0, void 0, function* () { return yield all((0, lodash_1.map)(things, toPromise)); });
+exports.mapAll = mapAll;
+const most = (promises, onError) => __awaiter(void 0, void 0, void 0, function* () {
     const results = yield all(promises.map((p) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             return yield p;
         }
         catch (err) {
             if (onError) {
-                onError(err);
+                onError((0, error_1.assertError)(err));
             }
             return undefined;
         }
     })));
-    return lodash_1.filter(results, maybe_1.isDefined);
+    return (0, lodash_1.filter)(results, maybe_1.isDefined);
 });
-exports.mapMost = (things, toPromise, onError) => __awaiter(void 0, void 0, void 0, function* () { return yield exports.most(lodash_1.map(things, toPromise), onError); });
-exports.waitFor = (p, fn) => __awaiter(void 0, void 0, void 0, function* () { return fn(yield p); });
+exports.most = most;
+const mapMost = (things, toPromise, onError) => __awaiter(void 0, void 0, void 0, function* () { return yield (0, exports.most)((0, lodash_1.map)(things, toPromise), onError); });
+exports.mapMost = mapMost;
+const waitFor = (p, fn) => __awaiter(void 0, void 0, void 0, function* () { return fn(yield p); });
+exports.waitFor = waitFor;
 function usingAll(a, fn) {
     return __awaiter(this, void 0, void 0, function* () {
         // @ts-ignore – promise.all typing breaks here

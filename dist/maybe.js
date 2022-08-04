@@ -10,16 +10,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.whenAsync = exports.when = exports.isUndefined = exports.isAllDefined = exports.isDefined = exports.isString = exports.identity = void 0;
 const lodash_1 = require("lodash");
-exports.identity = (thing) => thing;
-exports.isString = (val) => typeof val === "string";
-exports.isDefined = (x) => {
+const identity = (thing) => thing;
+exports.identity = identity;
+const isString = (val) => typeof val === "string";
+exports.isString = isString;
+const isDefined = (x) => {
     return x !== undefined && x !== null;
 };
-exports.isAllDefined = (vals) => lodash_1.every(vals, exports.isDefined);
-exports.isUndefined = (x) => {
+exports.isDefined = isDefined;
+const isAllDefined = (vals) => (0, lodash_1.every)(vals, exports.isDefined);
+exports.isAllDefined = isAllDefined;
+const isUndefined = (x) => {
     return x === undefined || x === null;
 };
+exports.isUndefined = isUndefined;
 exports.default = (val) => val || undefined;
 /**
  * When something is truthy, do something with it.
@@ -27,7 +33,8 @@ exports.default = (val) => val || undefined;
  * @param {function} doWork - What to do if the `thing` is true
  * @returns {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
  */
-exports.when = (thing, doWork) => exports.isDefined(thing) ? doWork(thing) : undefined;
+const when = (thing, doWork) => (0, exports.isDefined)(thing) ? doWork(thing) : undefined;
+exports.when = when;
 /**
  * When something is truthy, do something with it.
  * @async
@@ -35,5 +42,6 @@ exports.when = (thing, doWork) => exports.isDefined(thing) ? doWork(thing) : und
  * @param {function} doWork - What to do if the `thing` is true
  * @returns {Promise<unknown>} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
  */
-exports.whenAsync = (thing, doWork) => __awaiter(void 0, void 0, void 0, function* () { return exports.when(thing, doWork); });
+const whenAsync = (thing, doWork) => __awaiter(void 0, void 0, void 0, function* () { return (0, exports.when)(thing, doWork); });
+exports.whenAsync = whenAsync;
 //# sourceMappingURL=maybe.js.map

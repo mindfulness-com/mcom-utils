@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { omitEmpty, keysDeep, keysToSnakeCase } from "./object";
 

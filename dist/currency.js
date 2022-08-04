@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.format = (amount, currency) => {
+exports.format = void 0;
+const format = (amount, currency) => {
     try {
         return (Intl.NumberFormat("en-US", {
             style: "currency",
@@ -19,4 +20,5 @@ exports.format = (amount, currency) => {
         throw new Error(`Invalid currency: ${currency}`);
     }
 };
+exports.format = format;
 //# sourceMappingURL=currency.js.map

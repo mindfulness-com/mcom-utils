@@ -87,5 +87,5 @@ export const maybeMap = <T, R>(items: T[], map: (i: T) => Maybe<R>): R[] =>
     [] as R[],
   );
 
-export const omitEmpty = <T>(vals: Maybe<T>[]): T[] =>
+export const omitEmpty = <T>(vals: Array<T | undefined | null>): T[] =>
   filter(vals, isDefined) as T[];

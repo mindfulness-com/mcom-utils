@@ -228,10 +228,8 @@ describe("batchMap", () => {
   });
 
   test("errors aren't thrown", async () => {
-    const ids: number[] = [];
-
     const result = await batchMap(
-      async item => {
+      async () => {
         try {
           throw new Error("Fak");
         } catch (err) {

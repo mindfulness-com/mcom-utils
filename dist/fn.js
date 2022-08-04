@@ -9,16 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.composeAsync = exports.composelAsync = exports._ = exports.id = exports.__ = exports.partial = exports.curry = exports.composel = exports.guard = exports.using = exports.wiith = exports.fallback = exports.until = exports.not = exports.defined = exports.otherwise = void 0;
 const lodash_1 = require("lodash");
-exports.otherwise = (_) => true;
-exports.defined = (t) => !!t;
-exports.not = (p) => t => !p(t);
+const otherwise = (_) => true;
+exports.otherwise = otherwise;
+const defined = (t) => !!t;
+exports.defined = defined;
+const not = (p) => t => !p(t);
+exports.not = not;
 function until(...fns) {
-    return lodash_1.reduce(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return (yield v) || fn(); }), undefined);
+    return (0, lodash_1.reduce)(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return (yield v) || fn(); }), undefined);
 }
 exports.until = until;
 function fallback(...fns) {
-    return lodash_1.reduce(fns, (v, fn) => v !== null && v !== void 0 ? v : fn(), undefined);
+    return (0, lodash_1.reduce)(fns, (v, fn) => v !== null && v !== void 0 ? v : fn(), undefined);
 }
 exports.fallback = fallback;
 function wiith(fn, args) {
@@ -29,26 +33,28 @@ function using(a, fn) {
     return fn(...a);
 }
 exports.using = using;
-exports.guard = (guards) => ts => {
-    const guard = lodash_1.find(guards, ([guard]) => guard(ts));
+const guard = (guards) => ts => {
+    const guard = (0, lodash_1.find)(guards, ([guard]) => guard(ts));
     if (!guard) {
         throw new Error("No matching guards found.");
     }
     return guard[1](ts);
 };
+exports.guard = guard;
 var fp_1 = require("lodash/fp");
-exports.composel = fp_1.pipe;
-exports.curry = fp_1.curry;
-exports.partial = fp_1.partial;
-exports.__ = fp_1.__;
-exports.id = (t) => () => t;
+Object.defineProperty(exports, "composel", { enumerable: true, get: function () { return fp_1.pipe; } });
+Object.defineProperty(exports, "curry", { enumerable: true, get: function () { return fp_1.curry; } });
+Object.defineProperty(exports, "partial", { enumerable: true, get: function () { return fp_1.partial; } });
+Object.defineProperty(exports, "__", { enumerable: true, get: function () { return fp_1.__; } });
+const id = (t) => () => t;
+exports.id = id;
 exports._ = exports.id;
 function composelAsync(...fns) {
-    return (a) => __awaiter(this, void 0, void 0, function* () { return lodash_1.reduce(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return fn(yield v); }), a); });
+    return (a) => __awaiter(this, void 0, void 0, function* () { return (0, lodash_1.reduce)(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return fn(yield v); }), a); });
 }
 exports.composelAsync = composelAsync;
 function composeAsync(...fns) {
-    return (a) => __awaiter(this, void 0, void 0, function* () { return lodash_1.reduceRight(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return fn(yield v); }), a); });
+    return (a) => __awaiter(this, void 0, void 0, function* () { return (0, lodash_1.reduceRight)(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return fn(yield v); }), a); });
 }
 exports.composeAsync = composeAsync;
 //# sourceMappingURL=fn.js.map

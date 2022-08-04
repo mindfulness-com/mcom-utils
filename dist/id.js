@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.memorableId = exports.fileSafeId = exports.shortId = exports.publicId = exports.generate = void 0;
 const uuid = require("uuid/v4");
 const nanoid = require("nanoid/generate");
 // Good for checking collision propability
@@ -9,9 +10,14 @@ const alphabets = {
     memorable: "123456789ABCDEFGHJKLMNPQRSTUVWXYZ",
     filename: "0123456789abcdefghijklmnopqrstuvwxyz",
 };
-exports.generate = () => uuid();
-exports.publicId = () => nanoid(alphabets.default, 10);
-exports.shortId = (length = 10) => nanoid(alphabets.default, length);
-exports.fileSafeId = (length = 10) => nanoid(alphabets.filename, length);
-exports.memorableId = (length) => nanoid(alphabets.memorable, length);
+const generate = () => uuid();
+exports.generate = generate;
+const publicId = () => nanoid(alphabets.default, 10);
+exports.publicId = publicId;
+const shortId = (length = 10) => nanoid(alphabets.default, length);
+exports.shortId = shortId;
+const fileSafeId = (length = 10) => nanoid(alphabets.filename, length);
+exports.fileSafeId = fileSafeId;
+const memorableId = (length) => nanoid(alphabets.memorable, length);
+exports.memorableId = memorableId;
 //# sourceMappingURL=id.js.map

@@ -12,6 +12,8 @@ exports.ensureArray = (input) => lodash_1.isArray(input) ? input : [input];
 exports.compareInt = (p) => (t1, t2) => p(t1) - p(t2);
 exports.sortByInt = (arr, p) => arr.sort(exports.compareInt(p));
 exports.contains = (arr, v) => !!arr && arr.indexOf(v) > -1;
+exports.containsAll = (vals, compare) => lodash_1.intersection(vals, compare).length === compare.length;
+exports.containsAny = (vals, compare) => lodash_1.intersection(vals, compare).length > 0;
 exports.pluckUnique = (selector) => tags => lodash_1.chain(tags)
     .map(selector)
     .filter(maybe_1.isDefined)
@@ -50,4 +52,5 @@ exports.maybeMap = (items, map) => lodash_1.reduce(items, (agg, i) => {
     }
     return agg;
 }, []);
+exports.omitEmpty = (vals) => lodash_1.filter(vals, maybe_1.isDefined);
 //# sourceMappingURL=array.js.map

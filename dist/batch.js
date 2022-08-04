@@ -30,7 +30,6 @@ exports.batch = (fn, opts) => __awaiter(void 0, void 0, void 0, function* () {
 exports.paginate = (fn, opts) => __awaiter(void 0, void 0, void 0, function* () {
     const concurrent = opts.concurrent || 1;
     const pages = Math.ceil(opts.total / opts.size) || 1;
-    console.log({ pages });
     return yield exports.batch((page, total) => fn(page, opts.size, total), {
         total: pages,
         concurrent,

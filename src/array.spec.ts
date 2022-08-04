@@ -7,6 +7,7 @@ import {
   ensureArray,
   lookup,
   maybeLookup,
+  omitEmpty,
 } from "./array";
 
 test("ensure array always returns arrays", () => {
@@ -121,5 +122,16 @@ describe("lookup", () => {
     expect(lookup([{ id: 1 }, { id: 2 }], t => String(t.id))("2")).toEqual({
       id: 2,
     });
+  });
+});
+
+describe("omitEmpty", () => {
+  test("filters out null and undefined", () => {
+    expect(omitEmpty(["1", undefined, null, "2"])).toEqual(["1", "2"]);
+  });
+
+  test("does not filter out falsey", () => {
+    expect(omitEmpty(["", undefined, null, "2"])).toEqual(["", "2"]);
+    expect(omitEmpty([false, undefined, null, true])).toEqual([false, true]);
   });
 });

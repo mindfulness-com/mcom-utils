@@ -239,12 +239,12 @@ describe("batchMap", () => {
         }
       },
       {
-        items: times(1000, n => ({ id: n })),
-        concurrent: 100,
+        items: times(100, n => ({ id: n })),
+        concurrent: 10,
       },
     );
 
-    expect(result.length).toEqual(1000);
-    expect(result).toEqual([]);
+    expect(result.length).toEqual(100);
+    expect(result).toEqual(times(100).map(() => undefined));
   });
 });

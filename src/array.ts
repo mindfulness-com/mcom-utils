@@ -1,4 +1,4 @@
-import { chain, reduce, isArray } from "lodash";
+import { chain, reduce, isArray, filter, intersection } from "lodash";
 import { isDefined, Maybe } from "./maybe";
 import { Fn } from "./fn";
 
@@ -19,6 +19,12 @@ export const sortByInt = <T>(arr: T[], p: (t: T) => number) =>
 
 export const contains = <T>(arr: Maybe<T[]>, v: T) =>
   !!arr && arr.indexOf(v) > -1;
+
+export const containsAll = <T>(vals: T[], compare: T[]) =>
+  intersection(vals, compare).length === compare.length;
+
+export const containsAny = <T>(vals: T[], compare: T[]) =>
+  intersection(vals, compare).length > 0;
 
 export const pluckUnique = <T>(
   selector: (tag: T) => Maybe<string>,
@@ -80,3 +86,6 @@ export const maybeMap = <T, R>(items: T[], map: (i: T) => Maybe<R>): R[] =>
     },
     [] as R[],
   );
+
+export const omitEmpty = <T>(vals: Maybe<T>[]): T[] =>
+  filter(vals, isDefined) as T[];

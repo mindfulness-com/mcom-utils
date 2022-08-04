@@ -1,6 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.assertError = void 0;
+exports.assertError = exports.throw_ = void 0;
+/**
+ * Functional helper for throwing an error.
+ * @param {error} e
+ * @example
+ * when(result.error, _throw);
+ */
+const throw_ = (e) => {
+    throw e;
+};
+exports.throw_ = throw_;
 /**
  * As of typescript 4.4.x thrown Errors are of unknown type so this function is used
  * to assert that the error is of the expected type and attempts to convert the error to the expected type.
@@ -15,11 +25,9 @@ const assertError = (err) => {
         return new Error(err);
     }
     else if (typeof err === "object") {
-        return new Error(err === null || err === void 0 ? void 0 : err.toString());
+        return new Error(JSON.stringify(err));
     }
-    else {
-        return new Error('Non-Error has been thrown');
-    }
+    return new Error(`non-error of type ${typeof err} has been thrown`);
 };
 exports.assertError = assertError;
 //# sourceMappingURL=error.js.map

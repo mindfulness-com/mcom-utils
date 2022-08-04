@@ -1,4 +1,5 @@
 import * as currency from "./currency";
+import * as error from "./error";
 import * as id from "./id";
 import * as object from "./object";
 import * as array from "./array";
@@ -16,4 +17,4 @@ import * as semvar from "./semvar";
 import * as maybe from "./maybe";
 import * as timezone from "./timezone";
 import * as sql from "./sql";
-export { currency, id, object, debug, array, env, profile, time, date, fn, logic, promise, cache, definetly, maybe, timezone, sql, semvar, };
+export { currency, error, id, object, debug, array, env, profile, time, date, fn, logic, promise, cache, definetly, maybe, timezone, sql, semvar, };

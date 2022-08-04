@@ -4,9 +4,9 @@
  * @example
  * when(result.error, _throw);
  */
- export const throw_ = <T>(e: T) => {
+export const throw_ = <T>(e: T) => {
   throw e;
-}
+};
 
 /**
  * As of typescript 4.4.x thrown Errors are of unknown type so this function is used

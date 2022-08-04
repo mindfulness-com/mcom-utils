@@ -2,7 +2,7 @@
 // https://devblogs.microsoft.com/typescript/announcing-typescript-3-8-beta/
 
 import * as currency from "./currency";
-import * as error from "error";
+import * as error from "./error";
 import * as id from "./id";
 import * as object from "./object";
 import * as array from "./array";

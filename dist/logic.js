@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ifDo_ = exports.ifDo = exports.not = void 0;
+exports.switchEnum = exports.ifDo_ = exports.ifDo = exports.not = void 0;
 const lodash_1 = require("lodash");
 const not = (func) => (arg) => !func(arg);
 exports.not = not;
@@ -14,4 +14,12 @@ const ifDo = (cond, val) => {
 exports.ifDo = ifDo;
 const ifDo_ = (pred, work) => () => (0, exports.ifDo)(pred, work);
 exports.ifDo_ = ifDo_;
+function switchEnum(e, handlers) {
+    const specific = handlers[e];
+    if (specific) {
+        return (0, lodash_1.isFunction)(specific) ? specific(e) : specific;
+    }
+    return (0, lodash_1.isFunction)(handlers.else) ? handlers.else(e) : handlers.else;
+}
+exports.switchEnum = switchEnum;
 //# sourceMappingURL=logic.js.map

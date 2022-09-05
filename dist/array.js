@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.omitEmpty = exports.maybeMap = exports.maybeLookup = exports.lookup = exports.indexBy = exports.pluckUnique = exports.containsAny = exports.containsAll = exports.contains = exports.sortByInt = exports.compareInt = exports.ensureArray = void 0;
+exports.sampleOne = exports.omitEmpty = exports.maybeMap = exports.maybeLookup = exports.lookup = exports.indexBy = exports.pluckUnique = exports.containsAny = exports.containsAll = exports.contains = exports.sortByInt = exports.compareInt = exports.ensureArray = void 0;
 const lodash_1 = require("lodash");
 const maybe_1 = require("./maybe");
+const definetly_1 = require("./definetly");
 /**
  * Take a value and check whether it is an array.
  * If it is and array return it unmodified, else return it as an array.
@@ -66,4 +67,7 @@ const maybeMap = (items, map) => (0, lodash_1.reduce)(items, (agg, i) => {
 exports.maybeMap = maybeMap;
 const omitEmpty = (vals) => (0, lodash_1.filter)(vals, maybe_1.isDefined);
 exports.omitEmpty = omitEmpty;
+// Sample for non-empty arrays
+const sampleOne = (ts) => (0, definetly_1.definetly)((0, lodash_1.sample)(ts), "Non-Empty array sample.");
+exports.sampleOne = sampleOne;
 //# sourceMappingURL=array.js.map

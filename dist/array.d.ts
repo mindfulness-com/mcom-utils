@@ -20,3 +20,4 @@ export declare const lookup: <T>(items: T[], pick: (i: T) => Maybe<string | stri
 export declare const maybeLookup: <T>(items: T[], pick: (i: T) => Maybe<string | string[]>) => Fn<string, Maybe<T>>;
 export declare const maybeMap: <T, R>(items: T[], map: (i: T) => Maybe<R>) => R[];
 export declare const omitEmpty: <T>(vals: (T | null | undefined)[]) => T[];
+export declare const sampleOne: <T>(ts: T[]) => T;

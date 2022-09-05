@@ -1,6 +1,7 @@
-import { chain, reduce, isArray, filter, intersection } from "lodash";
+import { chain, reduce, isArray, filter, intersection, sample } from "lodash";
 import { isDefined, Maybe } from "./maybe";
 import { Fn } from "./fn";
+import { definetly } from "./definetly";
 
 /**
  * Take a value and check whether it is an array.
@@ -89,3 +90,7 @@ export const maybeMap = <T, R>(items: T[], map: (i: T) => Maybe<R>): R[] =>
 
 export const omitEmpty = <T>(vals: Array<T | undefined | null>): T[] =>
   filter(vals, isDefined) as T[];
+
+// Sample for non-empty arrays
+export const sampleOne = <T>(ts: T[]): T =>
+  definetly(sample(ts), "Non-Empty array sample.");

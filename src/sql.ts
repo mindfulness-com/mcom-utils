@@ -17,7 +17,7 @@ import { format } from "date-fns";
 import { Primitive, PrimitiveRecord } from "./types";
 import { ensureArray } from "./array";
 import { Maybe } from "./maybe";
-import { ifDo, ifDo_ } from "./logic";
+import { ifDo_ } from "./logic";
 import { fallback } from "./fn";
 
 export const column = (name: string): string => snakeCase(name);
@@ -26,7 +26,7 @@ export const table = (name: string): string => snakeCase(name);
 // For backwards compatibility
 export { Primitive, PrimitiveRecord } from "./types";
 
-export const literal = (value: Primitive | string[]): string => {
+export const literal = (value: Primitive | Primitive[]): string => {
   // Treat null as NULL
   if (value === null) {
     return "NULL";
@@ -47,7 +47,7 @@ export const literal = (value: Primitive | string[]): string => {
   }
 
   if (isArray(value)) {
-    return `[${value.map(literal).join(",")}]`;
+    return `ARRAY[${value.map(literal).join(",")}]`;
   }
 
   // JSON blobs
@@ -63,7 +63,7 @@ export const toArray = (items: Primitive[]) => `(${items.join(", ")})`;
 export const toLiteralArray = (items: Primitive[]) =>
   toArray(items.map(literal));
 
-export const toSet = (update: Record<string, Primitive>) =>
+export const toSet = (update: PrimitiveRecord) =>
   map(
     toPairs(update),
     ([key, value]) => `${column(key)} = ${literal(value)}`,
@@ -122,9 +122,9 @@ export const insert = <T = PrimitiveRecord>(
   `;
 };
 
-export const update = <T>(
+export const update = <T extends PrimitiveRecord>(
   table: string,
-  update: Record<string, Primitive>,
+  update: Partial<T>,
   condition: Partial<T>,
 ) => `
   UPDATE ${table}

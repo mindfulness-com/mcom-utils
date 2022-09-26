@@ -14,7 +14,11 @@ describe("update", () => {
   test("produces correct update sql", () => {
     expect(
       ignoreWhitesace(
-        update("table", { value: "A", another: 23 }, { id: "an-id" }),
+        update<{ id: string; value: string; another: number }>(
+          "table",
+          { value: "A", another: 23 },
+          { id: "an-id" },
+        ),
       ),
     ).toBe(
       ignoreWhitesace(`
@@ -28,7 +32,7 @@ describe("update", () => {
   test("produces correct update sql for multiple conditions", () => {
     expect(
       ignoreWhitesace(
-        update(
+        update<{ id: string; value: string; another: number; name: string }>(
           "table",
           { value: "A", another: 23 },
           { id: "an-id", name: "james" },
@@ -38,6 +42,24 @@ describe("update", () => {
       ignoreWhitesace(`
         UPDATE table
         SET value = 'A', another = 23
+        WHERE id = 'an-id' AND name = 'james'
+      `),
+    );
+  });
+
+  test("produces correct update sql for array fields", () => {
+    expect(
+      ignoreWhitesace(
+        update<{ id: string; value: string; another: string[]; name: string }>(
+          "table",
+          { value: "A", another: ["a", "b", "c"] },
+          { id: "an-id", name: "james" },
+        ),
+      ),
+    ).toBe(
+      ignoreWhitesace(`
+        UPDATE table
+        SET value = 'A', another = ARRAY['a','b','c']
         WHERE id = 'an-id' AND name = 'james'
       `),
     );

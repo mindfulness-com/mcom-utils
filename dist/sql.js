@@ -29,7 +29,7 @@ const literal = (value) => {
         return pgEscape.literal(value);
     }
     if ((0, lodash_1.isArray)(value)) {
-        return `[${value.map(exports.literal).join(",")}]`;
+        return `ARRAY[${value.map(exports.literal).join(",")}]`;
     }
     // JSON blobs
     if ((0, lodash_1.isObject)(value)) {

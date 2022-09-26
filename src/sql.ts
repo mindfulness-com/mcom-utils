@@ -122,13 +122,13 @@ export const insert = <T = PrimitiveRecord>(
   `;
 };
 
-export const update = <T extends PrimitiveRecord>(
+export const update = <T = PrimitiveRecord>(
   table: string,
   update: Partial<T>,
   condition: Partial<T>,
 ) => `
   UPDATE ${table}
-  SET ${toSet(update)}
+  SET ${toSet(update as PrimitiveRecord)}
   WHERE ${keys(condition)
     .map(
       key =>

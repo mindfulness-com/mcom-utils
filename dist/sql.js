@@ -8,6 +8,7 @@ const date_fns_1 = require("date-fns");
 const array_1 = require("./array");
 const logic_1 = require("./logic");
 const fn_1 = require("./fn");
+const id_1 = require("./id");
 const column = (name) => {
     const col = (0, change_case_1.snakeCase)(name);
     // Special columns should be in quotes
@@ -36,7 +37,9 @@ const literal = (value) => {
         return pgEscape.literal(value);
     }
     if ((0, lodash_1.isArray)(value)) {
-        return `ARRAY[${value.map(exports.literal).join(",")}]`;
+        const sample = (0, lodash_1.first)(value);
+        const type = (0, fn_1.fallback)(() => (0, logic_1.ifDo)((0, lodash_1.isNumber)(sample), () => "INT"), () => (0, logic_1.ifDo)((0, lodash_1.isString)(sample) && (0, id_1.isUUID)(sample), () => "UUID"), () => "VARCHAR");
+        return `ARRAY[${value.map(exports.literal).join(",")}]::${type}[]`;
     }
     // JSON blobs
     if ((0, lodash_1.isObject)(value)) {

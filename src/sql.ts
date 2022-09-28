@@ -10,6 +10,9 @@ import {
   isEmpty,
   isArray,
   reduce,
+  first,
+  isNumber,
+  isString,
 } from "lodash";
 import * as pgEscape from "pg-escape";
 import { format } from "date-fns";
@@ -17,8 +20,9 @@ import { format } from "date-fns";
 import { Primitive, PrimitiveRecord } from "./types";
 import { ensureArray } from "./array";
 import { Maybe } from "./maybe";
-import { ifDo_ } from "./logic";
+import { ifDo, ifDo_ } from "./logic";
 import { fallback } from "./fn";
+import { isUUID } from "./id";
 
 export const column = (name: string): string => {
   const col = snakeCase(name);
@@ -54,7 +58,13 @@ export const literal = (value: Primitive | Primitive[]): string => {
   }
 
   if (isArray(value)) {
-    return `ARRAY[${value.map(literal).join(",")}]`;
+    const sample = first(value);
+    const type = fallback(
+      () => ifDo(isNumber(sample), () => "INT"),
+      () => ifDo(isString(sample) && isUUID(sample), () => "UUID"),
+      () => "VARCHAR",
+    );
+    return `ARRAY[${value.map(literal).join(",")}]::${type}[]`;
   }
 
   // JSON blobs

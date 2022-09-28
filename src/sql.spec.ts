@@ -77,7 +77,39 @@ describe("update", () => {
     ).toBe(
       ignoreWhitesace(`
         UPDATE table
-        SET value = 'A', another = ARRAY['a','b','c']
+        SET value = 'A', another = ARRAY['a','b','c']::VARCHAR[]
+        WHERE id = 'an-id' AND name = 'james'
+      `),
+    );
+
+    expect(
+      ignoreWhitesace(
+        update<{ id: string; value: string; another: number[]; name: string }>(
+          "table",
+          { value: "A", another: [1, 2, 4] },
+          { id: "an-id", name: "james" },
+        ),
+      ),
+    ).toBe(
+      ignoreWhitesace(`
+        UPDATE table
+        SET value = 'A', another = ARRAY[1, 2, 4]::INT[]
+        WHERE id = 'an-id' AND name = 'james'
+      `),
+    );
+
+    expect(
+      ignoreWhitesace(
+        update<{ id: string; value: string; another: string[]; name: string }>(
+          "table",
+          { value: "A", another: ["740d04dd-59d5-4a52-bb76-00448362fcb5"] },
+          { id: "an-id", name: "james" },
+        ),
+      ),
+    ).toBe(
+      ignoreWhitesace(`
+        UPDATE table
+        SET value = 'A', another = ARRAY['740d04dd-59d5-4a52-bb76-00448362fcb5']::UUID[]
         WHERE id = 'an-id' AND name = 'james'
       `),
     );

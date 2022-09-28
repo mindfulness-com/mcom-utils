@@ -8,7 +8,14 @@ const date_fns_1 = require("date-fns");
 const array_1 = require("./array");
 const logic_1 = require("./logic");
 const fn_1 = require("./fn");
-const column = (name) => (0, change_case_1.snakeCase)(name);
+const column = (name) => {
+    const col = (0, change_case_1.snakeCase)(name);
+    // Special columns should be in quotes
+    if (col === "order") {
+        return `"${col}"`;
+    }
+    return col;
+};
 exports.column = column;
 const table = (name) => (0, change_case_1.snakeCase)(name);
 exports.table = table;

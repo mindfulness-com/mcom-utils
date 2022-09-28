@@ -29,6 +29,24 @@ describe("update", () => {
     );
   });
 
+  test("produces correct update sql for special keywords", () => {
+    expect(
+      ignoreWhitesace(
+        update<{ id: string; order: number }>(
+          "table",
+          { order: 2 },
+          { id: "an-id" },
+        ),
+      ),
+    ).toBe(
+      ignoreWhitesace(`
+        UPDATE table
+        SET "order" = 2
+        WHERE id = 'an-id'
+      `),
+    );
+  });
+
   test("produces correct update sql for multiple conditions", () => {
     expect(
       ignoreWhitesace(

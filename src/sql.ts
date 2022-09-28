@@ -20,7 +20,14 @@ import { Maybe } from "./maybe";
 import { ifDo_ } from "./logic";
 import { fallback } from "./fn";
 
-export const column = (name: string): string => snakeCase(name);
+export const column = (name: string): string => {
+  const col = snakeCase(name);
+  // Special columns should be in quotes
+  if (col === "order") {
+    return `"${col}"`;
+  }
+  return col;
+};
 export const table = (name: string): string => snakeCase(name);
 
 // For backwards compatibility

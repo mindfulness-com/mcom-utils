@@ -18,7 +18,7 @@ exports.defined = defined;
 const not = (p) => t => !p(t);
 exports.not = not;
 function until(...fns) {
-    return (0, lodash_1.reduce)(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return (yield v) || fn(); }), undefined);
+    return (0, lodash_1.reduce)(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { var _a; return (_a = (yield v)) !== null && _a !== void 0 ? _a : fn(); }), undefined);
 }
 exports.until = until;
 function fallback(...fns) {

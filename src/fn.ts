@@ -36,7 +36,7 @@ export function until<R>(...fns: Fn<void, Promise<R>>[]) {
     async (
       v: Promise<Maybe<R>> | Maybe<R>,
       fn: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
-    ) => (await v) || fn(),
+    ) => (await v) ?? fn(),
     undefined,
   );
 }

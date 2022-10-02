@@ -127,6 +127,23 @@ describe("until", () => {
     expect(error).toBeDefined();
     expect(error?.message).toEqual("Failed");
   });
+
+  test("behaves correctly for bools", async () => {
+    expect(
+      await until(
+        async () => undefined,
+        async () => false,
+        async () => true,
+      ),
+    ).toBe(false);
+
+    expect(
+      await until(
+        async () => undefined,
+        async () => true,
+      ),
+    ).toBe(true);
+  });
 });
 
 describe("fallback", () => {

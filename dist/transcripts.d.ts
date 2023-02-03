@@ -4,6 +4,6 @@ export interface Cue {
     timeStart: string;
     timeEnd: string;
     settings: Record<string, Maybe<string>>;
-    text: string;
+    text: string[];
 }
 export declare const parseWebVTT: (raw: string) => Cue[];

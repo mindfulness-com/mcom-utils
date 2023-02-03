@@ -19,7 +19,7 @@ const parseCue = (raw) => {
         timeStart,
         timeEnd,
         settings: (0, lodash_1.fromPairs)((0, lodash_1.map)(settings, (0, fp_1.split)(":"))),
-        text: (0, lodash_1.map)(rest, l => l.replace(/^- /gi, "")).join("\\n"),
+        text: (0, lodash_1.map)(rest, l => l.replace(/^- /gi, "")),
     };
 };
 const parseWebVTT = (raw) => (0, lodash_1.reduce)(seperateParts(raw), (r, p) => (0, logic_2.switchEnum)(partType(p), {

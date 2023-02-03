@@ -6,7 +6,7 @@ import { ifDo_ } from "./logic";
 import { switchEnum } from "./logic";
 import { Maybe } from "./maybe";
 
-interface Cue {
+export interface Cue {
   id?: Maybe<string>;
   timeStart: string;
   timeEnd: string;

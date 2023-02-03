@@ -1,5 +1,5 @@
 import { Maybe } from "./maybe";
-interface Cue {
+export interface Cue {
     id?: Maybe<string>;
     timeStart: string;
     timeEnd: string;
@@ -7,4 +7,3 @@ interface Cue {
     text: string;
 }
 export declare const parseWebVTT: (raw: string) => Cue[];
-export {};

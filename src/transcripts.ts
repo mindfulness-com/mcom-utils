@@ -11,7 +11,7 @@ export interface Cue {
   timeStart: string;
   timeEnd: string;
   settings: Record<string, Maybe<string>>;
-  text: string;
+  text: string[];
 }
 
 const seperateParts = (raw: string) => raw.split(/\n\n/gi);
@@ -38,7 +38,7 @@ const parseCue = (raw: string) => {
     timeStart,
     timeEnd,
     settings: fromPairs(map(settings, split(":"))),
-    text: map(rest, l => l.replace(/^- /gi, "")).join("\\n"),
+    text: map(rest, l => l.replace(/^- /gi, "")),
   };
 };
 

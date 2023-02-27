@@ -1,10 +1,18 @@
+import { isNumber } from "lodash";
 import * as toTime from "to-time";
 
+import { now } from "./now";
+
 // https://github.com/hafuta/to-time
-export const toSeconds = (time: string): number => {
-  const result = toTime(time).seconds();
-  if (time && !result) {
-    throw new Error(`Invalid ISO860 duration: ${time}`);
+export const toSeconds = (timeOrMins: string | number): number => {
+  // Convert mins in number to seconds
+  if (isNumber(timeOrMins)) {
+    return timeOrMins * 60;
+  }
+
+  const result = toTime(timeOrMins).seconds();
+  if (timeOrMins && !result) {
+    throw new Error(`Invalid ISO860 duration: ${timeOrMins}`);
   }
   return result;
 };
@@ -12,8 +20,6 @@ export const toSeconds = (time: string): number => {
 export const toMilliSeconds = (time: string): number => toSeconds(time) * 1000;
 
 export const toMinutes = (seconds: number): number => Math.round(seconds / 60);
-
-import { now } from "./now";
 
 export * from "./now";
 

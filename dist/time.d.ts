@@ -1,4 +1,4 @@
-export declare const toSeconds: (time: string) => number;
+export declare const toSeconds: (timeOrMins: string | number) => number;
 export declare const toMilliSeconds: (time: string) => number;
 export declare const toMinutes: (seconds: number) => number;
 export * from "./now";

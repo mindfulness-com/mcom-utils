@@ -15,12 +15,18 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.inPast = exports.inFuture = exports.isGreaterThan = exports.isLessThan = exports.formatOffsetInUTC = exports.ensureUTC = exports.toMinutes = exports.toMilliSeconds = exports.toSeconds = void 0;
+const lodash_1 = require("lodash");
 const toTime = require("to-time");
+const now_1 = require("./now");
 // https://github.com/hafuta/to-time
-const toSeconds = (time) => {
-    const result = toTime(time).seconds();
-    if (time && !result) {
-        throw new Error(`Invalid ISO860 duration: ${time}`);
+const toSeconds = (timeOrMins) => {
+    // Convert mins in number to seconds
+    if ((0, lodash_1.isNumber)(timeOrMins)) {
+        return timeOrMins * 60;
+    }
+    const result = toTime(timeOrMins).seconds();
+    if (timeOrMins && !result) {
+        throw new Error(`Invalid ISO860 duration: ${timeOrMins}`);
     }
     return result;
 };
@@ -29,7 +35,6 @@ const toMilliSeconds = (time) => (0, exports.toSeconds)(time) * 1000;
 exports.toMilliSeconds = toMilliSeconds;
 const toMinutes = (seconds) => Math.round(seconds / 60);
 exports.toMinutes = toMinutes;
-const now_1 = require("./now");
 __exportStar(require("./now"), exports);
 const ensureUTC = () => {
     if (process.env.TZ !== "UTC") {

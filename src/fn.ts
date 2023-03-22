@@ -15,18 +15,18 @@ export function until<R>(
   f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
   f1: Fn<void, Promise<R> | R>,
 ): Promise<R>;
-export function until<T1, T2, T3, T4, R>(
+export function until<R>(
   f4: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
   f3: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
   f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
   f1: Fn<void, Promise<R> | R>,
 ): Promise<R>;
-export function until<T1, T2, T3, R>(
+export function until<R>(
   f3: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
   f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
   f1: Fn<void, Promise<R> | R>,
 ): Promise<R>;
-export function until<T1, T2, R>(
+export function until<R>(
   f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
   f1: Fn<void, Promise<R> | R>,
 ): Promise<R>;

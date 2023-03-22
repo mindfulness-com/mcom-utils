@@ -12,9 +12,9 @@ export declare function fallback<R>(f8: Fn<void, Maybe<R>>, f7: Fn<void, Maybe<R
 export declare function fallback<R>(f7: Fn<void, Maybe<R>>, f6: Fn<void, Maybe<R>>, f5: Fn<void, Maybe<R>>, f4: Fn<void, Maybe<R>>, f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
 export declare function fallback<R>(f6: Fn<void, Maybe<R>>, f5: Fn<void, Maybe<R>>, f4: Fn<void, Maybe<R>>, f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
 export declare function fallback<R>(f5: Fn<void, Maybe<R>>, f4: Fn<void, Maybe<R>>, f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
-export declare function fallback<T1, T2, T3, T4, R>(f4: Fn<void, Maybe<R>>, f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
-export declare function fallback<T1, T2, T3, R>(f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
-export declare function fallback<T1, T2, R>(f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
+export declare function fallback<R>(f4: Fn<void, Maybe<R>>, f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
+export declare function fallback<R>(f3: Fn<void, Maybe<R>>, f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
+export declare function fallback<R>(f2: Fn<void, Maybe<R>>, f1: Fn<void, R>): R;
 export declare function wiith<T1, T2, T3, T4, T5, R>(fn: (...args: [T1, T2, T3, T4, T5]) => R, args: Fn<void, [T1, T2, T3, T4, T5]>): R;
 export declare function wiith<T1, T2, T3, T4, R>(fn: (...args: [T1, T2, T3, T4]) => R, args: Fn<void, [T1, T2, T3, T4]>): R;
 export declare function wiith<T1, T2, T3, R>(fn: (...args: [T1, T2, T3]) => R, args: Fn<void, [T1, T2, T3]>): R;

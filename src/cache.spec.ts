@@ -43,3 +43,22 @@ test("caches promise array function call", async () => {
   await cachedFn(["a", "b"]);
   expect(testFn).toHaveBeenCalledTimes(2);
 });
+
+test("can be cleared", () => {
+  let testVal = "test response";
+  const testFn = jest.fn(() => testVal);
+  const cachedFn = cachedFunc(testFn, 5000);
+
+  testVal = "first";
+  const first = cachedFn();
+  expect(first).toEqual("first");
+
+  testVal = "second";
+  const second = cachedFn();
+  expect(second).toEqual("first");
+
+  cachedFn.clear();
+  testVal = "third";
+  const third = cachedFn();
+  expect(third).toEqual("third");
+});

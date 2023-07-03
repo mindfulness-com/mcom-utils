@@ -1,10 +1,15 @@
 import * as memoizee from "memoizee";
+import { Fn } from "./fn";
+
+export type CachedFn<T> = T & {
+  clear: Fn<void, void>;
+};
 
 export const cachedFunc = <R, F extends (...args: any) => R>(
   func: F,
   milliseconds: number,
   normalizer?: (args: Parameters<F>) => string,
-): F =>
+): CachedFn<F> =>
   memoizee(func, {
     promise: true,
     maxAge: milliseconds,

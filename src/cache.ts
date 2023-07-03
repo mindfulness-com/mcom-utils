@@ -1,7 +1,7 @@
 import * as memoizee from "memoizee";
 import { Fn } from "./fn";
 
-type CachedFn<T> = T & {
+export type CachedFn<T> = T & {
   clear: Fn<void, void>;
 };
 

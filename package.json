@@ -29,7 +29,7 @@
     "api"
   ],
   "engines": {
-    "node": ">=16.13.1"
+    "node": "16.x.x"
   },
   "author": "Mindfulness.com",
   "license": "ISC",
@@ -74,7 +74,6 @@
     "@typescript-eslint/parser": "^5.32.0",
     "chokidar-cli": "^1.2.2",
     "eslint": "^7.1.0",
-    "eslint-config-import": "^0.13.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",

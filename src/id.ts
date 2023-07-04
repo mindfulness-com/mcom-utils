@@ -1,4 +1,4 @@
-import * as uuid from "uuid/v4";
+import { v4 } from "uuid";
 import nanoid = require("nanoid/generate");
 
 // Good for checking collision propability
@@ -10,7 +10,7 @@ const alphabets = {
   filename: "0123456789abcdefghijklmnopqrstuvwxyz",
 };
 
-export const generate = (): string => uuid();
+export const generate = (): string => v4();
 export const publicId = (): string => nanoid(alphabets.default, 10);
 
 export const shortId = (length = 10): string =>

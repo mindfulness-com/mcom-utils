@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isUUID = exports.memorableId = exports.fileSafeId = exports.shortId = exports.publicId = exports.generate = void 0;
-const uuid = require("uuid/v4");
+const uuid_1 = require("uuid");
 const nanoid = require("nanoid/generate");
 // Good for checking collision propability
 // https://zelark.github.io/nano-id-cc/
@@ -10,7 +10,7 @@ const alphabets = {
     memorable: "123456789ABCDEFGHJKLMNPQRSTUVWXYZ",
     filename: "0123456789abcdefghijklmnopqrstuvwxyz",
 };
-const generate = () => uuid();
+const generate = () => (0, uuid_1.v4)();
 exports.generate = generate;
 const publicId = () => nanoid(alphabets.default, 10);
 exports.publicId = publicId;

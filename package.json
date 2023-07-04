@@ -16,6 +16,7 @@
     "test": "TZ=UTC jest --maxWorkers=2",
     "test:one": "TZ=UTC jest --watch",
     "lint": "eslint -c ./.eslintrc \"src/**/*.ts\"",
+    "lint:fix": "eslint -c ./.eslintrc \"src/**/*.ts\" --fix",
     "doc": "typedoc ./src/index.ts"
   },
   "repository": {

@@ -55,7 +55,10 @@ describe("most", () => {
 
   test("reports errors to callback, allowing all resolves to complete, and returns only successful ones", async () => {
     const inner = jest.fn(a => resolve(a));
-    const called = <T>(a: T) => () => inner(a);
+    const called =
+      <T>(a: T) =>
+      () =>
+        inner(a);
     const errorHandler = jest.fn();
 
     expect(

@@ -13,9 +13,10 @@ export const isDevelopment = (): boolean =>
 export const isProduction = (): boolean =>
   process.env.NODE_ENV === "production";
 
-export const onlyRunIn = (predicate: () => boolean) => <T>(
-  input: () => T,
-): Maybe<T> => (predicate() ? input() : undefined);
+export const onlyRunIn =
+  (predicate: () => boolean) =>
+  <T>(input: () => T): Maybe<T> =>
+    predicate() ? input() : undefined;
 
 export enum InfraEnv {
   Prod = "prod",

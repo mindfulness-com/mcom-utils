@@ -16,28 +16,30 @@ const isVersionNumber = (v: Version): v is VersionNumber =>
 const pickVersionForPlatform = (version: PlatformVersion, platform: Platform) =>
   version[platform.toLowerCase() as keyof PlatformVersion];
 
-export const compareVersions = (comp: (v: string, v2: string) => boolean) => (
-  required: Version,
-  current: { platform?: Platform; version?: VersionNumber },
-) => {
-  if (!current.platform) {
-    return false;
-  }
+export const compareVersions =
+  (comp: (v: string, v2: string) => boolean) =>
+  (
+    required: Version,
+    current: { platform?: Platform; version?: VersionNumber },
+  ) => {
+    if (!current.platform) {
+      return false;
+    }
 
-  const expected = isVersionNumber(required)
-    ? required
-    : pickVersionForPlatform(required, current.platform);
+    const expected = isVersionNumber(required)
+      ? required
+      : pickVersionForPlatform(required, current.platform);
 
-  if (expected === "*") {
-    return true;
-  }
+    if (expected === "*") {
+      return true;
+    }
 
-  if (!expected || !current.version) {
-    return false;
-  }
+    if (!expected || !current.version) {
+      return false;
+    }
 
-  return comp(current.version, expected);
-};
+    return comp(current.version, expected);
+  };
 
 export const versionOrHigher = compareVersions(
   (current, required) => versionDiff(current, required) >= 0,

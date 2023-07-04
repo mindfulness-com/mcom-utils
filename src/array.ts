@@ -12,8 +12,10 @@ import { definetly } from "./definetly";
 export const ensureArray = <T>(input: T | T[]): T[] =>
   isArray(input) ? input : [input];
 
-export const compareInt = <T>(p: (t: T) => number) => (t1: T, t2: T) =>
-  p(t1) - p(t2);
+export const compareInt =
+  <T>(p: (t: T) => number) =>
+  (t1: T, t2: T) =>
+    p(t1) - p(t2);
 
 export const sortByInt = <T>(arr: T[], p: (t: T) => number) =>
   arr.sort(compareInt(p));
@@ -27,14 +29,10 @@ export const containsAll = <T>(vals: T[], compare: T[]) =>
 export const containsAny = <T>(vals: T[], compare: T[]) =>
   intersection(vals, compare).length > 0;
 
-export const pluckUnique = <T>(
-  selector: (tag: T) => Maybe<string>,
-): ((tags: T[]) => string[]) => tags =>
-  chain(tags)
-    .map(selector)
-    .filter(isDefined)
-    .uniq()
-    .value();
+export const pluckUnique =
+  <T>(selector: (tag: T) => Maybe<string>): ((tags: T[]) => string[]) =>
+  tags =>
+    chain(tags).map(selector).filter(isDefined).uniq().value();
 
 export const indexBy = <T>(
   items: T[],

@@ -6,7 +6,10 @@ export type Fn<T, R> = (t: T) => R;
 
 export const otherwise = <T>(_?: T) => true;
 export const defined = <T>(t: Maybe<T>): t is T => !!t;
-export const not = <T>(p: Pred<T>): Pred<T> => t => !p(t);
+export const not =
+  <T>(p: Pred<T>): Pred<T> =>
+  t =>
+    !p(t);
 
 export function until<R>(
   f5: Fn<void, Promise<Maybe<R>> | Maybe<R>>,
@@ -140,17 +143,22 @@ export function using<A extends [], R>(a: A, fn: (...args: A) => R) {
   return fn(...a);
 }
 
-export const guard = <T, R>(guards: [Pred<T>, Fn<T, R>][]): Fn<T, R> => ts => {
-  const guard = find(guards, ([guard]) => guard(ts));
-  if (!guard) {
-    throw new Error("No matching guards found.");
-  }
-  return guard[1](ts);
-};
+export const guard =
+  <T, R>(guards: [Pred<T>, Fn<T, R>][]): Fn<T, R> =>
+  ts => {
+    const guard = find(guards, ([guard]) => guard(ts));
+    if (!guard) {
+      throw new Error("No matching guards found.");
+    }
+    return guard[1](ts);
+  };
 
 export { pipe as composel, curry, partial, __ } from "lodash/fp";
 
-export const id = <T>(t: T) => () => t;
+export const id =
+  <T>(t: T) =>
+  () =>
+    t;
 export const _ = id;
 
 export function composelAsync<T1, T2, T3, T4, T5, R>(

@@ -115,9 +115,9 @@ describe("lookup", () => {
   });
 
   test("returns the value searching for", () => {
-    expect(
-      maybeLookup([{ id: 1 }, { id: 2 }], t => String(t.id))("2"),
-    ).toEqual({ id: 2 });
+    expect(maybeLookup([{ id: 1 }, { id: 2 }], t => String(t.id))("2")).toEqual(
+      { id: 2 },
+    );
 
     expect(lookup([{ id: 1 }, { id: 2 }], t => String(t.id))("2")).toEqual({
       id: 2,

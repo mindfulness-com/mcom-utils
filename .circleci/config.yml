@@ -4,6 +4,8 @@ defaults: &defaults
     - image: node:16
 
 version: 2
+orbs:
+  require-git-not-dirty: jesiio/require-git-not-dirty@1.0.0
 jobs:
   checkout_code:
     <<: *defaults
@@ -30,6 +32,7 @@ jobs:
       - run:
           name: "Npm install"
           command: npm install
+      - require-git-not-dirty/test
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:

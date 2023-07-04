@@ -32,7 +32,7 @@ jobs:
       - run:
           name: "Npm install"
           command: npm install
-      - require-git-not-dirty/test
+      - "require-git-not-dirty/test"
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:

@@ -13,7 +13,7 @@ const isDevelopment = () => process.env.NODE_ENV === "development";
 exports.isDevelopment = isDevelopment;
 const isProduction = () => process.env.NODE_ENV === "production";
 exports.isProduction = isProduction;
-const onlyRunIn = (predicate) => (input) => (predicate() ? input() : undefined);
+const onlyRunIn = (predicate) => (input) => predicate() ? input() : undefined;
 exports.onlyRunIn = onlyRunIn;
 var InfraEnv;
 (function (InfraEnv) {

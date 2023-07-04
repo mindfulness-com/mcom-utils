@@ -22,11 +22,7 @@ const containsAll = (vals, compare) => (0, lodash_1.intersection)(vals, compare)
 exports.containsAll = containsAll;
 const containsAny = (vals, compare) => (0, lodash_1.intersection)(vals, compare).length > 0;
 exports.containsAny = containsAny;
-const pluckUnique = (selector) => tags => (0, lodash_1.chain)(tags)
-    .map(selector)
-    .filter(maybe_1.isDefined)
-    .uniq()
-    .value();
+const pluckUnique = (selector) => tags => (0, lodash_1.chain)(tags).map(selector).filter(maybe_1.isDefined).uniq().value();
 exports.pluckUnique = pluckUnique;
 const indexBy = (items, pick) => {
     const result = {};

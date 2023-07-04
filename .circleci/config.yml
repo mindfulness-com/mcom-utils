@@ -32,6 +32,9 @@ jobs:
       - run:
           name: "Npm install"
           command: npm install
+      - run:
+          name: "change a file!"
+          command: touch ./test   
       - untracked_changes/check
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}

@@ -20,6 +20,7 @@ import * as semvar from "./semvar";
 import * as maybe from "./maybe";
 import * as timezone from "./timezone";
 import * as sql from "./sql";
+import * as math from "./math";
 
 export {
   currency,
@@ -41,4 +42,5 @@ export {
   timezone,
   sql,
   semvar,
+  math,
 };

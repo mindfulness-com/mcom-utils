@@ -2,7 +2,7 @@
 // Cleaner syntax coming in 3.8
 // https://devblogs.microsoft.com/typescript/announcing-typescript-3-8-beta/
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.semvar = exports.sql = exports.timezone = exports.maybe = exports.definetly = exports.cache = exports.promise = exports.logic = exports.fn = exports.date = exports.time = exports.profile = exports.env = exports.array = exports.debug = exports.object = exports.id = exports.error = exports.currency = void 0;
+exports.math = exports.semvar = exports.sql = exports.timezone = exports.maybe = exports.definetly = exports.cache = exports.promise = exports.logic = exports.fn = exports.date = exports.time = exports.profile = exports.env = exports.array = exports.debug = exports.object = exports.id = exports.error = exports.currency = void 0;
 const currency = require("./currency");
 exports.currency = currency;
 const error = require("./error");
@@ -41,4 +41,6 @@ const timezone = require("./timezone");
 exports.timezone = timezone;
 const sql = require("./sql");
 exports.sql = sql;
+const math = require("./math");
+exports.math = math;
 //# sourceMappingURL=index.js.map

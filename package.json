@@ -30,7 +30,7 @@
     "api"
   ],
   "engines": {
-    "node": "^16"
+    "node": ">=16"
   },
   "author": "Mindfulness.com",
   "license": "ISC",

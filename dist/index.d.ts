@@ -17,4 +17,5 @@ import * as semvar from "./semvar";
 import * as maybe from "./maybe";
 import * as timezone from "./timezone";
 import * as sql from "./sql";
-export { currency, error, id, object, debug, array, env, profile, time, date, fn, logic, promise, cache, definetly, maybe, timezone, sql, semvar, };
+import * as math from "./math";
+export { currency, error, id, object, debug, array, env, profile, time, date, fn, logic, promise, cache, definetly, maybe, timezone, sql, semvar, math, };

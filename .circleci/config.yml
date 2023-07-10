@@ -1,9 +1,11 @@
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: sebastiankade/node10.15-awsebcli:0.0.3
+    - image: node:16
 
-version: 2
+version: 2.1
+orbs:
+  untracked_changes: niteo/check-untracked-changes@1.0.0
 jobs:
   checkout_code:
     <<: *defaults
@@ -44,6 +46,7 @@ jobs:
       - run:
           name: "Build app"
           command: npm run build
+      - untracked_changes/check
       - persist_to_workspace:
           root: ~/repo
           paths:

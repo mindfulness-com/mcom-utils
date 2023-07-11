@@ -62,7 +62,7 @@
     "@types/dotenv": "^6.1.0",
     "@types/humanparser": "^1.1.4",
     "@types/jest": "^29.5.3",
-    "@types/lodash": "^4.14.182",
+    "@types/lodash": "^4.14.195",
     "@types/memoizee": "^0.4.8",
     "@types/microseconds": "^0.2.0",
     "@types/mock-require": "^2.0.1",

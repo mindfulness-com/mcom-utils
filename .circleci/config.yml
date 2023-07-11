@@ -48,7 +48,7 @@ jobs:
           command: npm run build
       - run:
           name: "Build docs"
-          command: npm run docs
+          command: npm run doc
       - untracked_changes/check
       - persist_to_workspace:
           root: ~/repo

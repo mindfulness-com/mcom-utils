@@ -44,7 +44,7 @@
     "lodash": "^4.17.21",
     "memoizee": "^0.4.15",
     "microseconds": "^0.2.0",
-    "nanoid": "^2.0.1",
+    "nanoid": "^4.0.2",
     "pg-escape": "^0.2.0",
     "query-string": "^7.1.1",
     "timezone-support": "^1.8.1",

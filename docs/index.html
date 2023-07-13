@@ -17,19 +17,21 @@
 </blockquote>
 <ul>
 <li><a href="#mindfulnesscom-shared-utils">Mindfulness.com Shared Utils</a><ul>
+<li><a href="#install">Install</a></li>
+<li><a href="#development">Development</a><ul>
 <li><a href="#principles">Principles</a></li>
-<li><a href="#running-locally">Running locally</a></li>
-<li><a href="#consuming">Consuming</a><ul>
-<li><a href="#npm">NPM</a></li>
-<li><a href="#git-reference">Git reference</a></li>
-</ul>
-</li>
 <li><a href="#publishing">Publishing</a></li>
 <li><a href="#testing">Testing</a></li>
 </ul>
 </li>
 </ul>
-<a id="md:principles" class="tsd-anchor"></a><h2><a href="#md:principles">Principles</a></h2><p><strong>Development:</strong></p>
+</li>
+</ul>
+<a id="md:install" class="tsd-anchor"></a><h2><a href="#md:install">Install</a></h2><p>This project is now available as a private package on npm.
+<code>npm install @mindfulness/utils</code></p>
+<a id="md:development" class="tsd-anchor"></a><h2><a href="#md:development">Development</a></h2><p>This is a module, so the only way to run local is by running tests.
+<code>npm run test:one</code></p>
+<a id="md:principles" class="tsd-anchor"></a><h3><a href="#md:principles">Principles</a></h3><p><strong>Development:</strong></p>
 <ol>
 <li>Avoid complexity</li>
 <li>Use functional programming to reduce complexity</li>
@@ -38,22 +40,11 @@
 <li>Test application logic</li>
 <li>Provide detailed descriptions using <a href="https://jsdoc.app/index.html">JSDoc</a> format.</li>
 </ol>
-<a id="md:running-locally" class="tsd-anchor"></a><h2><a href="#md:running-locally">Running locally</a></h2><p>This is a module, so the only way to run local is by running tests.</p>
-<a id="md:consuming" class="tsd-anchor"></a><h2><a href="#md:consuming">Consuming</a></h2><p><del>This project is not deployed through NPM as in the future it will be a private repo.</del></p>
-<a id="md:npm" class="tsd-anchor"></a><h3><a href="#md:npm">NPM</a></h3><p>This project is now available as a private package on npm.
-<code>npm install @mindfulness/utils</code></p>
-<a id="md:git-reference" class="tsd-anchor"></a><h3><a href="#md:git-reference">Git reference</a></h3><p>For now the module is still fetched through npm using a git reference.</p>
-<p>To add this to your project add the following to your <code>package.json</code> <code>dependencies</code>:</p>
-<p>&quot;@mcom/utils&quot;: &quot;git+<a href="https://github.com/mindfulness-com/mcom-utils.git#v0.1.8">https://github.com/mindfulness-com/mcom-utils.git#v0.1.8</a>&quot;,</p>
-<p>Note the version number at the end of the string which references a specific git tag.</p>
-<p>Then run <code>npm install</code> to install the depenency.</p>
-<a id="md:publishing" class="tsd-anchor"></a><h2><a href="#md:publishing">Publishing</a></h2><p>While this module is not yet published through npm, we use node package versioning
-with git tags to manage depenency versions.</p>
-<p>To publish a new version of the repo run:</p>
+<a id="md:publishing" class="tsd-anchor"></a><h3><a href="#md:publishing">Publishing</a></h3><p>To publish a new version of the repo run:</p>
 <pre><code><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">run</span><span class="hl-1"> </span><span class="hl-0">publish</span>
 </code><button>Copy</button></pre>
-<p>Which essentially tests, builds, bumps the package version, and deploys the tag to git.</p>
-<a id="md:testing" class="tsd-anchor"></a><h2><a href="#md:testing">Testing</a></h2><p>Run <code>npm run test</code> to run tests agains this library.</p>
+<p>Which essentially tests, builds, bumps the package version, and deploys the tag to git and deploy to npm.</p>
+<a id="md:testing" class="tsd-anchor"></a><h3><a href="#md:testing">Testing</a></h3><p>Run <code>npm run test</code> to run tests agains this library.</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">
@@ -79,15 +70,13 @@ with git tags to manage depenency versions.</p>
 <li><a href="#md:mindfulnesscom-shared-utils"><span>Mindfulness.com <wbr/>Shared <wbr/>Utils</span></a></li>
 <li>
 <ul>
-<li><a href="#md:principles"><span>Principles</span></a></li>
-<li><a href="#md:running-locally"><span>Running locally</span></a></li>
-<li><a href="#md:consuming"><span>Consuming</span></a></li>
+<li><a href="#md:install"><span>Install</span></a></li>
+<li><a href="#md:development"><span>Development</span></a></li>
 <li>
 <ul>
-<li><a href="#md:npm"><span>NPM</span></a></li>
-<li><a href="#md:git-reference"><span>Git reference</span></a></li></ul></li>
+<li><a href="#md:principles"><span>Principles</span></a></li>
 <li><a href="#md:publishing"><span>Publishing</span></a></li>
-<li><a href="#md:testing"><span>Testing</span></a></li></ul></li></ul></li></ul></div></details></div>
+<li><a href="#md:testing"><span>Testing</span></a></li></ul></li></ul></li></ul></li></ul></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)"></path></g></svg><span>@mindfulness/utils</span></a>
 <ul class="tsd-small-nested-navigation">

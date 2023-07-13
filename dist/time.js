@@ -14,7 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.inPast = exports.inFuture = exports.isGreaterThan = exports.isLessThan = exports.formatOffsetInUTC = exports.ensureUTC = exports.toMinutes = exports.toMilliSeconds = exports.toSeconds = void 0;
+exports.endOfDay = exports.inPast = exports.inFuture = exports.isGreaterThan = exports.isLessThan = exports.formatOffsetInUTC = exports.ensureUTC = exports.toMinutes = exports.toMilliSeconds = exports.toSeconds = void 0;
 const lodash_1 = require("lodash");
 const toTime = require("to-time");
 const now_1 = require("./now");
@@ -56,4 +56,15 @@ const inFuture = (timeA) => (0, exports.isGreaterThan)(timeA, (0, now_1.now)());
 exports.inFuture = inFuture;
 const inPast = (timeA) => (0, exports.isLessThan)(timeA, (0, now_1.now)());
 exports.inPast = inPast;
+/**
+ * Takes a date and sets the time to the end of the day.
+ * @param date - The date to set the time to the end of the day.
+ * @returns {Date} - The provided date, but with the time set to the end of the day.
+ */
+const endOfDay = (date) => {
+    const result = new Date(date);
+    result.setHours(23, 59, 59, 999);
+    return result;
+};
+exports.endOfDay = endOfDay;
 //# sourceMappingURL=time.js.map

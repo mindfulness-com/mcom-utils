@@ -44,3 +44,14 @@ export const isGreaterThan = (timeA: Date, timeB: Date) =>
 
 export const inFuture = (timeA: Date) => isGreaterThan(timeA, now());
 export const inPast = (timeA: Date) => isLessThan(timeA, now());
+
+/**
+ * Takes a date and sets the time to the end of the day.
+ * @param date - The date to set the time to the end of the day.
+ * @returns {Date} - The provided date, but with the time set to the end of the day.
+ */
+export const endOfDay = (date: Date): Date => {
+  const result = new Date(date);
+  result.setHours(23, 59, 59, 999);
+  return result;
+};

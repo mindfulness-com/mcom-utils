@@ -10,6 +10,7 @@ import {
   omitEmpty,
   insertAfter,
   insertAt,
+  justOne,
 } from "./array";
 
 test("ensure array always returns arrays", () => {
@@ -154,4 +155,26 @@ test("insert at", () => {
   const items = ["bar"];
   const result = ["foo", "bar", "kek"];
   expect(insertAt(arr, items, 1)).toMatchObject(result);
+});
+
+describe("justOne", () => {
+  it("should return 3", () => {
+    expect(justOne([3, 3, 3])).toBe(3);
+  });
+
+  it("should return 1", () => {
+    expect(justOne([1, 2, 3])).toBe(1);
+  });
+
+  it("should return 1", () => {
+    expect(justOne(1)).toBe(1);
+  });
+
+  it("array should return undefined", () => {
+    expect(justOne([undefined])).toBe(undefined);
+  });
+
+  it("should return undefined", () => {
+    expect(justOne(undefined)).toBe(undefined);
+  });
 });

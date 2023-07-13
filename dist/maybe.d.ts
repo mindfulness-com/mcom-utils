@@ -22,3 +22,10 @@ export declare const when: <T, R>(thing: Maybe<T>, doWork: (inp: T) => R) => May
  * @returns {Promise<unknown>} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
  */
 export declare const whenAsync: <T, R>(thing: Maybe<T>, doWork: (inp: T) => Promise<R>) => Promise<R | undefined>;
+/**
+ * Unless something is truthy, do something with it. - Opposite of when
+ * @param {T} thing - The `thing` to check for truthiness
+ * @param {function} doWork - What to do if the `thing` is true
+ * @return {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
+ */
+export declare const unless: <T, R>(thing: Maybe<T>, doWork: () => R) => Maybe<R>;

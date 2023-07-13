@@ -16,6 +16,7 @@ This project is now available as a private package on npm.
 ## Development
 
 This is a module, so the only way to run local is by running tests.
+`npm run test:one`
 ### Principles
 
 **Development:**

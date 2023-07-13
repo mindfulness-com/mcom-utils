@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.whenAsync = exports.when = exports.isUndefined = exports.isAllDefined = exports.isDefined = exports.isString = exports.identity = void 0;
+exports.unless = exports.whenAsync = exports.when = exports.isUndefined = exports.isAllDefined = exports.isDefined = exports.isString = exports.identity = void 0;
 const lodash_1 = require("lodash");
 const identity = (thing) => thing;
 exports.identity = identity;
@@ -44,4 +44,12 @@ exports.when = when;
  */
 const whenAsync = (thing, doWork) => __awaiter(void 0, void 0, void 0, function* () { return (0, exports.when)(thing, doWork); });
 exports.whenAsync = whenAsync;
+/**
+ * Unless something is truthy, do something with it. - Opposite of when
+ * @param {T} thing - The `thing` to check for truthiness
+ * @param {function} doWork - What to do if the `thing` is true
+ * @return {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
+ */
+const unless = (thing, doWork) => (0, exports.isUndefined)(thing) ? doWork() : undefined;
+exports.unless = unless;
 //# sourceMappingURL=maybe.js.map

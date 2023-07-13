@@ -92,3 +92,34 @@ export const omitEmpty = <T>(vals: Array<T | undefined | null>): T[] =>
 // Sample for non-empty arrays
 export const sampleOne = <T>(ts: T[]): T =>
   definetly(sample(ts), "Non-Empty array sample.");
+
+/**
+ * Inserts an array of items at a given index;
+ * @param {Array<T>} arr - The array that you want to add items to
+ * @param {Array<T>} items - The array of items that you want to add
+ * @param {number} at - The index at which you want to add the items
+ * @return {Array<T>} - The array with the items added
+ */
+export function insertAt<T>(
+  arr: Array<T>,
+  items: Array<T>,
+  at: number,
+): Array<T> {
+  return [...arr.slice(0, at), ...items, ...arr.slice(at)];
+}
+
+/**
+ * Concatenates an array into another array at a given index
+ * @param {Array<T>} arr - The array that you want to add items to
+ * @param {Array<T>} items - The array of items that you want to add
+ * @param {T} item - The item that you want to add the array after
+ * @return {Array<T>} - The array with the items added
+ */
+export function insertAfter<T>(
+  arr: Array<T>,
+  items: Array<T>,
+  item: T,
+): Array<T> {
+  const at = arr.indexOf(item) + 1;
+  return insertAt(arr, items, at);
+}

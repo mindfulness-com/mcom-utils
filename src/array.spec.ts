@@ -8,6 +8,8 @@ import {
   lookup,
   maybeLookup,
   omitEmpty,
+  insertAfter,
+  insertAt,
 } from "./array";
 
 test("ensure array always returns arrays", () => {
@@ -134,4 +136,22 @@ describe("omitEmpty", () => {
     expect(omitEmpty(["", undefined, null, "2"])).toEqual(["", "2"]);
     expect(omitEmpty([false, undefined, null, true])).toEqual([false, true]);
   });
+});
+
+test("insert after", () => {
+  const arr = ["foo", "kek"];
+  const items = ["bar"];
+  const result = ["foo", "bar", "kek"];
+  expect(insertAfter(arr, items, "foo")).toMatchObject(result);
+
+  expect(
+    insertAfter(arr, ["multiple", "items", "inserted"], "kek"),
+  ).toMatchObject(["foo", "kek", "multiple", "items", "inserted"]);
+});
+
+test("insert at", () => {
+  const arr = ["foo", "kek"];
+  const items = ["bar"];
+  const result = ["foo", "bar", "kek"];
+  expect(insertAt(arr, items, 1)).toMatchObject(result);
 });

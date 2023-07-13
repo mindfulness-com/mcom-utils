@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sampleOne = exports.omitEmpty = exports.maybeMap = exports.maybeLookup = exports.lookup = exports.indexBy = exports.pluckUnique = exports.containsAny = exports.containsAll = exports.contains = exports.sortByInt = exports.compareInt = exports.ensureArray = void 0;
+exports.insertAfter = exports.insertAt = exports.sampleOne = exports.omitEmpty = exports.maybeMap = exports.maybeLookup = exports.lookup = exports.indexBy = exports.pluckUnique = exports.containsAny = exports.containsAll = exports.contains = exports.sortByInt = exports.compareInt = exports.ensureArray = void 0;
 const lodash_1 = require("lodash");
 const maybe_1 = require("./maybe");
 const definetly_1 = require("./definetly");
@@ -66,4 +66,27 @@ exports.omitEmpty = omitEmpty;
 // Sample for non-empty arrays
 const sampleOne = (ts) => (0, definetly_1.definetly)((0, lodash_1.sample)(ts), "Non-Empty array sample.");
 exports.sampleOne = sampleOne;
+/**
+ * Inserts an array of items at a given index;
+ * @param {Array<T>} arr - The array that you want to add items to
+ * @param {Array<T>} items - The array of items that you want to add
+ * @param {number} at - The index at which you want to add the items
+ * @return {Array<T>} - The array with the items added
+ */
+function insertAt(arr, items, at) {
+    return [...arr.slice(0, at), ...items, ...arr.slice(at)];
+}
+exports.insertAt = insertAt;
+/**
+ * Concatenates an array into another array at a given index
+ * @param {Array<T>} arr - The array that you want to add items to
+ * @param {Array<T>} items - The array of items that you want to add
+ * @param {T} item - The item that you want to add the array after
+ * @return {Array<T>} - The array with the items added
+ */
+function insertAfter(arr, items, item) {
+    const at = arr.indexOf(item) + 1;
+    return insertAt(arr, items, at);
+}
+exports.insertAfter = insertAfter;
 //# sourceMappingURL=array.js.map

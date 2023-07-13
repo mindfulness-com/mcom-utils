@@ -1,7 +1,8 @@
 import { chain, reduce, isArray, filter, intersection, sample } from "lodash";
 import { isDefined, Maybe } from "./maybe";
-import { Fn } from "./fn";
+import { Fn, composel } from "./fn";
 import { definetly } from "./definetly";
+import { first } from "lodash/fp";
 
 /**
  * Take a value and check whether it is an array.
@@ -123,3 +124,10 @@ export function insertAfter<T>(
   const at = arr.indexOf(item) + 1;
   return insertAt(arr, items, at);
 }
+
+/**
+ * Get the first item from an array of items
+ * @param {Array<T>} arr - The array of items
+ * @return {T} - The first item in the array
+ */
+export const justOne = composel(ensureArray, first);

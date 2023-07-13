@@ -5,6 +5,7 @@ import {
   isLessThan,
   inPast,
   inFuture,
+  endOfDay,
 } from "./time";
 import { addDays, subDays } from "date-fns";
 
@@ -60,4 +61,13 @@ test("inFuture returns correctly", () => {
   expect(inFuture(new Date())).toBe(false);
   expect(inFuture(subDays(new Date(), 1))).toBe(false);
   expect(inFuture(addDays(new Date(), 1))).toBe(true);
+});
+
+test("endOfDay returns correctly", () => {
+  expect(endOfDay(new Date("2020-01-01T00:00:00.000Z"))).toEqual(
+    new Date("2020-01-01T23:59:59.999Z"),
+  );
+  expect(endOfDay(new Date("2020-01-01T21:00:00.000Z"))).toEqual(
+    new Date("2020-01-01T23:59:59.999Z"),
+  );
 });

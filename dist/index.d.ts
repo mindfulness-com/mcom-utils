@@ -1,3 +1,4 @@
+import * as boolean from "./boolean";
 import * as currency from "./currency";
 import * as error from "./error";
 import * as id from "./id";
@@ -18,4 +19,4 @@ import * as maybe from "./maybe";
 import * as timezone from "./timezone";
 import * as sql from "./sql";
 import * as math from "./math";
-export { currency, error, id, object, debug, array, env, profile, time, date, fn, logic, promise, cache, definetly, maybe, timezone, sql, semvar, math, };
+export { boolean, currency, error, id, object, debug, array, env, profile, time, date, fn, logic, promise, cache, definetly, maybe, timezone, sql, semvar, math, };

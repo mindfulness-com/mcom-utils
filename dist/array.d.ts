@@ -37,3 +37,9 @@ export declare function insertAt<T>(arr: Array<T>, items: Array<T>, at: number):
  * @return {Array<T>} - The array with the items added
  */
 export declare function insertAfter<T>(arr: Array<T>, items: Array<T>, item: T): Array<T>;
+/**
+ * Get the first item from an array of items
+ * @param {Array<T>} arr - The array of items
+ * @return {T} - The first item in the array
+ */
+export declare const justOne: <T>(input: T | T[]) => T | undefined;

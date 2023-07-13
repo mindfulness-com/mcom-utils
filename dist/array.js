@@ -1,9 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.insertAfter = exports.insertAt = exports.sampleOne = exports.omitEmpty = exports.maybeMap = exports.maybeLookup = exports.lookup = exports.indexBy = exports.pluckUnique = exports.containsAny = exports.containsAll = exports.contains = exports.sortByInt = exports.compareInt = exports.ensureArray = void 0;
+exports.justOne = exports.insertAfter = exports.insertAt = exports.sampleOne = exports.omitEmpty = exports.maybeMap = exports.maybeLookup = exports.lookup = exports.indexBy = exports.pluckUnique = exports.containsAny = exports.containsAll = exports.contains = exports.sortByInt = exports.compareInt = exports.ensureArray = void 0;
 const lodash_1 = require("lodash");
 const maybe_1 = require("./maybe");
+const fn_1 = require("./fn");
 const definetly_1 = require("./definetly");
+const fp_1 = require("lodash/fp");
 /**
  * Take a value and check whether it is an array.
  * If it is and array return it unmodified, else return it as an array.
@@ -89,4 +91,10 @@ function insertAfter(arr, items, item) {
     return insertAt(arr, items, at);
 }
 exports.insertAfter = insertAfter;
+/**
+ * Get the first item from an array of items
+ * @param {Array<T>} arr - The array of items
+ * @return {T} - The first item in the array
+ */
+exports.justOne = (0, fn_1.composel)(exports.ensureArray, fp_1.first);
 //# sourceMappingURL=array.js.map

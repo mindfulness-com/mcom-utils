@@ -1,4 +1,4 @@
-import { isBetween } from "./math";
+import { isBetween, isMultipleOf, percentOf } from "./math";
 
 describe("isBetween", () => {
   const tests: (any[] & { 0: number; 1: [number, number]; 2: boolean })[] = [
@@ -16,4 +16,17 @@ describe("isBetween", () => {
     const [num, between, expected] = args;
     expect(isBetween(num, between)).toEqual(expected);
   });
+});
+
+test("isMultipleOf", () => {
+  expect(isMultipleOf(1, 10)).toBe(false);
+  expect(isMultipleOf(10, 1)).toBe(true);
+  expect(isMultipleOf(5, 2)).toBe(false);
+  expect(isMultipleOf(4, 2)).toBe(true);
+});
+
+test("percentOf", () => {
+  expect(percentOf(1, 10)).toBe(10);
+  expect(percentOf(12, 50)).toBe(24);
+  expect(percentOf(33, 33)).toBe(100);
 });

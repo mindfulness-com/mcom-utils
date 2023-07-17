@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.beforeVersion = exports.versionOrLower = exports.versionOrHigher = exports.compareVersions = void 0;
-const versionDiff = require("compare-versions");
+const compare_versions_1 = require("compare-versions");
 const isVersionNumber = (v) => typeof v === "string";
 const pickVersionForPlatform = (version, platform) => version[platform.toLowerCase()];
 const compareVersions = (comp) => (required, current) => {
@@ -20,7 +20,7 @@ const compareVersions = (comp) => (required, current) => {
     return comp(current.version, expected);
 };
 exports.compareVersions = compareVersions;
-exports.versionOrHigher = (0, exports.compareVersions)((current, required) => versionDiff(current, required) >= 0);
-exports.versionOrLower = (0, exports.compareVersions)((current, required) => versionDiff(current, required) <= 0);
-exports.beforeVersion = (0, exports.compareVersions)((current, required) => versionDiff(current, required) < 0);
+exports.versionOrHigher = (0, exports.compareVersions)((current, required) => (0, compare_versions_1.compareVersions)(current, required) >= 0);
+exports.versionOrLower = (0, exports.compareVersions)((current, required) => (0, compare_versions_1.compareVersions)(current, required) <= 0);
+exports.beforeVersion = (0, exports.compareVersions)((current, required) => (0, compare_versions_1.compareVersions)(current, required) < 0);
 //# sourceMappingURL=semvar.js.map

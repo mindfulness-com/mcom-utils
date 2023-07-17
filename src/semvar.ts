@@ -1,4 +1,4 @@
-import * as versionDiff from "compare-versions";
+import { compareVersions as versionDiff } from "compare-versions";
 
 export type Platform = "IOS" | "ANDROID" | "WEB" | "ADMIN";
 export type VersionNumber = string;

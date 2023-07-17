@@ -47,7 +47,7 @@
     "nanoid": "^2.0.1",
     "pg-escape": "^0.2.0",
     "query-string": "^7.1.1",
-    "timezone-support": "^1.8.1",
+    "timezone-support": "^3.1.0",
     "to-time": "^1.0.2",
     "uuid": "^9.0.0"
   },

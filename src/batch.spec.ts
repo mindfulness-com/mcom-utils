@@ -161,9 +161,12 @@ describe("batchMap", () => {
     const fn = jest.fn(
       async item =>
         new Promise(r =>
-          setTimeout(() => {
-            r(`${item}`);
-          }, 500 * Math.round(Math.random() * 3)),
+          setTimeout(
+            () => {
+              r(`${item}`);
+            },
+            500 * Math.round(Math.random() * 3),
+          ),
         ),
     );
 

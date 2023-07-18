@@ -1,4 +1,4 @@
-import * as memoizee from "memoizee";
+import memoizee from "memoizee";
 import { Fn } from "./fn";
 
 export type CachedFn<T> = T & {

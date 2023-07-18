@@ -1,9 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.upsert = exports.update = exports.insert = exports.toColumns = exports.toValues = exports.toSet = exports.toLiteralArray = exports.toArray = exports.literal = exports.table = exports.column = void 0;
 const change_case_1 = require("change-case");
 const lodash_1 = require("lodash");
-const pgEscape = require("pg-escape");
+const pg_escape_1 = __importDefault(require("pg-escape"));
 const date_fns_1 = require("date-fns");
 const array_1 = require("./array");
 const logic_1 = require("./logic");
@@ -34,7 +37,7 @@ const literal = (value) => {
         return `'${(0, date_fns_1.format)(value, "YYYY-MM-DD HH:mm:ss.SSSZZ")}'`;
     }
     if (typeof value === "string") {
-        return pgEscape.literal(value);
+        return pg_escape_1.default.literal(value);
     }
     if ((0, lodash_1.isArray)(value)) {
         const sample = (0, lodash_1.first)(value);
@@ -43,7 +46,7 @@ const literal = (value) => {
     }
     // JSON blobs
     if ((0, lodash_1.isObject)(value)) {
-        return pgEscape.literal(JSON.stringify(value));
+        return pg_escape_1.default.literal(JSON.stringify(value));
     }
     // Literal string value
     return value.toString();

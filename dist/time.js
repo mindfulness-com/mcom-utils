@@ -13,10 +13,13 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.endOfDay = exports.inPast = exports.inFuture = exports.isGreaterThan = exports.isLessThan = exports.formatOffsetInUTC = exports.ensureUTC = exports.toMinutes = exports.toMilliSeconds = exports.toSeconds = void 0;
 const lodash_1 = require("lodash");
-const toTime = require("to-time");
+const to_time_1 = __importDefault(require("to-time"));
 const now_1 = require("./now");
 // https://github.com/hafuta/to-time
 const toSeconds = (timeOrMins) => {
@@ -24,7 +27,7 @@ const toSeconds = (timeOrMins) => {
     if ((0, lodash_1.isNumber)(timeOrMins)) {
         return timeOrMins * 60;
     }
-    const result = toTime(timeOrMins).seconds();
+    const result = (0, to_time_1.default)(timeOrMins).seconds();
     if (timeOrMins && !result) {
         throw new Error(`Invalid ISO860 duration: ${timeOrMins}`);
     }

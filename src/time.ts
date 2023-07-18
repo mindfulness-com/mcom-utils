@@ -1,5 +1,5 @@
 import { isNumber } from "lodash";
-import * as toTime from "to-time";
+import toTime from "to-time";
 
 import { now } from "./now";
 

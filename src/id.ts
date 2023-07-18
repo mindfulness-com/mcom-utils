@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import nanoid = require("nanoid/generate");
+import nanoid from "nanoid/generate";
 
 // Good for checking collision propability
 // https://zelark.github.io/nano-id-cc/

@@ -14,7 +14,7 @@ import {
   isNumber,
   isString,
 } from "lodash";
-import * as pgEscape from "pg-escape";
+import pgEscape from "pg-escape";
 import { format } from "date-fns";
 
 import { Primitive, PrimitiveRecord } from "./types";

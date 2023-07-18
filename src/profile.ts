@@ -1,4 +1,4 @@
-import * as microseconds from "microseconds";
+import microseconds from "microseconds";
 
 export const profile = <T>(doWork: () => T, ...rest: string[]): T => {
   const n = microseconds.now();

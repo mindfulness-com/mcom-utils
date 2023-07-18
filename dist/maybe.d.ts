@@ -1,5 +1,5 @@
-export declare type Nothing = undefined;
-export declare type Maybe<T> = T | Nothing;
+export type Nothing = undefined;
+export type Maybe<T> = T | Nothing;
 export declare const identity: <T>(thing: T) => T;
 export declare const isString: (val: string | any) => val is string;
 export declare const isDefined: <T>(x: Maybe<T>) => x is T;

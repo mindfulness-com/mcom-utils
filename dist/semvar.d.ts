@@ -1,12 +1,12 @@
-export declare type Platform = "IOS" | "ANDROID" | "WEB" | "ADMIN";
-export declare type VersionNumber = string;
-export declare type PlatformVersion = {
+export type Platform = "IOS" | "ANDROID" | "WEB" | "ADMIN";
+export type VersionNumber = string;
+export type PlatformVersion = {
     ios?: VersionNumber;
     android?: VersionNumber;
     web?: VersionNumber;
     admin?: VersionNumber;
 };
-export declare type Version = VersionNumber | PlatformVersion;
+export type Version = VersionNumber | PlatformVersion;
 export declare const compareVersions: (comp: (v: string, v2: string) => boolean) => (required: Version, current: {
     platform?: Platform;
     version?: VersionNumber;

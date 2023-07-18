@@ -94,7 +94,7 @@ const uniqColumns = <T = PrimitiveRecord>(items: T[]) =>
         ...acc,
         ...i,
       }),
-      {},
+      {} as T,
     ),
   );
 

@@ -1,5 +1,5 @@
 import { Fn } from "./fn";
-declare type Resolvable<R> = R | PromiseLike<R> | void | PromiseLike<void>;
+type Resolvable<R> = R | PromiseLike<R> | void | PromiseLike<void>;
 export declare function all<T1, T2, T3, T4, T5, T6, T7>(values: [
     Resolvable<T1>,
     Resolvable<T2>,

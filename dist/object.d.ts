@@ -1,6 +1,6 @@
 /// <reference types="lodash" />
 import { Maybe } from "./maybe";
-declare type DeepObject = Record<string, string | Record<string, any>>;
+type DeepObject = Record<string, string | Record<string, any>>;
 /**
  * Returns an object with all the key/value pairs that are null or undefined are removed.
  * @param obj The object to strip null and undefined from.

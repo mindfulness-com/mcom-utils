@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.composeAsync = exports.composelAsync = exports._ = exports.id = exports.__ = exports.partial = exports.curry = exports.composel = exports.guard = exports.using = exports.wiith = exports.fallback = exports.until = exports.not = exports.defined = exports.otherwise = void 0;
 const lodash_1 = require("lodash");
-const otherwise = (_) => true;
+const otherwise = (_) => (!!_ ? true : true);
 exports.otherwise = otherwise;
 const defined = (t) => !!t;
 exports.defined = defined;

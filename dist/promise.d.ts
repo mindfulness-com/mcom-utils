@@ -74,5 +74,5 @@ export declare function usingAll<T1, T2, T3, T4, T5, R>(a: [Promise<T1>, Promise
 export declare function usingAll<T1, T2, T3, T4, R>(a: [Promise<T1>, Promise<T2>, Promise<T3>, Promise<T4>], fn: (...args: [T1, T2, T3, T4]) => R): Promise<R>;
 export declare function usingAll<T1, T2, T3, R>(a: [Promise<T1>, Promise<T2>, Promise<T3>], fn: (...args: [T1, T2, T3]) => R): Promise<R>;
 export declare function usingAll<T1, T2, R>(a: [Promise<T1>, Promise<T2>], fn: (...args: [T1, T2]) => R): Promise<R>;
-export declare function usingAll<T1, A extends [T1], R>(a: [Promise<T1>], fn: (...args: [T1]) => R): Promise<R>;
+export declare function usingAll<T1, R>(a: [Promise<T1>], fn: (...args: [T1]) => R): Promise<R>;
 export {};

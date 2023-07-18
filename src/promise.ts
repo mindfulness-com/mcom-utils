@@ -191,7 +191,7 @@ export async function usingAll<T1, T2, R>(
   a: [Promise<T1>, Promise<T2>],
   fn: (...args: [T1, T2]) => R,
 ): Promise<R>;
-export async function usingAll<T1, A extends [T1], R>(
+export async function usingAll<T1, R>(
   a: [Promise<T1>],
   fn: (...args: [T1]) => R,
 ): Promise<R>;

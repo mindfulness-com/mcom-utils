@@ -23,7 +23,7 @@ describe("batch", () => {
   test("does in groups on concurrent when passed in", async () => {
     const d1 = new Deferred();
     const d2 = new Deferred();
-    const fn = jest.fn(async (g, _total) => {
+    const fn = jest.fn(async g => {
       return g < 5 ? d1.promise : d2.promise;
     });
 
@@ -183,7 +183,7 @@ describe("batchMap", () => {
   test("waits for all batches to complete", async () => {
     const d1 = new Deferred();
     const d2 = new Deferred();
-    const fn = jest.fn(async (g, _total) => {
+    const fn = jest.fn(async g => {
       return g < 3 ? d1.promise.then(() => g) : d2.promise.then(() => g);
     });
 

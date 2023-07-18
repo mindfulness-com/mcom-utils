@@ -62,7 +62,7 @@ describe("date", () => {
     test.each(tests)(
       "%p o'clock should be one, and only one of isMorning, isAfternoon, or isEvening",
       (...args) => {
-        const [hour, ...isTimeOfDays] = args;
+        const [, ...isTimeOfDays] = args;
         expect(isTimeOfDays.filter(b => b).length).toEqual(1);
       },
     );

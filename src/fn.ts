@@ -4,7 +4,7 @@ import { Maybe } from "./maybe";
 export type Pred<T> = (t: T) => boolean;
 export type Fn<T, R> = (t: T) => R;
 
-export const otherwise = <T>(_?: T) => true;
+export const otherwise = <T>(_?: T) => (!!_ ? true : true);
 export const defined = <T>(t: Maybe<T>): t is T => !!t;
 export const not =
   <T>(p: Pred<T>): Pred<T> =>

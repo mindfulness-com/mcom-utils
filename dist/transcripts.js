@@ -13,7 +13,7 @@ const parseCue = (raw) => {
     const hasID = first.includes("-->");
     const timing = hasID ? first : second;
     const id = !hasID ? first : undefined;
-    const [timeStart, _arrow, timeEnd, ...settings] = timing.split(" ");
+    const [timeStart, , timeEnd, ...settings] = timing.split(" ");
     return {
         id,
         timeStart,

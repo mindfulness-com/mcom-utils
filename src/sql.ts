@@ -15,7 +15,7 @@ import {
   isString,
 } from "lodash";
 import pgEscape from "pg-escape";
-import { format } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 
 import { Primitive, PrimitiveRecord } from "./types";
 import { ensureArray } from "./array";
@@ -50,7 +50,7 @@ export const literal = (value: Primitive | Primitive[]): string => {
 
   // Format dates in UTC
   if (isDate(value)) {
-    return `'${format(value, "YYYY-MM-DD HH:mm:ss.SSSZZ")}'`;
+    return `'${formatInTimeZone(value, "UTC", "yyyy-MM-dd HH:mm:ss.SSSxx")}'`;
   }
 
   if (typeof value === "string") {

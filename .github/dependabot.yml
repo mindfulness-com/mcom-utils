@@ -14,3 +14,6 @@ updates:
       - dependency-name: "query-string"
         # query-string v8 drops support for commonJs and I had real difficulty getting it to work with Jest. Clip at v7 for now and re-evaluate for v9
         versions: ["8.x"]
+      - dependency-name: "date-fns"
+        # neither date-fns v2, nor date-fns-tz `format` function seem to be able to emulate the same behaviour as date-fns v1 `format`.
+        versions: ["2.x"]

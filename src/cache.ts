@@ -5,6 +5,7 @@ export type CachedFn<T> = T & {
   clear: Fn<void, void>;
 };
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 export const cachedFunc = <R, F extends (...args: any) => R>(
   func: F,
   milliseconds: number,

@@ -16,6 +16,7 @@ const fn_1 = require("./fn");
 const bluebird_1 = require("bluebird");
 const maybe_1 = require("./maybe");
 const error_1 = require("./error");
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 function all(values) {
     // @ts-ignore
     return (0, bluebird_1.all)(values);

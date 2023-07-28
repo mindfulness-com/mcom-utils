@@ -49,6 +49,7 @@ export function all<T1, T2>(
 ): Promise<[T1, T2]>;
 export function all<T1>(values: [Resolvable<T1>]): Promise<[T1]>;
 export function all<T>(values: Resolvable<T>[]): Promise<T[]>;
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 export function all(values: any): Promise<any> {
   // @ts-ignore
   return ball(values);

@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/no-explicit-any:off */
+
 import { find, reduce, reduceRight } from "lodash";
 import { Maybe } from "./maybe";
 

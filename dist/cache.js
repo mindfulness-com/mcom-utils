@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cachedFunc = void 0;
 const memoizee_1 = __importDefault(require("memoizee"));
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const cachedFunc = (func, milliseconds, normalizer) => (0, memoizee_1.default)(func, {
     promise: true,
     maxAge: milliseconds,

@@ -34,7 +34,9 @@ const literal = (value) => {
     }
     // Format dates in UTC
     if ((0, lodash_1.isDate)(value)) {
-        return `'${(0, date_fns_tz_1.formatInTimeZone)(value, "UTC", "yyyy-MM-dd HH:mm:ss.SSSxx")}'`;
+        return `'${(0, date_fns_tz_1.format)(value, "yyyy-MM-dd HH:mm:ss.SSSxx", {
+            timeZone: "UTC",
+        })}'`;
     }
     if (typeof value === "string") {
         return pg_escape_1.default.literal(value);

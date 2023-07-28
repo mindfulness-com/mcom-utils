@@ -7,7 +7,7 @@ exports.upsert = exports.update = exports.insert = exports.toColumns = exports.t
 const change_case_1 = require("change-case");
 const lodash_1 = require("lodash");
 const pg_escape_1 = __importDefault(require("pg-escape"));
-const date_fns_1 = require("date-fns");
+const date_fns_tz_1 = require("date-fns-tz");
 const array_1 = require("./array");
 const logic_1 = require("./logic");
 const fn_1 = require("./fn");
@@ -34,7 +34,7 @@ const literal = (value) => {
     }
     // Format dates in UTC
     if ((0, lodash_1.isDate)(value)) {
-        return `'${(0, date_fns_1.format)(value, "YYYY-MM-DD HH:mm:ss.SSSZZ")}'`;
+        return `'${(0, date_fns_tz_1.formatInTimeZone)(value, "UTC", "yyyy-MM-dd HH:mm:ss.SSSxx")}'`;
     }
     if (typeof value === "string") {
         return pg_escape_1.default.literal(value);

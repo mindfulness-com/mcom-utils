@@ -3,6 +3,7 @@ import { Fn } from "./fn";
 
 export type CachedFn<T> = T & {
   clear: Fn<void, void>;
+  delete: T;
 };
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any

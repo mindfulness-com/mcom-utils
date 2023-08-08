@@ -65,31 +65,33 @@ test("can be cleared", () => {
 
 test("can have individual keys deleted", () => {
   let testVal = "test response";
-  const testFn = jest.fn((input: string) => `${testVal} - ${input}`);
+  const testFn = jest.fn(
+    ({ input }: { input: string }) => `${testVal} - ${input}`,
+  );
   const cachedFn = cachedFunc(testFn, 5000);
 
   testVal = "first";
-  const firstFoo = cachedFn("foo");
-  const firstBar = cachedFn("bar");
+  const firstFoo = cachedFn({ input: "foo" });
+  const firstBar = cachedFn({ input: "bar" });
   expect(firstFoo).toEqual("first - foo");
   expect(firstBar).toEqual("first - bar");
 
   testVal = "second";
-  const secondFoo = cachedFn("foo");
-  const secondBar = cachedFn("bar");
+  const secondFoo = cachedFn({ input: "foo" });
+  const secondBar = cachedFn({ input: "bar" });
   expect(secondFoo).toEqual("first - foo");
   expect(secondBar).toEqual("first - bar");
 
-  cachedFn.delete("bar");
+  cachedFn.delete({ input: "bar" });
   testVal = "third";
-  const thirdFoo = cachedFn("foo");
-  const thirdBar = cachedFn("bar");
+  const thirdFoo = cachedFn({ input: "foo" });
+  const thirdBar = cachedFn({ input: "bar" });
   expect(thirdFoo).toEqual("first - foo");
   expect(thirdBar).toEqual("third - bar");
 
   testVal = "fourth";
-  const fourthFoo = cachedFn("foo");
-  const fourthBar = cachedFn("bar");
+  const fourthFoo = cachedFn({ input: "foo" });
+  const fourthBar = cachedFn({ input: "bar" });
   expect(fourthFoo).toEqual("first - foo");
   expect(fourthBar).toEqual("third - bar");
 });

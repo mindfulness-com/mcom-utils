@@ -28,7 +28,7 @@ const isUndefined = (x) => {
 exports.isUndefined = isUndefined;
 exports.default = (val) => val || undefined;
 /**
- * When something is truthy, do something with it.
+ * When something is defined, do something with it.
  * @param {T} thing - The `thing` to check for truthiness
  * @param {function} doWork - What to do if the `thing` is true
  * @returns {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
@@ -36,7 +36,7 @@ exports.default = (val) => val || undefined;
 const when = (thing, doWork) => (0, exports.isDefined)(thing) ? doWork(thing) : undefined;
 exports.when = when;
 /**
- * When something is truthy, do something with it.
+ * When something is defined, do something with it.
  * @async
  * @param {T} thing - The `thing` to check for truthiness
  * @param {function} doWork - What to do if the `thing` is true
@@ -45,7 +45,7 @@ exports.when = when;
 const whenAsync = (thing, doWork) => __awaiter(void 0, void 0, void 0, function* () { return (0, exports.when)(thing, doWork); });
 exports.whenAsync = whenAsync;
 /**
- * Unless something is truthy, do something with it. - Opposite of when
+ * When something is undefined, do something. - Opposite of when
  * @param {T} thing - The `thing` to check for truthiness
  * @param {function} doWork - What to do if the `thing` is true
  * @return {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`

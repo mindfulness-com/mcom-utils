@@ -8,14 +8,14 @@ export declare const isUndefined: <T>(x: Maybe<T>) => x is undefined;
 declare const _default: <T>(val: T | null | undefined) => Maybe<T>;
 export default _default;
 /**
- * When something is truthy, do something with it.
+ * When something is defined, do something with it.
  * @param {T} thing - The `thing` to check for truthiness
  * @param {function} doWork - What to do if the `thing` is true
  * @returns {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
  */
 export declare const when: <T, R>(thing: Maybe<T>, doWork: (inp: T) => R) => Maybe<R>;
 /**
- * When something is truthy, do something with it.
+ * When something is defined, do something with it.
  * @async
  * @param {T} thing - The `thing` to check for truthiness
  * @param {function} doWork - What to do if the `thing` is true
@@ -23,7 +23,7 @@ export declare const when: <T, R>(thing: Maybe<T>, doWork: (inp: T) => R) => May
  */
 export declare const whenAsync: <T, R>(thing: Maybe<T>, doWork: (inp: T) => Promise<R>) => Promise<R | undefined>;
 /**
- * Unless something is truthy, do something with it. - Opposite of when
+ * When something is undefined, do something. - Opposite of when
  * @param {T} thing - The `thing` to check for truthiness
  * @param {function} doWork - What to do if the `thing` is true
  * @return {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`

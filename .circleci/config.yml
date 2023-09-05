@@ -49,6 +49,12 @@ jobs:
       - run:
           name: "Build docs"
           command: npm run doc
+      - run:
+          name: "Reset search.js caused by gzip non-determinism"
+          command: git checkout -- docs/assets/search.js
+      - run:
+          name: "Reset navigation.js caused by gzip non-determinism"
+          command: git checkout -- docs/assets/navigation.js
       - untracked_changes/check
       - persist_to_workspace:
           root: ~/repo

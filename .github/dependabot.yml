@@ -9,8 +9,8 @@ updates:
       prefix: "chore(deps):"
     ignore:
       - dependency-name: "nanoid"
-        # nanoid v4 drops support for commonJs and I had real difficulty getting it to work with Jest. Clip at v3 for now and re-evaluate for v5
-        versions: ["4.x"]
+        # nanoid v4 drops support for commonJs and I had real difficulty getting it to work with Jest. Clip at v3 for now and re-evaluate for v6
+        versions: ["4.x", "5.x"]
       - dependency-name: "query-string"
         # query-string v8 drops support for commonJs and I had real difficulty getting it to work with Jest. Clip at v7 for now and re-evaluate for v9
         versions: ["8.x"]

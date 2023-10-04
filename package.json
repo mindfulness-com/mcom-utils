@@ -19,7 +19,8 @@
     "lint:fix": "eslint -c ./.eslintrc \"src/**/*.ts\" --fix",
     "doc": "typedoc ./src/index.ts",
     "changelog": "$(npm bin)/commit-and-tag-version --skip.commit --skip.tag --skip.bump",
-    "version": "$(npm bin)/commit-and-tag-version"
+    "version": "$(npm bin)/commit-and-tag-version",
+    "publish": "./publish.sh"
   },
   "repository": {
     "type": "git",

@@ -1,15 +1,14 @@
 #!/bin/bash
-
-set -e;
-
-npm run test
-npm run lint
 npm run build
 
-set +e;
-git stage .
-git commit -m "Build changes before package bump."
-git push origin
-set -e;
+if [[ `git status --porcelain` ]]
+then
+  echo "ERROR: Cannot publish with uncommitted changes:"
+  git status --porcelain
+  exit 1
+fi
 
+npm run lint
+npm run test
 
+npm run version

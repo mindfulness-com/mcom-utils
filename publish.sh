@@ -12,6 +12,4 @@ git commit -m "Build changes before package bump."
 git push origin
 set -e;
 
-npm run version
 
-git push origin --follow-tags

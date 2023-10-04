@@ -12,6 +12,6 @@ git commit -m "Build changes before package bump."
 git push origin
 set -e;
 
-VER=$(npm version patch)
+npm run version
 
-git push origin $VER
+git push origin --follow-tags

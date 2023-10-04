@@ -33,7 +33,7 @@ This is a module, so the only way to run local is by running tests.
 To publish a new version of the repo run:
 
 ```
-npm run publish
+npm publish
 ```
 
 Which essentially tests, builds, bumps the package version, and deploys the tag to git and deploy to npm.

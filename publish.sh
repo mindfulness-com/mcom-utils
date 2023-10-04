@@ -12,3 +12,7 @@ npm run lint
 npm run test
 
 npm run version
+
+git push origin --follow-tags
+
+npm publish

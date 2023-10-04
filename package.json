@@ -17,7 +17,9 @@
     "test:one": "TZ=UTC jest --watch",
     "lint": "eslint -c ./.eslintrc \"src/**/*.ts\"",
     "lint:fix": "eslint -c ./.eslintrc \"src/**/*.ts\" --fix",
-    "doc": "typedoc ./src/index.ts"
+    "doc": "typedoc ./src/index.ts",
+    "changelog": "$(npm bin)/commit-and-tag-version --skip.commit --skip.tag --skip.bump",
+    "version": "$(npm bin)/commit-and-tag-version"
   },
   "repository": {
     "type": "git",
@@ -63,6 +65,7 @@
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "chokidar-cli": "^3.0.0",
+    "commit-and-tag-version": "11.2.4",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.6.1",

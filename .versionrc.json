@@ -1,0 +1,4 @@
+{
+  "infile": "changelog.md",
+  "releaseCommitMessageFormat": "chore: [ci skip] version bump v{{currentTag}}"
+}

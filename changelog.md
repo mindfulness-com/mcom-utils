@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.0](https://github.com/mindfulness-com/mcom-utils/compare/v0.1.80...v1.0.0) (2023-10-09)
+
+### Chore
+
+* Bump to v1 major release
+
 ## [0.1.80](https://github.com/mindfulness-com/mcom-utils/compare/v0.1.79...v0.1.80) (2023-10-04)
 
 ## [0.1.79](https://github.com/mindfulness-com/mcom-utils/compare/v0.1.78...v0.1.79) (2023-10-04)

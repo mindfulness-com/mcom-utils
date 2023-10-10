@@ -65,7 +65,7 @@
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
     "chokidar-cli": "^3.0.0",
-    "commit-and-tag-version": "11.2.4",
+    "commit-and-tag-version": "11.3.0",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.6.1",

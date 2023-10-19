@@ -29,8 +29,8 @@ exports.isUndefined = isUndefined;
 exports.default = (val) => val || undefined;
 /**
  * When something is defined, do something with it.
- * @param {T} thing - The `thing` to check for truthiness
- * @param {function} doWork - What to do if the `thing` is true
+ * @param {T} thing - The `thing` to check
+ * @param {function} doWork - What to do if the `thing` is defined
  * @returns {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
  */
 const when = (thing, doWork) => (0, exports.isDefined)(thing) ? doWork(thing) : undefined;
@@ -38,17 +38,17 @@ exports.when = when;
 /**
  * When something is defined, do something with it.
  * @async
- * @param {T} thing - The `thing` to check for truthiness
- * @param {function} doWork - What to do if the `thing` is true
+ * @param {T} thing - The `thing` to check
+ * @param {function} doWork - What to do if the `thing` is defined
  * @returns {Promise<unknown>} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
  */
 const whenAsync = (thing, doWork) => __awaiter(void 0, void 0, void 0, function* () { return (0, exports.when)(thing, doWork); });
 exports.whenAsync = whenAsync;
 /**
  * When something is undefined, do something. - Opposite of when
- * @param {T} thing - The `thing` to check for truthiness
- * @param {function} doWork - What to do if the `thing` is true
- * @return {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
+ * @param {T} thing - The `thing` to check
+ * @param {function} doWork - What to do if the `thing` is undefined
+ * @return {*} - returns undefined if "thing" is defined or whatever is returned from `doWork`
  */
 const unless = (thing, doWork) => (0, exports.isUndefined)(thing) ? doWork() : undefined;
 exports.unless = unless;

@@ -25,8 +25,8 @@ export default <T>(val: T | undefined | null): Maybe<T> => val || undefined;
 
 /**
  * When something is defined, do something with it.
- * @param {T} thing - The `thing` to check for truthiness
- * @param {function} doWork - What to do if the `thing` is true
+ * @param {T} thing - The `thing` to check
+ * @param {function} doWork - What to do if the `thing` is defined
  * @returns {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
  */
 export const when = <T, R>(thing: Maybe<T>, doWork: (inp: T) => R): Maybe<R> =>
@@ -35,8 +35,8 @@ export const when = <T, R>(thing: Maybe<T>, doWork: (inp: T) => R): Maybe<R> =>
 /**
  * When something is defined, do something with it.
  * @async
- * @param {T} thing - The `thing` to check for truthiness
- * @param {function} doWork - What to do if the `thing` is true
+ * @param {T} thing - The `thing` to check
+ * @param {function} doWork - What to do if the `thing` is defined
  * @returns {Promise<unknown>} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
  */
 export const whenAsync = async <T, R>(
@@ -46,9 +46,9 @@ export const whenAsync = async <T, R>(
 
 /**
  * When something is undefined, do something. - Opposite of when
- * @param {T} thing - The `thing` to check for truthiness
- * @param {function} doWork - What to do if the `thing` is true
- * @return {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
+ * @param {T} thing - The `thing` to check
+ * @param {function} doWork - What to do if the `thing` is undefined
+ * @return {*} - returns undefined if "thing" is defined or whatever is returned from `doWork`
  */
 export const unless = <T, R>(thing: Maybe<T>, doWork: () => R): Maybe<R> =>
   isUndefined(thing) ? doWork() : undefined;

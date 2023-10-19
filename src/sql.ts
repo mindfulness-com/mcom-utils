@@ -19,9 +19,9 @@ import { format } from "date-fns";
 
 import { Primitive, PrimitiveRecord } from "./types";
 import { ensureArray } from "./array";
-import { Maybe } from "./maybe";
+import { Maybe, when } from "./maybe";
 import { ifDo, ifDo_ } from "./logic";
-import { fallback } from "./fn";
+import { Fn, fallback } from "./fn";
 import { isUUID } from "./id";
 
 export const column = (name: string): string => {
@@ -194,3 +194,11 @@ export const upsert = <T = PrimitiveRecord>(
     ${formatReturning(returnFields)}
   `;
 };
+
+/**
+ * When something is defined, do something with it to return a SQL string.
+ * @param {T} thing - The `thing` to check
+ * @param {function} doWork - What to do if the `thing` is defined
+ * @returns {*} - returns empty string if "thing" is not defined or whatever is returned from `doWork`
+ */
+export const whenSQL = <T>(t: Maybe<T>, fn: Fn<T, string>) => when(t, fn) || "";

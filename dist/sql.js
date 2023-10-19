@@ -3,12 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.upsert = exports.update = exports.insert = exports.toColumns = exports.toValues = exports.toSet = exports.toLiteralArray = exports.toArray = exports.literal = exports.table = exports.column = void 0;
+exports.whenSQL = exports.upsert = exports.update = exports.insert = exports.toColumns = exports.toValues = exports.toSet = exports.toLiteralArray = exports.toArray = exports.literal = exports.table = exports.column = void 0;
 const change_case_1 = require("change-case");
 const lodash_1 = require("lodash");
 const pg_escape_1 = __importDefault(require("pg-escape"));
 const date_fns_1 = require("date-fns");
 const array_1 = require("./array");
+const maybe_1 = require("./maybe");
 const logic_1 = require("./logic");
 const fn_1 = require("./fn");
 const id_1 = require("./id");
@@ -119,4 +120,12 @@ const upsert = (table, items, onConflictKeys, updateKeys, returnFields) => {
   `;
 };
 exports.upsert = upsert;
+/**
+ * When something is defined, do something with it to return a SQL string.
+ * @param {T} thing - The `thing` to check
+ * @param {function} doWork - What to do if the `thing` is defined
+ * @returns {*} - returns empty string if "thing" is not defined or whatever is returned from `doWork`
+ */
+const whenSQL = (t, fn) => (0, maybe_1.when)(t, fn) || "";
+exports.whenSQL = whenSQL;
 //# sourceMappingURL=sql.js.map

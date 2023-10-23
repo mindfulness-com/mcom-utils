@@ -3,7 +3,9 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      # Check for npm updates on Tuesdays
+      day: "tuesday"
     open-pull-requests-limit: 40
     commit-message:
       prefix: "chore(deps):"
@@ -17,3 +19,6 @@ updates:
       - dependency-name: "date-fns"
         # neither date-fns v2, nor date-fns-tz `format` function seem to be able to emulate the same behaviour as date-fns v1 `format`.
         versions: ["2.x"]
+      # These all need updating but have known breaking changes and are being ignored to avoid noise and $$ in CI 
+      - dependency-name: "change-case"
+        versions: ["5.x"]

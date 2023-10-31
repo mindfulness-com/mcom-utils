@@ -63,7 +63,7 @@
     "@types/pg-escape": "0.2.2",
     "@types/uuid": "9.0.6",
     "@typescript-eslint/eslint-plugin": "6.9.1",
-    "@typescript-eslint/parser": "6.9.0",
+    "@typescript-eslint/parser": "6.9.1",
     "chokidar-cli": "3.0.0",
     "commit-and-tag-version": "11.3.0",
     "eslint": "8.52.0",

@@ -19,6 +19,9 @@ updates:
       - dependency-name: "date-fns"
         # neither date-fns v2, nor date-fns-tz `format` function seem to be able to emulate the same behaviour as date-fns v1 `format`.
         versions: ["2.x"]
+      - dependency-name: "commit-and-tag-version"
+        # commit-and-tag-version v12 supports Node v18 and above only.
+        versions: ["12.x"]
       # These all need updating but have known breaking changes and are being ignored to avoid noise and $$ in CI 
       - dependency-name: "change-case"
         versions: ["5.x"]

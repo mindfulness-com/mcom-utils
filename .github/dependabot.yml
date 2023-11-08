@@ -9,6 +9,16 @@ updates:
     open-pull-requests-limit: 40
     commit-message:
       prefix: "chore(deps):"
+    groups:
+      types:
+        dependency-type: "development"
+        patterns:
+          - "@types*"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"      
     ignore:
       - dependency-name: "nanoid"
         # nanoid v4 drops support for commonJs and I had real difficulty getting it to work with Jest. Clip at v3 for now and re-evaluate for v6

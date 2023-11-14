@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.1.0...v1.2.0) (2023-11-14)
+
+
+### Features
+
+* add daysUntil function ([#169](https://github.com/mindfulness-com/mcom-utils/issues/169)) ([50d4cee](https://github.com/mindfulness-com/mcom-utils/commit/50d4cee36fe0a50dad1c0e583cc7ca87ff94aeed))
+
 ## [1.1.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.0.1...v1.1.0) (2023-10-19)
 
 

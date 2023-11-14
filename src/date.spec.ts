@@ -1,4 +1,12 @@
-import { getUtcOffset, isAfternoon, isEvening, isMorning } from "./date";
+import { addDays, addMinutes, subMinutes } from "date-fns";
+import {
+  daysUntil,
+  getUtcOffset,
+  isAfternoon,
+  isEvening,
+  isMorning,
+} from "./date";
+import { now } from "./now";
 
 describe("date", () => {
   describe("getUtcOffset", () => {
@@ -71,6 +79,13 @@ describe("date", () => {
       const date = new Date(2023, 6, 28, 11, 59, 59, 999);
       expect(isMorning(date)).toEqual(true);
       expect(isAfternoon(date)).toEqual(false);
+    });
+  });
+
+  describe("daysUntil", () => {
+    test("should return the correct number of whole days between now and a specified dateTime", () => {
+      expect(daysUntil(addMinutes(addDays(now(), 5), 1))).toEqual(5);
+      expect(daysUntil(subMinutes(addDays(now(), 5), 1))).toEqual(4);
     });
   });
 });

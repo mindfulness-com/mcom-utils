@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.2.0...v1.3.0) (2023-11-28)
+
+
+### Features
+
+* extended url functions ([#172](https://github.com/mindfulness-com/mcom-utils/issues/172)) ([79e08c0](https://github.com/mindfulness-com/mcom-utils/commit/79e08c07aff00ef02e86ef4151bce518f8a908d2))
+
 ## [1.2.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.1.0...v1.2.0) (2023-11-14)
 
 

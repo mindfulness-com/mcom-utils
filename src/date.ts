@@ -13,6 +13,7 @@ import { isGreaterThan, isLessThan } from "./time";
 
 // raw date-fns exports
 export {
+  isDate,
   isValid,
   isAfter,
   isBefore,

@@ -7,12 +7,12 @@ exports.whenSQL = exports.upsert = exports.update = exports.insert = exports.toC
 const change_case_1 = require("change-case");
 const lodash_1 = require("lodash");
 const pg_escape_1 = __importDefault(require("pg-escape"));
-const date_fns_1 = require("date-fns");
 const array_1 = require("./array");
 const maybe_1 = require("./maybe");
 const logic_1 = require("./logic");
 const fn_1 = require("./fn");
 const id_1 = require("./id");
+const date_1 = require("./date");
 const column = (name) => {
     const col = (0, change_case_1.snakeCase)(name);
     // Special columns should be in quotes
@@ -35,7 +35,7 @@ const literal = (value) => {
     }
     // Format dates in UTC
     if ((0, lodash_1.isDate)(value)) {
-        return `'${(0, date_fns_1.format)(value, "YYYY-MM-DD HH:mm:ss.SSSZZ")}'`;
+        return `'${(0, date_1.format)(value, "yyyy-MM-dd HH:mm:ss.SSSxxxx")}'`;
     }
     if (typeof value === "string") {
         return pg_escape_1.default.literal(value);

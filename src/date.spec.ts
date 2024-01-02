@@ -1,10 +1,13 @@
-import { addDays, addMinutes, subMinutes } from "date-fns";
 import {
   daysUntil,
   getUtcOffset,
   isAfternoon,
   isEvening,
   isMorning,
+  addDays,
+  addMinutes,
+  subMinutes,
+  format,
 } from "./date";
 import { now } from "./now";
 
@@ -86,6 +89,24 @@ describe("date", () => {
     test("should return the correct number of whole days between now and a specified dateTime", () => {
       expect(daysUntil(addMinutes(addDays(now(), 5), 1))).toEqual(5);
       expect(daysUntil(subMinutes(addDays(now(), 5), 1))).toEqual(4);
+    });
+  });
+
+  describe("format", () => {
+    test("should format dates", () => {
+      expect(
+        format(new Date("2019-08-08T00:00:00.000Z"), "yyyy-MM-dd"),
+      ).toEqual("2019-08-08");
+    });
+
+    test("should format times", () => {
+      expect(
+        format(new Date("2019-08-08T12:34:56.789Z"), "HH:mm:ss.SSSxxxx"),
+      ).toEqual("12:34:56.789+0000");
+
+      expect(
+        format(new Date("2019-08-08T12:34:56.789+1234"), "HH:mm:ss.SSSxxxx"),
+      ).toEqual("00:00:56.789+0000");
     });
   });
 });

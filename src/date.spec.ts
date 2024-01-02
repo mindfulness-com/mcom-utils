@@ -8,6 +8,7 @@ import {
   addMinutes,
   subMinutes,
   format,
+  daysBetween,
 } from "./date";
 import { now } from "./now";
 
@@ -89,6 +90,35 @@ describe("date", () => {
     test("should return the correct number of whole days between now and a specified dateTime", () => {
       expect(daysUntil(addMinutes(addDays(now(), 5), 1))).toEqual(5);
       expect(daysUntil(subMinutes(addDays(now(), 5), 1))).toEqual(4);
+    });
+  });
+
+  describe("daysBetween", () => {
+    test("calculates days between two dates", () => {
+      expect(
+        daysBetween(
+          new Date("2022-02-22 00:00:00"),
+          new Date("2022-02-23 00:00:00"),
+        ),
+      ).toBe(1);
+    });
+
+    test("calculates days between two dates odd hours", () => {
+      expect(
+        daysBetween(
+          new Date("2022-02-22 20:00:00"),
+          new Date("2022-02-23 00:00:00"),
+        ),
+      ).toBe(1);
+    });
+
+    test("calculates days between two dates further apart", () => {
+      expect(
+        daysBetween(
+          new Date("2022-02-22 12:00:00"),
+          new Date("2022-02-27 00:00:00"),
+        ),
+      ).toBe(5);
     });
   });
 

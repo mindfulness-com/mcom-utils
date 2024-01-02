@@ -7,7 +7,7 @@ import {
   inFuture,
   endOfDay,
 } from "./time";
-import { addDays, subDays } from "date-fns";
+import { addDays, subDays } from "./date";
 
 test("toSeconds should convert basic things", () => {
   expect(toSeconds("1 year")).toBe(1 * 365 * 24 * 60 * 60);

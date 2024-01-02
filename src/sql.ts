@@ -15,7 +15,6 @@ import {
   isString,
 } from "lodash";
 import pgEscape from "pg-escape";
-import { format } from "date-fns";
 
 import { Primitive, PrimitiveRecord } from "./types";
 import { ensureArray } from "./array";
@@ -23,6 +22,7 @@ import { Maybe, when } from "./maybe";
 import { ifDo, ifDo_ } from "./logic";
 import { Fn, fallback } from "./fn";
 import { isUUID } from "./id";
+import { format } from "./date";
 
 export const column = (name: string): string => {
   const col = snakeCase(name);
@@ -50,7 +50,7 @@ export const literal = (value: Primitive | Primitive[]): string => {
 
   // Format dates in UTC
   if (isDate(value)) {
-    return `'${format(value, "YYYY-MM-DD HH:mm:ss.SSSZZ")}'`;
+    return `'${format(value, "yyyy-MM-dd HH:mm:ss.SSSxxxx")}'`;
   }
 
   if (typeof value === "string") {

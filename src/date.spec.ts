@@ -1,10 +1,12 @@
-import { addDays, addMinutes, subMinutes } from "date-fns";
 import {
   daysUntil,
   getUtcOffset,
   isAfternoon,
   isEvening,
   isMorning,
+  addDays,
+  addMinutes,
+  subMinutes,
 } from "./date";
 import { now } from "./now";
 

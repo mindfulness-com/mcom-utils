@@ -40,7 +40,7 @@
     "bluebird": "3.7.2",
     "change-case": "4.1.2",
     "compare-versions": "6.1.0",
-    "date-fns": "3.2.0",
+    "date-fns": "3.3.1",
     "date-fns-timezone": "0.1.4",
     "dotenv": "16.3.2",
     "lodash": "4.17.21",

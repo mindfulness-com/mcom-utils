@@ -21,7 +21,7 @@ export declare const when: <T, R>(thing: Maybe<T>, doWork: (inp: T) => R) => May
  * @param {function} doWork - What to do if the `thing` is defined
  * @returns {Promise<unknown>} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
  */
-export declare const whenAsync: <T, R>(thing: Maybe<T>, doWork: (inp: T) => Promise<R>) => Promise<R | undefined>;
+export declare const whenAsync: <T, R>(thing: Maybe<T>, doWork: (inp: T) => Promise<R>) => Promise<Maybe<R>>;
 /**
  * When something is undefined, do something. - Opposite of when
  * @param {T} thing - The `thing` to check
@@ -29,3 +29,15 @@ export declare const whenAsync: <T, R>(thing: Maybe<T>, doWork: (inp: T) => Prom
  * @return {*} - returns undefined if "thing" is defined or whatever is returned from `doWork`
  */
 export declare const unless: <T, R>(thing: Maybe<T>, doWork: () => R) => Maybe<R>;
+/**
+ * If the unknown value is a string then return it as a string, otherwise return undefined
+ * @param {unknown} value - The value to check
+ * @return {Maybe<string>} - returns the unknown value if it is a string, otherwise returns undefined
+ */
+export declare const testIsString: (value: unknown) => Maybe<string>;
+/**
+ * If the unknown value is a number, or a numeric string, then return it as a number, otherwise return undefined
+ * @param {unknown} value - The value to check
+ * @return {Maybe<number>} - returns the unknown value if it is a number, otherwise returns undefined
+ */
+export declare const testIsNumber: (value: unknown) => Maybe<number>;

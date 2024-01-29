@@ -1,6 +1,6 @@
 /* eslint @typescript-eslint/no-explicit-any:off */
 
-import { every } from "lodash";
+import { every, isNumber } from "lodash";
 
 export type Nothing = undefined;
 export type Maybe<T> = T | Nothing;
@@ -42,7 +42,7 @@ export const when = <T, R>(thing: Maybe<T>, doWork: (inp: T) => R): Maybe<R> =>
 export const whenAsync = async <T, R>(
   thing: Maybe<T>,
   doWork: (inp: T) => Promise<R>,
-): Promise<R | undefined> => when(thing, doWork);
+): Promise<Maybe<R>> => when(thing, doWork);
 
 /**
  * When something is undefined, do something. - Opposite of when
@@ -52,3 +52,25 @@ export const whenAsync = async <T, R>(
  */
 export const unless = <T, R>(thing: Maybe<T>, doWork: () => R): Maybe<R> =>
   isUndefined(thing) ? doWork() : undefined;
+
+/**
+ * If the unknown value is a string then return it as a string, otherwise return undefined
+ * @param {unknown} value - The value to check
+ * @return {Maybe<string>} - returns the unknown value if it is a string, otherwise returns undefined
+ */
+export const testIsString = (value: unknown): Maybe<string> =>
+  isString(value) ? value : undefined;
+
+const testIsNumericString = (value: unknown): Maybe<string> =>
+  when(testIsString(value), s => (s.match(/^\d*\.?\d+$/) ? s : undefined)) ||
+  undefined;
+
+/**
+ * If the unknown value is a number, or a numeric string, then return it as a number, otherwise return undefined
+ * @param {unknown} value - The value to check
+ * @return {Maybe<number>} - returns the unknown value if it is a number, otherwise returns undefined
+ */
+export const testIsNumber = (value: unknown): Maybe<number> =>
+  isNumber(value)
+    ? value
+    : when(testIsNumericString(value), s => Number(s)) || undefined;

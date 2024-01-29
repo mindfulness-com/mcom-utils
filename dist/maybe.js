@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.unless = exports.whenAsync = exports.when = exports.isUndefined = exports.isAllDefined = exports.isDefined = exports.isString = exports.identity = void 0;
+exports.testIsNumber = exports.testIsString = exports.unless = exports.whenAsync = exports.when = exports.isUndefined = exports.isAllDefined = exports.isDefined = exports.isString = exports.identity = void 0;
 const lodash_1 = require("lodash");
 const identity = (thing) => thing;
 exports.identity = identity;
@@ -52,4 +52,22 @@ exports.whenAsync = whenAsync;
  */
 const unless = (thing, doWork) => (0, exports.isUndefined)(thing) ? doWork() : undefined;
 exports.unless = unless;
+/**
+ * If the unknown value is a string then return it as a string, otherwise return undefined
+ * @param {unknown} value - The value to check
+ * @return {Maybe<string>} - returns the unknown value if it is a string, otherwise returns undefined
+ */
+const testIsString = (value) => (0, exports.isString)(value) ? value : undefined;
+exports.testIsString = testIsString;
+const testIsNumericString = (value) => (0, exports.when)((0, exports.testIsString)(value), s => (s.match(/^\d*\.?\d+$/) ? s : undefined)) ||
+    undefined;
+/**
+ * If the unknown value is a number, or a numeric string, then return it as a number, otherwise return undefined
+ * @param {unknown} value - The value to check
+ * @return {Maybe<number>} - returns the unknown value if it is a number, otherwise returns undefined
+ */
+const testIsNumber = (value) => (0, lodash_1.isNumber)(value)
+    ? value
+    : (0, exports.when)(testIsNumericString(value), s => Number(s)) || undefined;
+exports.testIsNumber = testIsNumber;
 //# sourceMappingURL=maybe.js.map

@@ -5,7 +5,7 @@ export declare const isString: (val: string | any) => val is string;
 export declare const isDefined: <T>(x: Maybe<T>) => x is T;
 export declare const isAllDefined: <T>(vals: Maybe<T>[]) => vals is T[];
 export declare const isUndefined: <T>(x: Maybe<T>) => x is undefined;
-declare const _default: <T>(val: T | null | undefined) => Maybe<T>;
+declare const _default: <T>(val: T | undefined | null) => Maybe<T>;
 export default _default;
 /**
  * When something is defined, do something with it.

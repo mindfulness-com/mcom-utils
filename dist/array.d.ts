@@ -19,7 +19,7 @@ export declare const indexBy: <T>(items: T[], pick: (i: T) => Maybe<string | str
 export declare const lookup: <T>(items: T[], pick: (i: T) => Maybe<string | string[]>, fallback?: ((k: string) => T) | undefined) => (key: string) => NonNullable<T>;
 export declare const maybeLookup: <T>(items: T[], pick: (i: T) => Maybe<string | string[]>) => Fn<string, Maybe<T>>;
 export declare const maybeMap: <T, R>(items: T[], map: (i: T) => Maybe<R>) => R[];
-export declare const omitEmpty: <T>(vals: (T | null | undefined)[]) => T[];
+export declare const omitEmpty: <T>(vals: Array<T | undefined | null>) => T[];
 export declare const sampleOne: <T>(ts: T[]) => T;
 /**
  * Inserts an array of items at a given index;

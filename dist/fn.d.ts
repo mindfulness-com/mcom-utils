@@ -1,7 +1,7 @@
 import { Maybe } from "./maybe";
 export type Pred<T> = (t: T) => boolean;
 export type Fn<T, R> = (t: T) => R;
-export declare const otherwise: <T>(_?: T | undefined) => boolean;
+export declare const otherwise: <T>(_?: T) => boolean;
 export declare const defined: <T>(t: Maybe<T>) => t is T;
 export declare const not: <T>(p: Pred<T>) => Pred<T>;
 export declare function until<R>(f5: Fn<void, Promise<Maybe<R>> | Maybe<R>>, f4: Fn<void, Promise<Maybe<R>> | Maybe<R>>, f3: Fn<void, Promise<Maybe<R>> | Maybe<R>>, f2: Fn<void, Promise<Maybe<R>> | Maybe<R>>, f1: Fn<void, Promise<R> | R>): Promise<R>;

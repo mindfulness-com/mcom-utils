@@ -9,5 +9,5 @@ export declare const paginate: <T>(fn: (page: number, size: number, total: numbe
 }) => Promise<T[]>;
 export declare const batchMap: <T, R>(fn: (item: T, index: number, total: number) => Promise<R>, opts: {
     items: T[];
-    concurrent?: number | undefined;
+    concurrent?: number;
 }) => Promise<R[]>;

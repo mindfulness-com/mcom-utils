@@ -29,8 +29,8 @@ export declare const isEnvVarSet: (name: string) => boolean;
 export declare const getEnvVar: (name: string) => string;
 export declare const getEnvVarBool: (name: string) => Maybe<boolean>;
 export declare const envOption: <T>(options: {
-    test?: T | undefined;
+    test?: T;
     dev: T;
     prod: T;
-    local?: T | undefined;
+    local?: T;
 }) => T;

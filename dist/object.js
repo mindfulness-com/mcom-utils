@@ -10,7 +10,7 @@ const change_case_1 = require("change-case");
  * @returns The stripped object.
  * @example
  * omitEmpty({ a: "", b: "asdas", c: false, d: null, e: undefined, f: 0 });
- * // { b: "asdas", c: false, f: 0 }
+ * // { a: "", b: "asdas", c: false, f: 0 }
  */
 const omitEmpty = (obj) => (0, lodash_1.reduce)((0, lodash_1.keys)(obj), (v, key) => {
     if (!(0, lodash_1.isNil)(obj[key])) {

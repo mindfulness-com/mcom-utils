@@ -7,7 +7,7 @@ type DeepObject = Record<string, string | Record<string, any>>;
  * @returns The stripped object.
  * @example
  * omitEmpty({ a: "", b: "asdas", c: false, d: null, e: undefined, f: 0 });
- * // { b: "asdas", c: false, f: 0 }
+ * // { a: "", b: "asdas", c: false, f: 0 }
  */
 export declare const omitEmpty: <T, K extends keyof T>(obj: T) => Partial<T>;
 export declare const keysDeep: (obj: DeepObject, parent?: string) => string[];

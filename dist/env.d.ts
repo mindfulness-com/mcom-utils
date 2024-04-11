@@ -1,4 +1,3 @@
-/// <reference types="jest" />
 import { Maybe } from "./maybe";
 export declare enum Env {
     Development = "development",

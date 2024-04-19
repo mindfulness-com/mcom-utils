@@ -32,7 +32,7 @@ describe("maybe", () => {
       expect(isString(true)).toEqual(false);
       expect(isString(false)).toEqual(false);
       expect(isString({})).toEqual(false);
-      expect(isString(Date.now())).toEqual(false);
+      expect(isString(new Date())).toEqual(false);
       expect(isString(/^\?/)).toEqual(false);
     });
   });
@@ -53,7 +53,7 @@ describe("maybe", () => {
       expect(isDefined(true)).toEqual(true);
       expect(isDefined(false)).toEqual(true);
       expect(isDefined({})).toEqual(true);
-      expect(isDefined(Date.now())).toEqual(true);
+      expect(isDefined(new Date())).toEqual(true);
       expect(isDefined(/^\?/)).toEqual(true);
     });
   });
@@ -61,7 +61,7 @@ describe("maybe", () => {
   describe("isAllDefined", () => {
     test("should be true if everything is defined", () => {
       expect(
-        isAllDefined(["string", NaN, 1, true, false, {}, Date.now(), /^\?/]),
+        isAllDefined(["string", NaN, 1, true, false, {}, new Date(), /^\?/]),
       ).toEqual(true);
     });
 
@@ -74,7 +74,7 @@ describe("maybe", () => {
           true,
           false,
           {},
-          Date.now(),
+          new Date(),
           /^\?/,
           undefined,
         ]),
@@ -90,7 +90,7 @@ describe("maybe", () => {
           true,
           false,
           {},
-          Date.now(),
+          new Date(),
           /^\?/,
           null,
         ]),
@@ -114,7 +114,7 @@ describe("maybe", () => {
       expect(isUndefined(true)).toEqual(false);
       expect(isUndefined(false)).toEqual(false);
       expect(isUndefined({})).toEqual(false);
-      expect(isUndefined(Date.now())).toEqual(false);
+      expect(isUndefined(new Date())).toEqual(false);
       expect(isUndefined(/^\?/)).toEqual(false);
     });
   });

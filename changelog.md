@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.5.0...v1.6.0) (2024-05-10)
+
+
+### Features
+
+* string case conversion functions ([#226](https://github.com/mindfulness-com/mcom-utils/issues/226)) ([73272eb](https://github.com/mindfulness-com/mcom-utils/commit/73272eb3ca57ba77e11c972764be0dd6f053ab42))
+
 ## [1.5.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.4.0...v1.5.0) (2024-01-29)
 
 

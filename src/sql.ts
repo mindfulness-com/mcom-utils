@@ -1,4 +1,3 @@
-import { snakeCase } from "change-case";
 import {
   isDate,
   keys,
@@ -23,6 +22,7 @@ import { ifDo, ifDo_ } from "./logic";
 import { Fn, fallback } from "./fn";
 import { isUUID } from "./id";
 import { format } from "./date";
+import { snakeCase } from "./string";
 
 export const column = (name: string): string => {
   const col = snakeCase(name);

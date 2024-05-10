@@ -6,6 +6,8 @@ import {
   literal,
   insert,
   update,
+  table,
+  column,
 } from "./sql";
 
 const ignoreWhitesace = (s: string) => s.replace(/\s/gi, "").trim();
@@ -240,6 +242,28 @@ describe("sql", () => {
       expect(literal(false)).toEqual("false");
       expect(literal(null)).toEqual("NULL");
       expect(literal(undefined)).toEqual("");
+    });
+  });
+
+  describe("table", () => {
+    test("should snake_case table names", () => {
+      expect(table("tablename")).toEqual("tablename");
+      expect(table("table name")).toEqual("table_name");
+      expect(table("tableName")).toEqual("table_name");
+      expect(table("TableName")).toEqual("table_name");
+    });
+  });
+
+  describe("column", () => {
+    test("should snake_case column names", () => {
+      expect(column("columnname")).toEqual("columnname");
+      expect(column("column name")).toEqual("column_name");
+      expect(column("columnName")).toEqual("column_name");
+      expect(column("ColumnName")).toEqual("column_name");
+    });
+
+    test(`should quote "special" column names`, () => {
+      expect(column("order")).toEqual(`"order"`);
     });
   });
 });

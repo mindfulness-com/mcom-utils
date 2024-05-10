@@ -14,7 +14,7 @@ import {
   mapKeys,
   assign as _assign,
 } from "lodash";
-import { snakeCase } from "change-case";
+import { snakeCase } from "./string";
 
 type DeepObject = Record<string, string | Record<string, any>>;
 

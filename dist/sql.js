@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.whenSQL = exports.upsert = exports.update = exports.insert = exports.toColumns = exports.toValues = exports.toSet = exports.toLiteralArray = exports.toArray = exports.literal = exports.table = exports.column = void 0;
-const change_case_1 = require("change-case");
 const lodash_1 = require("lodash");
 const pg_escape_1 = __importDefault(require("pg-escape"));
 const array_1 = require("./array");
@@ -13,8 +12,9 @@ const logic_1 = require("./logic");
 const fn_1 = require("./fn");
 const id_1 = require("./id");
 const date_1 = require("./date");
+const string_1 = require("./string");
 const column = (name) => {
-    const col = (0, change_case_1.snakeCase)(name);
+    const col = (0, string_1.snakeCase)(name);
     // Special columns should be in quotes
     if (col === "order") {
         return `"${col}"`;
@@ -22,7 +22,7 @@ const column = (name) => {
     return col;
 };
 exports.column = column;
-const table = (name) => (0, change_case_1.snakeCase)(name);
+const table = (name) => (0, string_1.snakeCase)(name);
 exports.table = table;
 const literal = (value) => {
     // Treat null as NULL

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.set = exports.keysToSnakeCase = exports.hasChanges = exports.keysDeep = exports.omitEmpty = void 0;
 const lodash_1 = require("lodash");
-const change_case_1 = require("change-case");
+const string_1 = require("./string");
 /**
  * Returns an object with all the key/value pairs that are null or undefined are removed.
  * @param obj The object to strip null and undefined from.
@@ -43,7 +43,7 @@ exports.keysDeep = keysDeep;
 const isWeakEqual = (a, b) => ((0, lodash_1.isNil)(a) && (0, lodash_1.isNil)(b)) || (0, lodash_1.isEqual)(a, b);
 const hasChanges = (a, b) => (0, lodash_1.some)((0, lodash_1.keys)(a), key => !isWeakEqual((0, lodash_1.get)(a, key), b ? (0, lodash_1.get)(b, key) : undefined));
 exports.hasChanges = hasChanges;
-const keysToSnakeCase = (obj) => (0, lodash_1.mapKeys)(obj, (_v, key) => (0, change_case_1.snakeCase)(key));
+const keysToSnakeCase = (obj) => (0, lodash_1.mapKeys)(obj, (_v, key) => (0, string_1.snakeCase)(key));
 exports.keysToSnakeCase = keysToSnakeCase;
 const set = (obj, fields) => (0, lodash_1.assign)(obj, fields);
 exports.set = set;

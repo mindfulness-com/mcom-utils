@@ -1,44 +1,19 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.snakeCase = exports.sentenceCase = exports.pathCase = exports.pascalCase = exports.noCase = exports.hyphenCase = exports.kebabCase = exports.dotCase = exports.startCase = exports.capitalCase = exports.camelCase = void 0;
-const lodash = __importStar(require("lodash"));
-exports.camelCase = lodash.camelCase;
-exports.capitalCase = lodash.startCase;
-exports.startCase = lodash.startCase;
-const dotCase = (val) => (0, exports.kebabCase)(val).replace(/-/g, ".");
-exports.dotCase = dotCase;
-exports.kebabCase = lodash.kebabCase;
-exports.hyphenCase = lodash.kebabCase;
-const noCase = (val) => lodash.startCase(val).toLocaleLowerCase();
-exports.noCase = noCase;
-const pascalCase = (val) => lodash.upperFirst((0, exports.camelCase)(val));
-exports.pascalCase = pascalCase;
-const pathCase = (val) => (0, exports.kebabCase)(val).replace(/-/g, "/");
-exports.pathCase = pathCase;
-const sentenceCase = (val) => lodash.upperFirst((0, exports.kebabCase)(val).replace(/-/g, " "));
-exports.sentenceCase = sentenceCase;
-exports.snakeCase = lodash.snakeCase;
+exports.snakeCase = exports.sentenceCase = exports.pathCase = exports.pascalCase = exports.noCase = exports.hyphenCase = exports.kebabCase = exports.dotCase = exports.startCase = exports.titleCase = exports.capitalCase = exports.camelCase = void 0;
+const change_case_all_1 = require("change-case-all");
+exports.camelCase = change_case_all_1.Case.camel;
+exports.capitalCase = change_case_all_1.Case.capital;
+const titleCase = (val) => change_case_all_1.Case.title(change_case_all_1.Case.no(val));
+exports.titleCase = titleCase;
+const startCase = (val) => change_case_all_1.Case.title(change_case_all_1.Case.no(val));
+exports.startCase = startCase;
+exports.dotCase = change_case_all_1.Case.dot;
+exports.kebabCase = change_case_all_1.Case.kebab;
+exports.hyphenCase = change_case_all_1.Case.kebab;
+exports.noCase = change_case_all_1.Case.no;
+exports.pascalCase = change_case_all_1.Case.pascal;
+exports.pathCase = change_case_all_1.Case.path;
+exports.sentenceCase = change_case_all_1.Case.sentence;
+exports.snakeCase = change_case_all_1.Case.snake;
 //# sourceMappingURL=string.js.map

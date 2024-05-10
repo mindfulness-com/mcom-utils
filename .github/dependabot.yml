@@ -29,6 +29,3 @@ updates:
       - dependency-name: "commit-and-tag-version"
         # commit-and-tag-version v12 supports Node v18 and above only.
         versions: ["12.x"]
-      # These all need updating but have known breaking changes and are being ignored to avoid noise and $$ in CI 
-      - dependency-name: "change-case"
-        versions: ["5.x"]

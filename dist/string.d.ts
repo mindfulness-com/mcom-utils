@@ -1,3 +1,11 @@
-import * as changeCase from "change-case";
-export declare const snakeCase: typeof changeCase.snakeCase;
-export declare const camelCase: typeof changeCase.camelCase;
+export declare const camelCase: (string?: string | undefined) => string;
+export declare const capitalCase: (string?: string | undefined) => string;
+export declare const startCase: (string?: string | undefined) => string;
+export declare const dotCase: (val: string) => string;
+export declare const kebabCase: (string?: string | undefined) => string;
+export declare const hyphenCase: (string?: string | undefined) => string;
+export declare const noCase: (val: string) => string;
+export declare const pascalCase: (val: string) => string;
+export declare const pathCase: (val: string) => string;
+export declare const sentenceCase: (val: string) => string;
+export declare const snakeCase: (string?: string | undefined) => string;

@@ -4,24 +4,25 @@ import { every, isNumber } from "lodash";
 
 export type Nothing = undefined;
 export type Maybe<T> = T | Nothing;
+export type Nullable<T> = T | Nothing | null;
 
 export const identity = <T>(thing: T): T => thing;
 
 export const isString = (val: string | any): val is string =>
   typeof val === "string";
 
-export const isDefined = <T>(x: Maybe<T>): x is T => {
+export const isDefined = <T>(x: Nullable<T>): x is T => {
   return x !== undefined && x !== null;
 };
 
-export const isAllDefined = <T>(vals: Maybe<T>[]): vals is T[] =>
+export const isAllDefined = <T>(vals: Nullable<T>[]): vals is T[] =>
   every(vals, isDefined);
 
-export const isUndefined = <T>(x: Maybe<T>): x is undefined => {
+export const isUndefined = <T>(x: Nullable<T>): x is undefined => {
   return x === undefined || x === null;
 };
 
-export default <T>(val: T | undefined | null): Maybe<T> => val || undefined;
+export default <T>(val: T | Nothing | null): Maybe<T> => val || undefined;
 
 /**
  * When something is defined, do something with it.
@@ -29,8 +30,10 @@ export default <T>(val: T | undefined | null): Maybe<T> => val || undefined;
  * @param {function} doWork - What to do if the `thing` is defined
  * @returns {*} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
  */
-export const when = <T, R>(thing: Maybe<T>, doWork: (inp: T) => R): Maybe<R> =>
-  isDefined(thing) ? doWork(thing) : undefined;
+export const when = <T, R>(
+  thing: Nullable<T>,
+  doWork: (inp: T) => R,
+): Maybe<R> => (isDefined(thing) ? doWork(thing) : undefined);
 
 /**
  * When something is defined, do something with it.
@@ -40,17 +43,17 @@ export const when = <T, R>(thing: Maybe<T>, doWork: (inp: T) => R): Maybe<R> =>
  * @returns {Promise<unknown>} - returns undefined if "thing" is not defined or whatever is returned from `doWork`
  */
 export const whenAsync = async <T, R>(
-  thing: Maybe<T>,
+  thing: Nullable<T>,
   doWork: (inp: T) => Promise<R>,
 ): Promise<Maybe<R>> => when(thing, doWork);
 
 /**
- * When something is undefined, do something. - Opposite of when
+ * When something is undefined (or null), do something. - Opposite of when
  * @param {T} thing - The `thing` to check
  * @param {function} doWork - What to do if the `thing` is undefined
  * @return {*} - returns undefined if "thing" is defined or whatever is returned from `doWork`
  */
-export const unless = <T, R>(thing: Maybe<T>, doWork: () => R): Maybe<R> =>
+export const unless = <T, R>(thing: Nullable<T>, doWork: () => R): Maybe<R> =>
   isUndefined(thing) ? doWork() : undefined;
 
 /**

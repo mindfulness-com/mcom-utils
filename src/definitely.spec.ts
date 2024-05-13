@@ -1,6 +1,6 @@
-import { getOrElse, definetly, string, number } from "./definetly";
+import { getOrElse, definitely, string, number } from "./definitely";
 
-describe("definetly", () => {
+describe("definitely", () => {
   describe("getOrElse", () => {
     test("should return default when val is undefined", () => {
       expect(getOrElse(undefined, "default")).toEqual("default");
@@ -20,26 +20,27 @@ describe("definetly", () => {
     });
   });
 
-  describe("definetly", () => {
+  describe("definitely", () => {
     test("should throw for an undefined value", async () => {
       await expect(() =>
-        definetly(undefined, "undefined value"),
+        definitely(undefined, "undefined value"),
       ).toThrowErrorMatchingInlineSnapshot('"undefined value"');
     });
 
     test("should throw for a null value", async () => {
       await expect(() =>
-        definetly(null, "null value"),
+        definitely(null, "null value"),
       ).toThrowErrorMatchingInlineSnapshot('"null value"');
     });
 
     test("should not throw for everything else", async () => {
-      await expect(() => definetly(NaN, "no throw")).not.toThrow();
-      await expect(() => definetly(1, "no throw")).not.toThrow();
-      await expect(() => definetly(true, "no throw")).not.toThrow();
-      await expect(() => definetly(false, "no throw")).not.toThrow();
-      await expect(() => definetly({ foo: "bar" }, "no throw")).not.toThrow();
-      await expect(() => definetly(/^\?/, "no throw")).not.toThrow();
+      await expect(() => definitely(NaN, "no throw")).not.toThrow();
+      await expect(() => definitely(0, "no throw")).not.toThrow();
+      await expect(() => definitely(1, "no throw")).not.toThrow();
+      await expect(() => definitely(true, "no throw")).not.toThrow();
+      await expect(() => definitely(false, "no throw")).not.toThrow();
+      await expect(() => definitely({ foo: "bar" }, "no throw")).not.toThrow();
+      await expect(() => definitely(/^\?/, "no throw")).not.toThrow();
     });
   });
 

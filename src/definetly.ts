@@ -1,20 +1,7 @@
-import { isDefined, Maybe } from "./maybe";
+import { definitely } from "./definitely";
+export { getOrElse, string, number } from "./definitely";
 
-export const getOrElse = <T>(val: Maybe<T>, defaultValue: T): T =>
-  isDefined(val) ? val : defaultValue;
-
-export const definetly = <T>(val: Maybe<T>, errorMessage: string) => {
-  if (!isDefined(val)) {
-    throw new Error(errorMessage);
-  }
-  return val;
-};
-
-export const string = (val: Maybe<string>): string => getOrElse(val, "");
-
-export const number = (val: Maybe<number>): number => getOrElse(val, 0);
-
-export default {
-  string,
-  number,
-};
+/**
+ * deprecated - please use definitely!
+ **/
+export const definetly = definitely;

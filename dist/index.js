@@ -25,7 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.math = exports.semvar = exports.sql = exports.timezone = exports.maybe = exports.definetly = exports.cache = exports.promise = exports.logic = exports.fn = exports.date = exports.time = exports.profile = exports.env = exports.array = exports.debug = exports.object = exports.id = exports.error = exports.currency = exports.boolean = void 0;
+exports.math = exports.semvar = exports.sql = exports.timezone = exports.maybe = exports.definitely = exports.definetly = exports.cache = exports.promise = exports.logic = exports.fn = exports.date = exports.time = exports.profile = exports.env = exports.array = exports.debug = exports.object = exports.id = exports.error = exports.currency = exports.boolean = void 0;
 const boolean = __importStar(require("./boolean"));
 exports.boolean = boolean;
 const currency = __importStar(require("./currency"));
@@ -58,6 +58,8 @@ const cache = __importStar(require("./cache"));
 exports.cache = cache;
 const definetly = __importStar(require("./definetly"));
 exports.definetly = definetly;
+const definitely = __importStar(require("./definitely"));
+exports.definitely = definitely;
 const semvar = __importStar(require("./semvar"));
 exports.semvar = semvar;
 const maybe = __importStar(require("./maybe"));

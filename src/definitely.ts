@@ -1,3 +1,4 @@
+import { first } from "lodash";
 import { isDefined, Nullable } from "./maybe";
 
 export const getOrElse = <T>(val: Nullable<T>, defaultValue: T): T =>
@@ -9,6 +10,9 @@ export const definitely = <T>(val: Nullable<T>, errorMessage: string): T => {
   }
   return val;
 };
+
+export const definitelyOne = <T>(val: T[], errorMessage: string): T =>
+  definitely(first(val), errorMessage);
 
 export const string = (val: Nullable<string>): string => getOrElse(val, "");
 

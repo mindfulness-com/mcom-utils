@@ -1,4 +1,10 @@
-import { getOrElse, definitely, string, number } from "./definitely";
+import {
+  getOrElse,
+  definitely,
+  definitelyOne,
+  string,
+  number,
+} from "./definitely";
 
 describe("definitely", () => {
   describe("getOrElse", () => {
@@ -41,6 +47,33 @@ describe("definitely", () => {
       await expect(() => definitely(false, "no throw")).not.toThrow();
       await expect(() => definitely({ foo: "bar" }, "no throw")).not.toThrow();
       await expect(() => definitely(/^\?/, "no throw")).not.toThrow();
+    });
+  });
+
+  describe("definitelyOne", () => {
+    test("should throw for an empty array", async () => {
+      await expect(() =>
+        definitelyOne([], "empty array"),
+      ).toThrowErrorMatchingInlineSnapshot('"empty array"');
+    });
+
+    test("should throw for an array containing undefined first", async () => {
+      await expect(() =>
+        definitelyOne([undefined, "foo"], "undefined first"),
+      ).toThrowErrorMatchingInlineSnapshot('"undefined first"');
+    });
+
+    test("should throw for an array containing null first", async () => {
+      await expect(() =>
+        definitelyOne([null, "foo"], "null first"),
+      ).toThrowErrorMatchingInlineSnapshot('"null first"');
+    });
+
+    test("should not throw for an array containing an element", async () => {
+      await expect(() =>
+        definitelyOne(["foo", "bar"], "no throw"),
+      ).not.toThrow();
+      expect(definitelyOne(["foo", "bar"], "no throw")).toEqual("foo");
     });
   });
 

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.8.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.7.0...v1.8.0) (2024-05-13)
+
+
+### Features
+
+* definitelyOne function ([fb756e9](https://github.com/mindfulness-com/mcom-utils/commit/fb756e94c3065ab25c406670a44d56f10e363bdb))
+
 ## [1.7.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.6.0...v1.7.0) (2024-05-13)
 
 

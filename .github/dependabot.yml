@@ -26,6 +26,3 @@ updates:
       - dependency-name: "query-string"
         # query-string v8 drops support for commonJs and I had real difficulty getting it to work with Jest. Clip at v7 for now and re-evaluate for v10
         versions: ["8.x", "9.x"]
-      - dependency-name: "commit-and-tag-version"
-        # commit-and-tag-version v12 supports Node v18 and above only.
-        versions: ["12.x"]

@@ -1,0 +1,2 @@
+directory: "/.circleci/config.yml" # Folder where the circleci config files are located
+schedule: "daily" # Options are (daily, weekly, monthly)

@@ -80,7 +80,6 @@ jobs:
           name: "Running jest test suite."
           command: npm run test
 workflows:
-  version: 2
   build_and_deploy:
     jobs:
       - checkout_code

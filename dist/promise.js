@@ -10,7 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.usingAll = exports.waitFor = exports.mapMost = exports.most = exports.mapAll = exports.some = exports.all = void 0;
+exports.waitFor = exports.mapMost = exports.most = exports.mapAll = void 0;
+exports.all = all;
+exports.some = some;
+exports.usingAll = usingAll;
 const lodash_1 = require("lodash");
 const fn_1 = require("./fn");
 const bluebird_1 = require("bluebird");
@@ -21,7 +24,6 @@ function all(values) {
     // @ts-ignore
     return (0, bluebird_1.all)(values);
 }
-exports.all = all;
 function some(values, log) {
     return __awaiter(this, void 0, void 0, function* () {
         const errors = [];
@@ -40,7 +42,6 @@ function some(values, log) {
         return res;
     });
 }
-exports.some = some;
 const mapAll = (things, toPromise) => __awaiter(void 0, void 0, void 0, function* () { return yield all((0, lodash_1.map)(things, toPromise)); });
 exports.mapAll = mapAll;
 const most = (promises, onError) => __awaiter(void 0, void 0, void 0, function* () {
@@ -68,5 +69,4 @@ function usingAll(a, fn) {
         return fn(...(yield Promise.all(a)));
     });
 }
-exports.usingAll = usingAll;
 //# sourceMappingURL=promise.js.map

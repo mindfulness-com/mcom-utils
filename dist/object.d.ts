@@ -1,4 +1,3 @@
-/// <reference types="lodash" />
 import { Maybe } from "./maybe";
 type DeepObject = Record<string, string | Record<string, any>>;
 /**

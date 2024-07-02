@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.switchEnum = exports.ifDo_ = exports.ifDo = exports.not = void 0;
+exports.ifDo_ = exports.ifDo = exports.not = void 0;
+exports.switchEnum = switchEnum;
 const lodash_1 = require("lodash");
 const not = (func) => (arg) => !func(arg);
 exports.not = not;
@@ -21,5 +22,4 @@ function switchEnum(e, handlers) {
     }
     return (0, lodash_1.isFunction)(handlers.else) ? handlers.else(e) : handlers.else;
 }
-exports.switchEnum = switchEnum;
 //# sourceMappingURL=logic.js.map

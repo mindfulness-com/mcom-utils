@@ -10,7 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.composeAsync = exports.composelAsync = exports._ = exports.id = exports.__ = exports.partial = exports.curry = exports.composel = exports.guard = exports.using = exports.wiith = exports.fallback = exports.until = exports.not = exports.defined = exports.otherwise = void 0;
+exports._ = exports.id = exports.__ = exports.partial = exports.curry = exports.composel = exports.guard = exports.not = exports.defined = exports.otherwise = void 0;
+exports.until = until;
+exports.fallback = fallback;
+exports.wiith = wiith;
+exports.using = using;
+exports.composelAsync = composelAsync;
+exports.composeAsync = composeAsync;
 const lodash_1 = require("lodash");
 const otherwise = (_) => (!!_ ? true : true);
 exports.otherwise = otherwise;
@@ -21,19 +27,15 @@ exports.not = not;
 function until(...fns) {
     return (0, lodash_1.reduce)(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { var _a; return (_a = (yield v)) !== null && _a !== void 0 ? _a : fn(); }), undefined);
 }
-exports.until = until;
 function fallback(...fns) {
     return (0, lodash_1.reduce)(fns, (v, fn) => v !== null && v !== void 0 ? v : fn(), undefined);
 }
-exports.fallback = fallback;
 function wiith(fn, args) {
     return fn(...args());
 }
-exports.wiith = wiith;
 function using(a, fn) {
     return fn(...a);
 }
-exports.using = using;
 const guard = (guards) => ts => {
     const guard = (0, lodash_1.find)(guards, ([guard]) => guard(ts));
     if (!guard) {
@@ -53,9 +55,7 @@ exports._ = exports.id;
 function composelAsync(...fns) {
     return (a) => __awaiter(this, void 0, void 0, function* () { return (0, lodash_1.reduce)(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return fn(yield v); }), a); });
 }
-exports.composelAsync = composelAsync;
 function composeAsync(...fns) {
     return (a) => __awaiter(this, void 0, void 0, function* () { return (0, lodash_1.reduceRight)(fns, (v, fn) => __awaiter(this, void 0, void 0, function* () { return fn(yield v); }), a); });
 }
-exports.composeAsync = composeAsync;
 //# sourceMappingURL=fn.js.map

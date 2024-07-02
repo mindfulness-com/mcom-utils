@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.justOne = exports.insertAfter = exports.insertAt = exports.sampleOne = exports.omitEmpty = exports.maybeMap = exports.maybeLookup = exports.lookup = exports.indexBy = exports.pluckUnique = exports.containsAny = exports.containsAll = exports.contains = exports.sortByInt = exports.compareInt = exports.ensureArray = void 0;
+exports.justOne = exports.sampleOne = exports.omitEmpty = exports.maybeMap = exports.maybeLookup = exports.lookup = exports.indexBy = exports.pluckUnique = exports.containsAny = exports.containsAll = exports.contains = exports.sortByInt = exports.compareInt = exports.ensureArray = void 0;
+exports.insertAt = insertAt;
+exports.insertAfter = insertAfter;
 const lodash_1 = require("lodash");
 const maybe_1 = require("./maybe");
 const fn_1 = require("./fn");
@@ -78,7 +80,6 @@ exports.sampleOne = sampleOne;
 function insertAt(arr, items, at) {
     return [...arr.slice(0, at), ...items, ...arr.slice(at)];
 }
-exports.insertAt = insertAt;
 /**
  * Concatenates an array into another array at a given index
  * @param {Array<T>} arr - The array that you want to add items to
@@ -90,7 +91,6 @@ function insertAfter(arr, items, item) {
     const at = arr.indexOf(item) + 1;
     return insertAt(arr, items, at);
 }
-exports.insertAfter = insertAfter;
 /**
  * Get the first item from an array of items
  * @param {Array<T>} arr - The array of items

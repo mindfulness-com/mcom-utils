@@ -39,7 +39,7 @@
   "dependencies": {
     "bluebird": "3.7.2",
     "change-case-all": "2.1.0",
-    "compare-versions": "6.1.0",
+    "compare-versions": "6.1.1",
     "date-fns": "3.6.0",
     "date-fns-timezone": "0.1.4",
     "dotenv": "16.4.5",

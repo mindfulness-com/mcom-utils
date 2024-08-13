@@ -14,7 +14,7 @@ export const format = (amount: number, currency: string) => {
         // Clean out any technical dollars (A$, CA$)
         .replace(/[A-Z]{1,3}\$/, "$")
     );
-  } catch (err) {
+  } catch (_err) {
     throw new Error(`Invalid currency: ${currency}`);
   }
 };

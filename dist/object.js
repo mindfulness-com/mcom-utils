@@ -1,5 +1,5 @@
 "use strict";
-/* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.set = exports.keysToSnakeCase = exports.hasChanges = exports.keysDeep = exports.omitEmpty = void 0;
 const lodash_1 = require("lodash");

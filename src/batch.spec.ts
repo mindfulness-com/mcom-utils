@@ -236,7 +236,7 @@ describe("batch", () => {
         async () => {
           try {
             throw new Error("Fak");
-          } catch (err) {
+          } catch (_err) {
             return;
           }
         },

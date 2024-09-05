@@ -75,7 +75,7 @@ exports.sampleOne = sampleOne;
  * @param {Array<T>} arr - The array that you want to add items to
  * @param {Array<T>} items - The array of items that you want to add
  * @param {number} at - The index at which you want to add the items
- * @return {Array<T>} - The array with the items added
+ * @returns {Array<T>} - The array with the items added
  */
 function insertAt(arr, items, at) {
     return [...arr.slice(0, at), ...items, ...arr.slice(at)];
@@ -85,7 +85,7 @@ function insertAt(arr, items, at) {
  * @param {Array<T>} arr - The array that you want to add items to
  * @param {Array<T>} items - The array of items that you want to add
  * @param {T} item - The item that you want to add the array after
- * @return {Array<T>} - The array with the items added
+ * @returns {Array<T>} - The array with the items added
  */
 function insertAfter(arr, items, item) {
     const at = arr.indexOf(item) + 1;
@@ -94,7 +94,7 @@ function insertAfter(arr, items, item) {
 /**
  * Get the first item from an array of items
  * @param {Array<T>} arr - The array of items
- * @return {T} - The first item in the array
+ * @returns {T} - The first item in the array
  */
 exports.justOne = (0, fn_1.composel)(exports.ensureArray, fp_1.first);
 //# sourceMappingURL=array.js.map

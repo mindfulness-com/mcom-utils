@@ -48,14 +48,14 @@ exports.whenAsync = whenAsync;
  * When something is undefined (or null), do something. - Opposite of when
  * @param {T} thing - The `thing` to check
  * @param {function} doWork - What to do if the `thing` is undefined
- * @return {*} - returns undefined if "thing" is defined or whatever is returned from `doWork`
+ * @returns {*} - returns undefined if "thing" is defined or whatever is returned from `doWork`
  */
 const unless = (thing, doWork) => (0, exports.isUndefined)(thing) ? doWork() : undefined;
 exports.unless = unless;
 /**
  * If the unknown value is a string then return it as a string, otherwise return undefined
  * @param {unknown} value - The value to check
- * @return {Maybe<string>} - returns the unknown value if it is a string, otherwise returns undefined
+ * @returns {Maybe<string>} - returns the unknown value if it is a string, otherwise returns undefined
  */
 const testIsString = (value) => (0, exports.isString)(value) ? value : undefined;
 exports.testIsString = testIsString;
@@ -64,7 +64,7 @@ const testIsNumericString = (value) => (0, exports.when)((0, exports.testIsStrin
 /**
  * If the unknown value is a number, or a numeric string, then return it as a number, otherwise return undefined
  * @param {unknown} value - The value to check
- * @return {Maybe<number>} - returns the unknown value if it is a number, otherwise returns undefined
+ * @returns {Maybe<number>} - returns the unknown value if it is a number, otherwise returns undefined
  */
 const testIsNumber = (value) => (0, lodash_1.isNumber)(value)
     ? value

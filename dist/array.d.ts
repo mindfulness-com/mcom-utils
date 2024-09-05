@@ -26,7 +26,7 @@ export declare const sampleOne: <T>(ts: T[]) => T;
  * @param {Array<T>} arr - The array that you want to add items to
  * @param {Array<T>} items - The array of items that you want to add
  * @param {number} at - The index at which you want to add the items
- * @return {Array<T>} - The array with the items added
+ * @returns {Array<T>} - The array with the items added
  */
 export declare function insertAt<T>(arr: Array<T>, items: Array<T>, at: number): Array<T>;
 /**
@@ -34,12 +34,12 @@ export declare function insertAt<T>(arr: Array<T>, items: Array<T>, at: number):
  * @param {Array<T>} arr - The array that you want to add items to
  * @param {Array<T>} items - The array of items that you want to add
  * @param {T} item - The item that you want to add the array after
- * @return {Array<T>} - The array with the items added
+ * @returns {Array<T>} - The array with the items added
  */
 export declare function insertAfter<T>(arr: Array<T>, items: Array<T>, item: T): Array<T>;
 /**
  * Get the first item from an array of items
  * @param {Array<T>} arr - The array of items
- * @return {T} - The first item in the array
+ * @returns {T} - The first item in the array
  */
 export declare const justOne: <T>(input: T | T[]) => T | undefined;

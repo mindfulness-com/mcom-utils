@@ -1,3 +1,4 @@
 {
-  "gitRevision": "master"
+  "gitRevision": "master",
+  "blockTags": ["@param", "@returns", "@return", "@since", "@example", "@category", "@typeParam", "@alias", "@throws", "@see", "@name", "@description", "@summary", "@pure"]
 }

@@ -27,18 +27,18 @@ export declare const whenAsync: <T, R>(thing: Nullable<T>, doWork: (inp: T) => P
  * When something is undefined (or null), do something. - Opposite of when
  * @param {T} thing - The `thing` to check
  * @param {function} doWork - What to do if the `thing` is undefined
- * @return {*} - returns undefined if "thing" is defined or whatever is returned from `doWork`
+ * @returns {*} - returns undefined if "thing" is defined or whatever is returned from `doWork`
  */
 export declare const unless: <T, R>(thing: Nullable<T>, doWork: () => R) => Maybe<R>;
 /**
  * If the unknown value is a string then return it as a string, otherwise return undefined
  * @param {unknown} value - The value to check
- * @return {Maybe<string>} - returns the unknown value if it is a string, otherwise returns undefined
+ * @returns {Maybe<string>} - returns the unknown value if it is a string, otherwise returns undefined
  */
 export declare const testIsString: (value: unknown) => Maybe<string>;
 /**
  * If the unknown value is a number, or a numeric string, then return it as a number, otherwise return undefined
  * @param {unknown} value - The value to check
- * @return {Maybe<number>} - returns the unknown value if it is a number, otherwise returns undefined
+ * @returns {Maybe<number>} - returns the unknown value if it is a number, otherwise returns undefined
  */
 export declare const testIsNumber: (value: unknown) => Maybe<number>;

@@ -4,6 +4,8 @@ import {
   differenceInCalendarDays,
   startOfDay,
   getDayOfYear,
+  format,
+  subMinutes,
 } from "date-fns";
 import { getUTCOffset, findTimeZone } from "timezone-support";
 
@@ -106,3 +108,20 @@ export const getHourOfYear = (n: Date) => getDayOfYear(n) * 24 + getHours(n);
 export const unixDate = (d: number) => new Date(d * 1000);
 
 export const unixTimestamp = (d: Date) => Math.floor(d.getTime() / 1000);
+
+/**
+ * A date string in the format "yyyy-MM-dd"
+ */
+export type DateString = string;
+
+/**
+ * Calculate the "mindful date" for a given dateTime.
+ * The "mindful date" runs from 3am to 3am on the following day.
+ * @param {Date} d - The dateTime value for which to calculate the "mindful date".
+ * @param {string} timezone - The timezone in which to calculate the "mindful date".
+ * @returns {number} - The "mindful date" represented by the date and timezone
+ */
+export const getMindfulDate = (d: Date, timezone: string): DateString =>
+  subMinutes(d, getUtcOffset(d, timezone) + 3 * 60)
+    .toISOString()
+    .split("T")[0];

@@ -17,3 +17,15 @@ export declare const today: () => Date;
 export declare const getHourOfYear: (n: Date) => number;
 export declare const unixDate: (d: number) => Date;
 export declare const unixTimestamp: (d: Date) => number;
+/**
+ * A date string in the format "yyyy-MM-dd"
+ */
+export type DateString = string;
+/**
+ * Calculate the "mindful date" for a given dateTime.
+ * The "mindful date" runs from 3am to 3am on the following day.
+ * @param {Date} d - The dateTime value for which to calculate the "mindful date".
+ * @param {string} timezone - The timezone in which to calculate the "mindful date".
+ * @returns {number} - The "mindful date" represented by the date and timezone
+ */
+export declare const getMindfulDate: (d: Date, timezone: string) => DateString;

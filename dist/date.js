@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addWeeks = exports.addDays = exports.addHours = exports.addMinutes = exports.addSeconds = exports.endOfYear = exports.endOfMonth = exports.endOfWeek = exports.endOfDay = exports.endOfHour = exports.endOfMinute = exports.endOfSecond = exports.startOfYear = exports.startOfMonth = exports.startOfWeek = exports.startOfDay = exports.startOfHour = exports.startOfMinute = exports.startOfSecond = exports.differenceInYears = exports.differenceInMonths = exports.differenceInWeeks = exports.differenceInCalendarDays = exports.differenceInDays = exports.differenceInHours = exports.differenceInMinutes = exports.differenceInSeconds = exports.getYear = exports.getMonth = exports.getWeek = exports.getDay = exports.getHours = exports.getMinutes = exports.getSeconds = exports.setYear = exports.setMonth = exports.setWeek = exports.setDay = exports.setHours = exports.setMinutes = exports.setSeconds = exports.formatDistanceToNow = exports.format = exports.getDayOfYear = exports.isFuture = exports.isPast = exports.isBefore = exports.isAfter = exports.isValid = exports.isDate = void 0;
-exports.unixTimestamp = exports.unixDate = exports.getHourOfYear = exports.today = exports.isBetweenDates = exports.daysBetween = exports.daysUntil = exports.isEvening = exports.isAfternoon = exports.isMorning = exports.getUtcOffset = exports.fromUnix = exports.toUnix = exports.subYears = exports.subMonths = exports.subWeeks = exports.subDays = exports.subHours = exports.subMinutes = exports.subSeconds = exports.addYears = exports.addMonths = void 0;
+exports.getMindfulDate = exports.unixTimestamp = exports.unixDate = exports.getHourOfYear = exports.today = exports.isBetweenDates = exports.daysBetween = exports.daysUntil = exports.isEvening = exports.isAfternoon = exports.isMorning = exports.getUtcOffset = exports.fromUnix = exports.toUnix = exports.subYears = exports.subMonths = exports.subWeeks = exports.subDays = exports.subHours = exports.subMinutes = exports.subSeconds = exports.addYears = exports.addMonths = void 0;
 const date_fns_1 = require("date-fns");
 const timezone_support_1 = require("timezone-support");
 const math_1 = require("./math");
@@ -99,4 +99,15 @@ const unixDate = (d) => new Date(d * 1000);
 exports.unixDate = unixDate;
 const unixTimestamp = (d) => Math.floor(d.getTime() / 1000);
 exports.unixTimestamp = unixTimestamp;
+/**
+ * Calculate the "mindful date" for a given dateTime.
+ * The "mindful date" runs from 3am to 3am on the following day.
+ * @param {Date} d - The dateTime value for which to calculate the "mindful date".
+ * @param {string} timezone - The timezone in which to calculate the "mindful date".
+ * @returns {number} - The "mindful date" represented by the date and timezone
+ */
+const getMindfulDate = (d, timezone) => (0, date_fns_1.subMinutes)(d, (0, exports.getUtcOffset)(d, timezone) + 3 * 60)
+    .toISOString()
+    .split("T")[0];
+exports.getMindfulDate = getMindfulDate;
 //# sourceMappingURL=date.js.map

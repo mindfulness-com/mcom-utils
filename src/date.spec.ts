@@ -9,10 +9,16 @@ import {
   subMinutes,
   format,
   daysBetween,
+  getMindfulDate,
 } from "./date";
 import { now } from "./now";
+import { ensureUTC } from "./time";
 
 describe("date", () => {
+  beforeAll(() => {
+    ensureUTC();
+  });
+
   describe("getUtcOffset", () => {
     test("gets utc timezone offset correctly", () => {
       expect(getUtcOffset(new Date(2019, 5, 22), "Australia/Sydney")).toBe(
@@ -137,6 +143,36 @@ describe("date", () => {
       expect(
         format(new Date("2019-08-08T12:34:56.789+1234"), "HH:mm:ss.SSSxxxx"),
       ).toEqual("00:00:56.789+0000");
+    });
+  });
+
+  describe("getMindfulDate", () => {
+    const doTest = (date: string, timezone: string, expected: string) => {
+      expect(getMindfulDate(new Date(date), timezone)).toEqual(expected);
+    };
+
+    test("should be 2024-09-17 just before 3am on 18th Sep 2024 in UTC", () => {
+      doTest("2024-09-18T02:59:59.000Z", "UTC", "2024-09-17");
+    });
+
+    test("should be 2024-09-18 at 3am on 18th Sep 2024 in UTC", () => {
+      doTest("2024-09-18T03:00:00.000Z", "UTC", "2024-09-18");
+    });
+
+    test("should be 2024-09-17 just before 3am on 18th Sep 2024 in Sydney", () => {
+      doTest("2024-09-17T16:59:59.000Z", "Australia/Sydney", "2024-09-17");
+    });
+
+    test("should be 2024-09-18 at 3am on 18th Sep 2024 in Sydney", () => {
+      doTest("2024-09-17T17:00:00.000Z", "Australia/Sydney", "2024-09-18");
+    });
+
+    test("should be 2024-09-17 just before 3am on 18th Sep 2024 in New York", () => {
+      doTest("2024-09-18T06:59:59.000Z", "America/New_York", "2024-09-17");
+    });
+
+    test("should be 2024-09-18 at 3am on 18th Sep 2024 in New York", () => {
+      doTest("2024-09-18T07:00:00.000Z", "America/New_York", "2024-09-18");
     });
   });
 });

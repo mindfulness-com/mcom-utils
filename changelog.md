@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.9.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.8.1...v1.9.0) (2024-09-17)
+
+
+### Features
+
+* getMindfulDate function ([3bf3650](https://github.com/mindfulness-com/mcom-utils/commit/3bf3650994a3e51b0b558ce584ca1abae043470b))
+
 ## [1.8.1](https://github.com/mindfulness-com/mcom-utils/compare/v1.8.0...v1.8.1) (2024-06-03)
 
 ## [1.8.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.7.0...v1.8.0) (2024-05-13)

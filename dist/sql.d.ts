@@ -15,8 +15,8 @@ export declare const update: <T = PrimitiveRecord>(table: string, update: Partia
 export declare const upsert: <T = PrimitiveRecord>(table: string, items: T | T[], onConflictKeys: string | string[], updateKeys: string | string[], returnFields?: Maybe<string | string[]>) => string;
 /**
  * When something is defined, do something with it to return a SQL string.
- * @param {T} thing - The `thing` to check
- * @param {function} doWork - What to do if the `thing` is defined
+ * @param {T} t - The `thing` to check
+ * @param {function} fn - What to do if the `thing` is defined
  * @returns {*} - returns empty string if "thing" is not defined or whatever is returned from `doWork`
  */
 export declare const whenSQL: <T>(t: Maybe<T>, fn: Fn<T, string>) => string;

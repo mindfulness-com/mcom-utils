@@ -17,7 +17,6 @@ export default _default;
 export declare const when: <T, R>(thing: Nullable<T>, doWork: (inp: T) => R) => Maybe<R>;
 /**
  * When something is defined, do something with it.
- * @async
  * @param {T} thing - The `thing` to check
  * @param {function} doWork - What to do if the `thing` is defined
  * @returns {Promise<unknown>} - returns undefined if "thing" is not defined or whatever is returned from `doWork`

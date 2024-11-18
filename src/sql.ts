@@ -197,8 +197,9 @@ export const upsert = <T = PrimitiveRecord>(
 
 /**
  * When something is defined, do something with it to return a SQL string.
- * @param {T} thing - The `thing` to check
- * @param {function} doWork - What to do if the `thing` is defined
+ * @param {T} t - The `thing` to check
+ * @param {function} fn - What to do if the `thing` is defined
  * @returns {*} - returns empty string if "thing" is not defined or whatever is returned from `doWork`
  */
-export const whenSQL = <T>(t: Maybe<T>, fn: Fn<T, string>) => when(t, fn) || "";
+export const whenSQL = <T>(t: Maybe<T>, fn: Fn<T, string>): string =>
+  when(t, fn) || "";

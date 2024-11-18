@@ -122,8 +122,8 @@ const upsert = (table, items, onConflictKeys, updateKeys, returnFields) => {
 exports.upsert = upsert;
 /**
  * When something is defined, do something with it to return a SQL string.
- * @param {T} thing - The `thing` to check
- * @param {function} doWork - What to do if the `thing` is defined
+ * @param {T} t - The `thing` to check
+ * @param {function} fn - What to do if the `thing` is defined
  * @returns {*} - returns empty string if "thing" is not defined or whatever is returned from `doWork`
  */
 const whenSQL = (t, fn) => (0, maybe_1.when)(t, fn) || "";

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { omitEmpty, keysDeep, keysToSnakeCase } from "./object";
 
 describe("object", () => {

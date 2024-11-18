@@ -3,7 +3,6 @@ import _import from "eslint-plugin-import";
 import prettier from "eslint-plugin-prettier";
 import { fixupPluginRules } from "@eslint/compat";
 import tsParser from "@typescript-eslint/parser";
-import * as espree from "espree";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
@@ -51,10 +50,10 @@ export default [
       "prettier/prettier": "error",
       "import/named": "error",
       "import/no-unresolved": "error",
-      "@typescript-eslint/explicit-member-accessibility": "off",
-      "@typescript-eslint/interface-name-prefix": "off",
-      "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-member-accessibility": "off", // make "error" when ready to fix
+      "@typescript-eslint/no-explicit-any": "warn", // make "error" when ready to fix
+      "@typescript-eslint/explicit-function-return-type": "off", // make "error" when ready to fix
+      "@typescript-eslint/no-var-requires": "warn", // make "error" when ready to fix
       "@typescript-eslint/no-unused-vars": [
         "warn", // leave as "warn", because becomes annoying during dev otherwise
         {
@@ -63,6 +62,7 @@ export default [
           caughtErrorsIgnorePattern: "^_",
         },
       ],
+      "@typescript-eslint/ban-ts-comment": "error",
     },
   },
   {
@@ -70,12 +70,8 @@ export default [
     plugins: {
       prettier,
     },
-    languageOptions: {
-      parser: espree,
-    },
     rules: {
       "@typescript-eslint/no-var-requires": "off",
-      "@typescript-eslint/camelcase": "off",
     },
   },
   {

@@ -4,7 +4,6 @@ import {
   differenceInCalendarDays,
   startOfDay,
   getDayOfYear,
-  format,
   subMinutes,
 } from "date-fns";
 import { getUTCOffset, findTimeZone } from "timezone-support";

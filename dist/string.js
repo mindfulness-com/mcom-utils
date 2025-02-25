@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.snakeCase = exports.sentenceCase = exports.pathCase = exports.pascalCase = exports.noCase = exports.hyphenCase = exports.kebabCase = exports.dotCase = exports.startCase = exports.titleCase = exports.capitalCase = exports.camelCase = void 0;
+exports.ensureLeadingSlash = exports.snakeCase = exports.sentenceCase = exports.pathCase = exports.pascalCase = exports.noCase = exports.hyphenCase = exports.kebabCase = exports.dotCase = exports.startCase = exports.titleCase = exports.capitalCase = exports.camelCase = void 0;
 const change_case_all_1 = require("change-case-all");
 exports.camelCase = change_case_all_1.Case.camel;
 exports.capitalCase = change_case_all_1.Case.capital;
@@ -16,4 +16,7 @@ exports.pascalCase = change_case_all_1.Case.pascal;
 exports.pathCase = change_case_all_1.Case.path;
 exports.sentenceCase = change_case_all_1.Case.sentence;
 exports.snakeCase = change_case_all_1.Case.snake;
+// returns a string with a leading slash if it doesn't already have one or an empty string if falsy value entered
+const ensureLeadingSlash = (val) => val ? (val.startsWith("/") ? val : `/${val}`) : "";
+exports.ensureLeadingSlash = ensureLeadingSlash;
 //# sourceMappingURL=string.js.map

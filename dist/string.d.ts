@@ -10,3 +10,4 @@ export declare const pascalCase: typeof import("change-case").pascalCase;
 export declare const pathCase: typeof import("change-case").pathCase;
 export declare const sentenceCase: typeof import("change-case").sentenceCase;
 export declare const snakeCase: typeof import("change-case").snakeCase;
+export declare const ensureLeadingSlash: (val?: string) => string;

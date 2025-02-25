@@ -11,6 +11,7 @@ import {
   pathCase,
   sentenceCase,
   snakeCase,
+  ensureLeadingSlash,
 } from "./string";
 
 describe("string", () => {
@@ -56,5 +57,21 @@ describe("string", () => {
     describe("pathCase", doTest(pathCase, testValues.pathCase));
     describe("sentenceCase", doTest(sentenceCase, testValues.sentenceCase));
     describe("snakeCase", doTest(snakeCase, testValues.snakeCase));
+  });
+
+  describe("ensureLeadingSlash", () => {
+    test("should return a string with a leading slash if it doesn't already have one", () => {
+      expect(ensureLeadingSlash("test")).toBe("/test");
+    });
+
+    test("should return an empty string if a falsy value is entered", () => {
+      expect(ensureLeadingSlash()).toBe("");
+      expect(ensureLeadingSlash(null as any)).toBe("");
+      expect(ensureLeadingSlash("")).toBe("");
+    });
+
+    test("should return the same string if it already has a leading slash", () => {
+      expect(ensureLeadingSlash("/test")).toBe("/test");
+    });
   });
 });

@@ -1,7 +1,7 @@
 import { stringify } from "query-string";
 import { isEmpty, first } from "lodash";
 
-import { Maybe } from "./maybe";
+import { Maybe, when } from "./maybe";
 
 type Primitive = string | number | boolean;
 
@@ -22,3 +22,14 @@ export const addQueryParam = (
     ? `${base}?${existing}&${toQueryParams(params)}`
     : `${url}${toQueryString(params)}`;
 };
+
+export const ensureProtocol = (protocol: string, uri?: string): Maybe<string> =>
+  when(uri || undefined, d => {
+    try {
+      const url = new URL(d);
+      url.protocol = protocol.endsWith(":") ? protocol : `${protocol}:`;
+      return url.toString();
+    } catch (_err) {
+      throw new Error(`Invalid URI provided: ${uri}`);
+    }
+  });

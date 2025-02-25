@@ -1,4 +1,10 @@
-import { toQueryParams, toQueryString, baseUrl, addQueryParam } from "./url";
+import {
+  toQueryParams,
+  toQueryString,
+  baseUrl,
+  addQueryParam,
+  ensureProtocol,
+} from "./url";
 
 describe("url", () => {
   describe("toQueryParams", () => {
@@ -77,6 +83,28 @@ describe("url", () => {
       expect(
         addQueryParam("https://mindfulness.com?another=true", { test: "a" }),
       ).toEqual("https://mindfulness.com?another=true&test=a");
+    });
+  });
+
+  describe("ensureProtocol", () => {
+    test("should change a protocol without a colon", () => {
+      expect(ensureProtocol("mindful", "mcom://mindfulness.com")).toEqual(
+        "mindful://mindfulness.com",
+      );
+    });
+
+    test("should change a protocol with a colon", () => {
+      expect(ensureProtocol("mindful:", "mcom://mindfulness.com")).toEqual(
+        "mindful://mindfulness.com",
+      );
+    });
+
+    test("it throws an error when an invalid uri is provided", async () => {
+      await expect(async () =>
+        ensureProtocol("https", "invalid.uri"),
+      ).rejects.toThrowErrorMatchingInlineSnapshot(
+        `"Invalid URI provided: invalid.uri"`,
+      );
     });
   });
 });

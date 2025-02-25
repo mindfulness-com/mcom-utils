@@ -12,3 +12,7 @@ export const pascalCase = Case.pascal;
 export const pathCase = Case.path;
 export const sentenceCase = Case.sentence;
 export const snakeCase = Case.snake;
+
+// returns a string with a leading slash if it doesn't already have one or an empty string if falsy value entered
+export const ensureLeadingSlash = (val?: string): string =>
+  val ? (val.startsWith("/") ? val : `/${val}`) : "";

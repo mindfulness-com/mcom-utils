@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.10.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.9.0...v1.10.0) (2025-02-25)
+
+
+### Features
+
+* ensure protocol and leading slash methods ([c619031](https://github.com/mindfulness-com/mcom-utils/commit/c619031bf32736b4e01d479dfa891bec5cd794b6))
+
 ## [1.9.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.8.1...v1.9.0) (2024-09-17)
 
 

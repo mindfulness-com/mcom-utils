@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "description": "nanoid v4 drops support for commonJs and I had real difficulty getting it to work with Jest. Clip at v3 for now and re-evaluate for v6",
+      "matchPackageNames": ["nanoid"],
+      "allowedVersions": "<4.0.0 || >=6.0.0"
+    },
+    {
+      "description": "query-string v8 drops support for commonJs and I had real difficulty getting it to work with Jest. Clip at v7 for now and re-evaluate for v10",
+      "matchPackageNames": ["query-string"],
+      "allowedVersions": "<8.0.0 || >=10.0.0"
+    },
+    {
+      "description": "group devDependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dev-dependencies"
+    },
+    {
+      "description": "group @types packages",
+      "matchPackageNames": ["@types/**"],
+      "groupName": "types"
+    }
+  ]
+}

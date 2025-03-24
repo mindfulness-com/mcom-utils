@@ -60,7 +60,7 @@
     "@types/bluebird": "3.5.42",
     "@types/jest": "29.5.14",
     "@types/lodash": "4.17.16",
-    "@types/memoizee": "0.4.11",
+    "@types/memoizee": "0.4.12",
     "@types/microseconds": "0.2.2",
     "@types/mock-require": "3.0.0",
     "@types/pg-escape": "0.2.3",

@@ -3,6 +3,8 @@
   "extends": [
     "config:recommended"
   ],
+  "semanticCommits": "enabled",
+  "semanticPrefix": "chore",
   "packageRules": [
     {
       "description": "group devDependencies",

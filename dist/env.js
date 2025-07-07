@@ -52,11 +52,13 @@ const getEnv = () => {
 };
 exports.getEnv = getEnv;
 const clean = (value) => value === "undefined" ? undefined : value;
-const tryGetEnvVar = (name) => 
-// Try find a env specific version of the var e.g. DB_CONNECTION_DEV
-clean(process.env[`${name}_${(0, exports.getInfraEnv)().toUpperCase()}`]) ||
-    // Try get the value as it is
-    clean(process.env[name]);
+const tryGetEnvVar = (name) => {
+    var _a;
+    // Try find a env specific version of the var e.g. DB_CONNECTION_DEV
+    return clean(process.env[`${name}_${(_a = (0, exports.getInfraEnv)()) === null || _a === void 0 ? void 0 : _a.toUpperCase()}`]) ||
+        // Try get the value as it is
+        clean(process.env[name]);
+};
 exports.tryGetEnvVar = tryGetEnvVar;
 const isEnvVarSet = (name) => !(0, lodash_1.isNil)((0, exports.tryGetEnvVar)(name));
 exports.isEnvVarSet = isEnvVarSet;

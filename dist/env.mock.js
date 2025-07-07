@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InfraEnv = exports.Env = exports.mockEnvVar = exports.mockInfraEnv = exports.restoreEnv = void 0;
+const lodash_1 = require("lodash");
 const env_1 = require("./env");
 Object.defineProperty(exports, "Env", { enumerable: true, get: function () { return env_1.Env; } });
 Object.defineProperty(exports, "InfraEnv", { enumerable: true, get: function () { return env_1.InfraEnv; } });
@@ -15,7 +16,12 @@ const restoreEnv = () => {
 exports.restoreEnv = restoreEnv;
 const mockInfraEnv = (env) => {
     const restore = (0, exports.restoreEnv)();
-    process.env.INFRA_ENV = env;
+    if ((0, lodash_1.isUndefined)(env)) {
+        delete process.env.INFRA_ENV;
+    }
+    else {
+        process.env.INFRA_ENV = env;
+    }
     return restore;
 };
 exports.mockInfraEnv = mockInfraEnv;

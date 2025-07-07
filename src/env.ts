@@ -60,7 +60,7 @@ const clean = (value: Maybe<string>) =>
 
 export const tryGetEnvVar = (name: string) =>
   // Try find a env specific version of the var e.g. DB_CONNECTION_DEV
-  clean(process.env[`${name}_${getInfraEnv().toUpperCase()}`]) ||
+  clean(process.env[`${name}_${getInfraEnv()?.toUpperCase()}`]) ||
   // Try get the value as it is
   clean(process.env[name]);
 

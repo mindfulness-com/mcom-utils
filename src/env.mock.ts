@@ -1,3 +1,4 @@
+import { isUndefined } from "lodash";
 import { Env, InfraEnv } from "./env";
 
 export const restoreEnv = (): (() => void) => {
@@ -9,9 +10,13 @@ export const restoreEnv = (): (() => void) => {
   };
 };
 
-export const mockInfraEnv = (env: InfraEnv): (() => void) => {
+export const mockInfraEnv = (env: InfraEnv | undefined): (() => void) => {
   const restore = restoreEnv();
-  process.env.INFRA_ENV = env;
+  if (isUndefined(env)) {
+    delete process.env.INFRA_ENV;
+  } else {
+    process.env.INFRA_ENV = env;
+  }
   return restore;
 };
 

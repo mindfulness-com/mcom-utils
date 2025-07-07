@@ -105,5 +105,10 @@ describe("env", () => {
       expect(tryGetEnvVar("SERVERLESS_EMPTY")).toBeUndefined();
       delete process.env.SERVERLESS_EMPTY;
     });
+
+    test("should not error if no INFRA_ENV is set", () => {
+      mockInfraEnv(undefined);
+      expect(tryGetEnvVar("TEST")).toBeUndefined();
+    });
   });
 });

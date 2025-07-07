@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.10.1](https://github.com/mindfulness-com/mcom-utils/compare/v1.10.0...v1.10.1) (2025-07-07)
+
+
+### Bug Fixes
+
+*  error on tryGetEnvVar when INFRA_ENV not set ([8d657c5](https://github.com/mindfulness-com/mcom-utils/commit/8d657c5a54f3da82a13183d8af67b0a649710452))
+* **deps:** update dependency dotenv to v16.5.0 ([#338](https://github.com/mindfulness-com/mcom-utils/issues/338)) ([b62ad25](https://github.com/mindfulness-com/mcom-utils/commit/b62ad250e1dc3e30ee698fdc1e3958f6bf95344b))
+* **deps:** update dependency nanoid to v3.3.10 ([#325](https://github.com/mindfulness-com/mcom-utils/issues/325)) ([5b3a88b](https://github.com/mindfulness-com/mcom-utils/commit/5b3a88bc6fe0ae0db6bfe404d265c36afc8727a1))
+* **deps:** update dependency nanoid to v3.3.10 ([#327](https://github.com/mindfulness-com/mcom-utils/issues/327)) ([bce10ac](https://github.com/mindfulness-com/mcom-utils/commit/bce10ac99ef7fb3cfc6091e2a758012e022e04ec))
+* **deps:** update dependency nanoid to v3.3.11 ([#330](https://github.com/mindfulness-com/mcom-utils/issues/330)) ([8356a8a](https://github.com/mindfulness-com/mcom-utils/commit/8356a8a2c755ff42e7554255af4225d42f5854c9))
+* **deps:** update dependency nanoid to v3.3.9 ([#321](https://github.com/mindfulness-com/mcom-utils/issues/321)) ([5efab8f](https://github.com/mindfulness-com/mcom-utils/commit/5efab8fa21ab16788a6b7b61d1f8c0a22a9605a5))
+* **deps:** update dependency uuid to v11.1.0 ([#318](https://github.com/mindfulness-com/mcom-utils/issues/318)) ([35ffba1](https://github.com/mindfulness-com/mcom-utils/commit/35ffba1fe6a470385c16568ac6f54686dd5377b3))
+* update dependency dotenv to v17 ([#346](https://github.com/mindfulness-com/mcom-utils/issues/346)) ([008d35f](https://github.com/mindfulness-com/mcom-utils/commit/008d35f3d82200f764cb441da67778d1c6eaf60b))
+
 ## [1.10.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.9.0...v1.10.0) (2025-02-25)
 
 

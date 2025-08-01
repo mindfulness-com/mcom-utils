@@ -1,10 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":semanticCommitTypeAll(chore)",
+    ":semanticCommitScope(packages)"
   ],
-  "semanticCommits": "enabled",
-  "semanticPrefix": "chore",
   "packageRules": [
     {
       "description": "group devDependencies",

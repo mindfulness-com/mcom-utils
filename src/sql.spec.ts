@@ -1,3 +1,4 @@
+import { isEmpty, last, reject } from "lodash";
 import {
   toValues,
   toSet,
@@ -8,9 +9,17 @@ import {
   update,
   table,
   column,
+  setSystemLastUpdatedBy,
+  withSystemLastUpdate,
 } from "./sql";
 
 const ignoreWhitesace = (s: string) => s.replace(/\s/gi, "").trim();
+const lines = (s: string) =>
+  reject(
+    s.split("\n").map(s => s.trim()),
+    isEmpty,
+  );
+const lastLine = (s: string) => last(lines(s));
 
 describe("sql", () => {
   describe("update", () => {
@@ -26,7 +35,7 @@ describe("sql", () => {
       ).toBe(
         ignoreWhitesace(`
         UPDATE table
-        SET value = 'A', another = 23
+        SET value = 'A', another = 23, updated_at = now()
         WHERE id = 'an-id'
       `),
       );
@@ -44,7 +53,7 @@ describe("sql", () => {
       ).toBe(
         ignoreWhitesace(`
         UPDATE table
-        SET "order" = 2
+        SET "order" = 2, updated_at = now()
         WHERE id = 'an-id'
       `),
       );
@@ -62,7 +71,7 @@ describe("sql", () => {
       ).toBe(
         ignoreWhitesace(`
         UPDATE table
-        SET value = 'A', another = 23
+        SET value = 'A', another = 23, updated_at = now()
         WHERE id = 'an-id' AND name = 'james'
       `),
       );
@@ -85,7 +94,7 @@ describe("sql", () => {
       ).toBe(
         ignoreWhitesace(`
         UPDATE table
-        SET value = 'A', another = ARRAY['a','b','c']::VARCHAR[]
+        SET value = 'A', another = ARRAY['a','b','c']::VARCHAR[], updated_at = now(), updated_at = now()
         WHERE id = 'an-id' AND name = 'james'
       `),
       );
@@ -155,6 +164,29 @@ describe("sql", () => {
       );
     });
 
+    test("upsert updates all unique fields passed in", () => {
+      expect(
+        ignoreWhitesace(
+          upsert(
+            "table",
+            [
+              { key1: "value1", key2: 2 },
+              { key1: "value1", key3: 3 },
+            ],
+            ["key1", "key2"],
+            ["key1"],
+          ),
+        ),
+      ).toEqual(
+        ignoreWhitesace(`
+      INSERT INTO table (key1, key2, key3)
+      VALUES ('value1', 2, DEFAULT), ('value1', DEFAULT, 3)
+      ON CONFLICT (key1, key2) DO
+      UPDATE SET key1 = excluded.key1, updated_at = now()
+  `),
+      );
+    });
+
     test("no updates", () => {
       expect(
         ignoreWhitesace(
@@ -185,6 +217,30 @@ describe("sql", () => {
     `),
       );
     });
+
+    test("returning fields are set on upsert", () => {
+      expect(
+        lastLine(
+          upsert(
+            "table",
+            { id: "boom", updated_at: new Date() },
+            ["id"],
+            "updated_at",
+            ["id", "name"],
+          ),
+        ),
+      ).toEqual("RETURNING id, name");
+    });
+
+    test("should never have duplicate updated_at in upsert", async () => {
+      const sql = upsert(
+        "table",
+        { id: "boom", updated_at: new Date() },
+        ["id"],
+        "updated_at",
+      );
+      expect(sql.indexOf("excluded.updated_at")).toBe(-1);
+    });
   });
 
   describe("insert", () => {
@@ -200,11 +256,87 @@ describe("sql", () => {
   `),
       );
     });
+
+    test("inserts json blobs correctly", () => {
+      const blob = {
+        some: "stuff",
+        is: true,
+        a: new Date("2019-10-10 00:00:00.000"),
+      };
+      expect(
+        ignoreWhitesace(
+          insert("table", {
+            blob,
+          }),
+        ),
+      ).toContain(
+        ignoreWhitesace(`
+      INSERT INTO table (blob)
+      VALUES ('{"some": "stuff", "is": true, "a": "2019-10-10T00:00:00.000Z"}')
+  `),
+      );
+    });
+
+    test("escapes single quotes inside json blobs", () => {
+      const blob = {
+        some: "stuff's cool",
+        is: true,
+        a: new Date("2019-10-10 00:00:00.000"),
+      };
+      expect(
+        ignoreWhitesace(
+          insert("table", {
+            blob,
+          }),
+        ),
+      ).toContain(
+        ignoreWhitesace(`
+      INSERT INTO table (blob)
+      VALUES ('{"some": "stuff''s cool", "is": true, "a": "2019-10-10T00:00:00.000Z"}')
+  `),
+      );
+    });
+
+    test("returning fields are set on insert", () => {
+      // Defaults to returning all fields *
+      expect(
+        lastLine(insert("table", { id: "boom", updated_at: new Date() }, "*")),
+      ).toEqual("RETURNING *");
+
+      // Returns values when set
+      expect(
+        lastLine(
+          insert("table", { id: "boom", updated_at: new Date() }, [
+            "id",
+            "name",
+          ]),
+        ),
+      ).toEqual("RETURNING id, name");
+
+      // Excludes return when not set
+      expect(
+        lastLine(insert("table", { id: "boom", updated_at: new Date() }, [])),
+      ).not.toEqual("RETURNING id, name");
+      expect(
+        lastLine(
+          insert("table", { id: "boom", updated_at: new Date() }, undefined),
+        ),
+      ).not.toEqual("RETURNING id, name");
+    });
   });
 
   describe("toValues", () => {
     test("should format sql values", () => {
       expect(toValues([{ a: "a", b: "b", c: 5 }])).toEqual("('a', 'b', 5)");
+    });
+
+    test("it should format values from all objects", () => {
+      expect(
+        toValues([
+          { a: "a", b: "b", c: 5 },
+          { a: "a", b: "b", c: 5, d: false },
+        ]),
+      ).toEqual("('a', 'b', 5, DEFAULT), ('a', 'b', 5, false)");
     });
   });
 
@@ -264,6 +396,23 @@ describe("sql", () => {
 
     test(`should quote "special" column names`, () => {
       expect(column("order")).toEqual(`"order"`);
+    });
+  });
+
+  describe("setSystemLastUpdatedBy", () => {
+    test("should return the last_updated_by clause", () => {
+      expect(setSystemLastUpdatedBy()).toEqual(
+        "last_updated_by = '00000000-0000-0000-0000-000000000000'",
+      );
+    });
+  });
+
+  describe("withSystemLastUpdate", () => {
+    test("should add the last_updated_by clause", () => {
+      expect(withSystemLastUpdate({ foo: "bar" })).toEqual({
+        foo: "bar",
+        last_updated_by: "00000000-0000-0000-0000-000000000000",
+      });
     });
   });
 });

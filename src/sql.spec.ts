@@ -136,7 +136,7 @@ describe("sql", () => {
       ).toBe(
         ignoreWhitesace(`
         UPDATE table
-        SET value = 'A', another = ARRAY['740d04dd-59d5-4a52-bb76-00448362fcb5']::UUID[]
+        SET value = 'A', another = ARRAY['740d04dd-59d5-4a52-bb76-00448362fcb5']::UUID[], updated_at = now()
         WHERE id = 'an-id' AND name = 'james'
       `),
       );

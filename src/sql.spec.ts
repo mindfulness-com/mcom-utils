@@ -94,7 +94,7 @@ describe("sql", () => {
       ).toBe(
         ignoreWhitesace(`
         UPDATE table
-        SET value = 'A', another = ARRAY['a','b','c']::VARCHAR[], updated_at = now(), updated_at = now()
+        SET value = 'A', another = ARRAY['a','b','c']::VARCHAR[], updated_at = now()
         WHERE id = 'an-id' AND name = 'james'
       `),
       );
@@ -115,7 +115,7 @@ describe("sql", () => {
       ).toBe(
         ignoreWhitesace(`
         UPDATE table
-        SET value = 'A', another = ARRAY[1, 2, 4]::INT[]
+        SET value = 'A', another = ARRAY[1, 2, 4]::INT[], updated_at = now()
         WHERE id = 'an-id' AND name = 'james'
       `),
       );

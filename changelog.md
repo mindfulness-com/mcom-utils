@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.11.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.10.1...v1.11.0) (2025-08-07)
+
+
+### Features
+
+* additional consolidated sql functions ([#351](https://github.com/mindfulness-com/mcom-utils/issues/351)) ([418b409](https://github.com/mindfulness-com/mcom-utils/commit/418b409e557651b0920a04e538666556497a5a61))
+
 ## [1.10.1](https://github.com/mindfulness-com/mcom-utils/compare/v1.10.0...v1.10.1) (2025-07-07)
 
 

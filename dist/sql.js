@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.whenSQL = exports.upsert = exports.update = exports.insert = exports.toColumns = exports.toValues = exports.toSet = exports.toLiteralArray = exports.toArray = exports.literal = exports.table = exports.column = void 0;
+exports.whenSQL = exports.upsert = exports.update = exports.setUpdatedNow = exports.withSystemLastUpdate = exports.setSystemLastUpdatedBy = exports.SYSTEM_USER_ID = exports.insert = exports.toColumns = exports.toValues = exports.toSet = exports.toLiteralArray = exports.toArray = exports.literal = exports.table = exports.column = void 0;
 const lodash_1 = require("lodash");
 const pg_escape_1 = __importDefault(require("pg-escape"));
 const array_1 = require("./array");
@@ -89,13 +89,33 @@ const insert = (table, items, returnFields) => {
   `;
 };
 exports.insert = insert;
-const update = (table, update, condition) => `
-  UPDATE ${table}
-  SET ${(0, exports.toSet)(update)}
-  WHERE ${(0, lodash_1.keys)(condition)
-    .map(key => `${key} = ${(0, exports.literal)(condition[key])}`)
-    .join(" AND ")}
-`;
+exports.SYSTEM_USER_ID = "00000000-0000-0000-0000-000000000000"; // "user id" representing the "system" user. Used in audit logs etc.
+const SYSTEM_USER_LAST_UPDATED_BY = { last_updated_by: exports.SYSTEM_USER_ID };
+const setSystemLastUpdatedBy = () => formatSet(SYSTEM_USER_LAST_UPDATED_BY);
+exports.setSystemLastUpdatedBy = setSystemLastUpdatedBy;
+const withSystemLastUpdate = (values) => (Object.assign(Object.assign({}, values), SYSTEM_USER_LAST_UPDATED_BY));
+exports.withSystemLastUpdate = withSystemLastUpdate;
+const setUpdatedNow = () => "updated_at = now()";
+exports.setUpdatedNow = setUpdatedNow;
+const formatKey = (key) => (key === "order" ? '"order"' : key);
+const formatSet = (values) => (0, lodash_1.keys)(values)
+    .map(k => `${formatKey(k)} = ${(0, exports.literal)((0, lodash_1.get)(values, k))}`)
+    .join(", ");
+const formatWhere = (values) => (0, lodash_1.keys)(values)
+    .map(k => `${formatKey(k)} = ${(0, exports.literal)((0, lodash_1.get)(values, k))}`)
+    .join(" AND ");
+const update = (table, values, where, returnFields) => {
+    if (!(0, lodash_1.keys)(where)) {
+        throw new Error("No unrestricted updates.");
+    }
+    return `
+    UPDATE ${table}
+    SET ${formatSet(values)}
+        , ${(0, exports.setUpdatedNow)()}
+    WHERE ${formatWhere(where)}
+    ${formatReturning(returnFields)}
+  `;
+};
 exports.update = update;
 const upsert = (table, items, onConflictKeys, updateKeys, returnFields) => {
     const all = (0, array_1.ensureArray)(items);
@@ -110,7 +130,7 @@ const upsert = (table, items, onConflictKeys, updateKeys, returnFields) => {
     // Update specified keys
     (0, logic_1.ifDo_)(!(0, lodash_1.isEmpty)(updateKeys), () => ` UPDATE SET ${(0, lodash_1.without)((0, lodash_1.map)((0, array_1.ensureArray)(updateKeys), exports.column), "updated_at")
         .map(k => `${k} = excluded.${k}`)
-        .join(", ")}, updated_at = now()`), 
+        .join(", ")}, ${(0, exports.setUpdatedNow)()}`), 
     // In order for RETURNING * to work, there needs to be an update (DO NOTHING doesn't work)
     // therefore we set the updated_at to itself (no change)
     (0, logic_1.ifDo_)(!!returnFields, () => ` UPDATE SET updated_at = ${table}.updated_at`), 

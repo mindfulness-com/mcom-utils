@@ -87,16 +87,7 @@ export const toSet = (update: PrimitiveRecord) =>
   ).join(", ");
 
 const uniqColumns = <T = PrimitiveRecord>(items: T[]) =>
-  keys(
-    reduce(
-      items,
-      (acc, i) => ({
-        ...acc,
-        ...i,
-      }),
-      {} as T,
-    ),
-  );
+  keys(reduce(items, (acc, i) => ({ ...acc, ...i }), {} as T));
 
 export const toValues = <T = PrimitiveRecord>(
   items: T[],
@@ -139,20 +130,49 @@ export const insert = <T = PrimitiveRecord>(
   `;
 };
 
-export const update = <T = PrimitiveRecord>(
+export const SYSTEM_USER_ID = "00000000-0000-0000-0000-000000000000"; // "user id" representing the "system" user. Used in audit logs etc.
+const SYSTEM_USER_LAST_UPDATED_BY = { last_updated_by: SYSTEM_USER_ID };
+
+export const setSystemLastUpdatedBy = (): string =>
+  formatSet(SYSTEM_USER_LAST_UPDATED_BY);
+
+export const withSystemLastUpdate = <T>(values: T) => ({
+  ...values,
+  ...SYSTEM_USER_LAST_UPDATED_BY,
+});
+
+export const setUpdatedNow = (): string => "updated_at = now()";
+
+const formatKey = (key: string) => (key === "order" ? '"order"' : key);
+
+const formatSet = <T>(values: T) =>
+  keys(values)
+    .map(k => `${formatKey(k)} = ${literal(get(values, k))}`)
+    .join(", ");
+
+const formatWhere = <T>(values: T) =>
+  keys(values)
+    .map(k => `${formatKey(k)} = ${literal(get(values, k))}`)
+    .join(" AND ");
+
+export const update = <T>(
   table: string,
-  update: Partial<T>,
-  condition: Partial<T>,
-) => `
-  UPDATE ${table}
-  SET ${toSet(update as PrimitiveRecord)}
-  WHERE ${keys(condition)
-    .map(
-      key =>
-        `${key} = ${literal((condition as Record<string, Primitive>)[key])}`,
-    )
-    .join(" AND ")}
-`;
+  values: Partial<T>,
+  where: Partial<T>,
+  returnFields?: Maybe<string | string[]>,
+) => {
+  if (!keys(where)) {
+    throw new Error("No unrestricted updates.");
+  }
+
+  return `
+    UPDATE ${table}
+    SET ${formatSet(values)}
+        , ${setUpdatedNow()}
+    WHERE ${formatWhere(where)}
+    ${formatReturning(returnFields)}
+  `;
+};
 
 export const upsert = <T = PrimitiveRecord>(
   table: string,
@@ -179,7 +199,7 @@ export const upsert = <T = PrimitiveRecord>(
             "updated_at",
           )
             .map(k => `${k} = excluded.${k}`)
-            .join(", ")}, updated_at = now()`,
+            .join(", ")}, ${setUpdatedNow()}`,
       ),
       // In order for RETURNING * to work, there needs to be an update (DO NOTHING doesn't work)
       // therefore we set the updated_at to itself (no change)

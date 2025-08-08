@@ -7,8 +7,8 @@ import {
   literal,
   insert,
   update,
-  table,
-  column,
+  formatTable,
+  formatColumn,
   setSystemLastUpdatedBy,
   withSystemLastUpdate,
 } from "./sql";
@@ -38,6 +38,23 @@ describe("sql", () => {
         SET value = 'A', another = 23, updated_at = now()
         WHERE id = 'an-id'
       `),
+      );
+    });
+
+    test("escapes reserved tables", () => {
+      expect(
+        ignoreWhitesace(
+          update(
+            "user",
+            { email: "foo@bar.com" },
+            { email: "bar@foo.com" },
+            "*",
+          ),
+        ),
+      ).toEqual(
+        ignoreWhitesace(
+          `UPDATE "user" SET email = 'foo@bar.com', updated_at=now() WHERE email = 'bar@foo.com' RETURNING *`,
+        ),
       );
     });
 
@@ -164,6 +181,24 @@ describe("sql", () => {
       );
     });
 
+    test("escapes reserved tables", () => {
+      expect(
+        ignoreWhitesace(
+          upsert(
+            "user",
+            { email: "foo@bar.com", bar: "blah" },
+            ["email"],
+            ["bar"],
+            "*",
+          ),
+        ),
+      ).toEqual(
+        ignoreWhitesace(
+          `INSERT INTO "user" (email, bar) VALUES ('foo@bar.com', 'blah') ON CONFLICT (email) DO UPDATE SET bar = excluded.bar, updated_at = now() RETURNING *`,
+        ),
+      );
+    });
+
     test("upsert updates all unique fields passed in", () => {
       expect(
         ignoreWhitesace(
@@ -254,6 +289,16 @@ describe("sql", () => {
       INSERT INTO table (a_key, b_key)
       VALUES ('value1 with single''s quote', 2)
   `),
+      );
+    });
+
+    test("escapes reserved tables", () => {
+      expect(
+        ignoreWhitesace(insert("user", [{ email: "foo@bar.com" }], "*")),
+      ).toEqual(
+        ignoreWhitesace(
+          `INSERT INTO "user" (email) VALUES ('foo@bar.com') RETURNING *`,
+        ),
       );
     });
 
@@ -377,25 +422,29 @@ describe("sql", () => {
     });
   });
 
-  describe("table", () => {
+  describe("formatTable", () => {
     test("should snake_case table names", () => {
-      expect(table("tablename")).toEqual("tablename");
-      expect(table("table name")).toEqual("table_name");
-      expect(table("tableName")).toEqual("table_name");
-      expect(table("TableName")).toEqual("table_name");
+      expect(formatTable("tablename")).toEqual("tablename");
+      expect(formatTable("table name")).toEqual("table_name");
+      expect(formatTable("tableName")).toEqual("table_name");
+      expect(formatTable("TableName")).toEqual("table_name");
+    });
+
+    test(`should quote "special" table names`, () => {
+      expect(formatTable("user")).toEqual(`"user"`);
     });
   });
 
-  describe("column", () => {
+  describe("formatColumn", () => {
     test("should snake_case column names", () => {
-      expect(column("columnname")).toEqual("columnname");
-      expect(column("column name")).toEqual("column_name");
-      expect(column("columnName")).toEqual("column_name");
-      expect(column("ColumnName")).toEqual("column_name");
+      expect(formatColumn("columnname")).toEqual("columnname");
+      expect(formatColumn("column name")).toEqual("column_name");
+      expect(formatColumn("columnName")).toEqual("column_name");
+      expect(formatColumn("ColumnName")).toEqual("column_name");
     });
 
     test(`should quote "special" column names`, () => {
-      expect(column("order")).toEqual(`"order"`);
+      expect(formatColumn("order")).toEqual(`"order"`);
     });
   });
 

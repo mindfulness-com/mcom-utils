@@ -24,15 +24,27 @@ import { isUUID } from "./id";
 import { format } from "./date";
 import { snakeCase } from "./string";
 
-export const column = (name: string): string => {
+const reservedColumns = ["order"];
+
+export const formatColumn = (name: string): string => {
   const col = snakeCase(name);
   // Special columns should be in quotes
-  if (col === "order") {
+  if (reservedColumns.includes(col)) {
     return `"${col}"`;
   }
   return col;
 };
-export const table = (name: string): string => snakeCase(name);
+
+const reservedTables = ["user"];
+
+export const formatTable = (name: string): string => {
+  const table = snakeCase(name);
+  // Special tables should be in quotes
+  if (reservedTables.includes(table)) {
+    return `"${table}"`;
+  }
+  return table;
+};
 
 // For backwards compatibility
 export { Primitive, PrimitiveRecord } from "./types";
@@ -83,7 +95,7 @@ export const toLiteralArray = (items: Primitive[]) =>
 export const toSet = (update: PrimitiveRecord) =>
   map(
     toPairs(update),
-    ([key, value]) => `${column(key)} = ${literal(value)}`,
+    ([key, value]) => `${formatColumn(key)} = ${literal(value)}`,
   ).join(", ");
 
 const uniqColumns = <T = PrimitiveRecord>(items: T[]) =>
@@ -104,7 +116,7 @@ export const toValues = <T = PrimitiveRecord>(
 
 export const toColumns = <T = PrimitiveRecord>(items: T[]) => {
   // Map all items into one object to get union of fields
-  return `${toArray(uniqColumns(items).map(column))}`;
+  return `${toArray(uniqColumns(items).map(formatColumn))}`;
 };
 
 const formatReturning = (fields: Maybe<string | string[]>) =>
@@ -124,7 +136,7 @@ export const insert = <T = PrimitiveRecord>(
   const columns = uniqColumns(all);
 
   return `
-    INSERT INTO ${table} ${toArray(columns.map(column))}
+    INSERT INTO ${formatTable(table)} ${toArray(columns.map(formatColumn))}
     VALUES ${toValues(all, columns)}
     ${formatReturning(returnFields)}
   `;
@@ -166,7 +178,7 @@ export const update = <T>(
   }
 
   return `
-    UPDATE ${table}
+    UPDATE ${formatTable(table)}
     SET ${formatSet(values)}
         , ${setUpdatedNow()}
     WHERE ${formatWhere(where)}
@@ -186,16 +198,16 @@ export const upsert = <T = PrimitiveRecord>(
     throw new Error("Can't upsert empty array.");
   }
   return `
-    INSERT INTO ${table} ${toColumns(all)}
+    INSERT INTO ${formatTable(table)} ${toColumns(all)}
     VALUES ${toValues(all)}
-    ON CONFLICT ${toArray(map(ensureArray(onConflictKeys), column))} DO
+    ON CONFLICT ${toArray(map(ensureArray(onConflictKeys), formatColumn))} DO
     ${fallback(
       // Update specified keys
       ifDo_(
         !isEmpty(updateKeys),
         () =>
           ` UPDATE SET ${without(
-            map(ensureArray(updateKeys), column),
+            map(ensureArray(updateKeys), formatColumn),
             "updated_at",
           )
             .map(k => `${k} = excluded.${k}`)
@@ -205,7 +217,7 @@ export const upsert = <T = PrimitiveRecord>(
       // therefore we set the updated_at to itself (no change)
       ifDo_(
         !!returnFields,
-        () => ` UPDATE SET updated_at = ${table}.updated_at`,
+        () => ` UPDATE SET updated_at = ${formatTable(table)}.updated_at`,
       ),
 
       // Else do nothing

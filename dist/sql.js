@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.whenSQL = exports.upsert = exports.update = exports.setUpdatedNow = exports.withSystemLastUpdate = exports.setSystemLastUpdatedBy = exports.SYSTEM_USER_ID = exports.insert = exports.toColumns = exports.toValues = exports.toSet = exports.toLiteralArray = exports.toArray = exports.literal = exports.table = exports.column = void 0;
+exports.whenSQL = exports.upsert = exports.update = exports.setUpdatedNow = exports.withSystemLastUpdate = exports.setSystemLastUpdatedBy = exports.SYSTEM_USER_ID = exports.insert = exports.toColumns = exports.toValues = exports.toSet = exports.toLiteralArray = exports.toArray = exports.literal = exports.formatTable = exports.formatColumn = void 0;
 const lodash_1 = require("lodash");
 const pg_escape_1 = __importDefault(require("pg-escape"));
 const array_1 = require("./array");
@@ -13,17 +13,26 @@ const fn_1 = require("./fn");
 const id_1 = require("./id");
 const date_1 = require("./date");
 const string_1 = require("./string");
-const column = (name) => {
+const reservedColumns = ["order"];
+const formatColumn = (name) => {
     const col = (0, string_1.snakeCase)(name);
     // Special columns should be in quotes
-    if (col === "order") {
+    if (reservedColumns.includes(col)) {
         return `"${col}"`;
     }
     return col;
 };
-exports.column = column;
-const table = (name) => (0, string_1.snakeCase)(name);
-exports.table = table;
+exports.formatColumn = formatColumn;
+const reservedTables = ["user"];
+const formatTable = (name) => {
+    const table = (0, string_1.snakeCase)(name);
+    // Special tables should be in quotes
+    if (reservedTables.includes(table)) {
+        return `"${table}"`;
+    }
+    return table;
+};
+exports.formatTable = formatTable;
 const literal = (value) => {
     // Treat null as NULL
     if (value === null) {
@@ -57,7 +66,7 @@ const toArray = (items) => `(${items.join(", ")})`;
 exports.toArray = toArray;
 const toLiteralArray = (items) => (0, exports.toArray)(items.map(exports.literal));
 exports.toLiteralArray = toLiteralArray;
-const toSet = (update) => (0, lodash_1.map)((0, lodash_1.toPairs)(update), ([key, value]) => `${(0, exports.column)(key)} = ${(0, exports.literal)(value)}`).join(", ");
+const toSet = (update) => (0, lodash_1.map)((0, lodash_1.toPairs)(update), ([key, value]) => `${(0, exports.formatColumn)(key)} = ${(0, exports.literal)(value)}`).join(", ");
 exports.toSet = toSet;
 const uniqColumns = (items) => (0, lodash_1.keys)((0, lodash_1.reduce)(items, (acc, i) => (Object.assign(Object.assign({}, acc), i)), {}));
 const toValues = (items, columns = uniqColumns(items)) => {
@@ -70,7 +79,7 @@ const toValues = (items, columns = uniqColumns(items)) => {
 exports.toValues = toValues;
 const toColumns = (items) => {
     // Map all items into one object to get union of fields
-    return `${(0, exports.toArray)(uniqColumns(items).map(exports.column))}`;
+    return `${(0, exports.toArray)(uniqColumns(items).map(exports.formatColumn))}`;
 };
 exports.toColumns = toColumns;
 const formatReturning = (fields) => fields && !(0, lodash_1.isEmpty)(fields)
@@ -83,7 +92,7 @@ const insert = (table, items, returnFields) => {
     }
     const columns = uniqColumns(all);
     return `
-    INSERT INTO ${table} ${(0, exports.toArray)(columns.map(exports.column))}
+    INSERT INTO ${(0, exports.formatTable)(table)} ${(0, exports.toArray)(columns.map(exports.formatColumn))}
     VALUES ${(0, exports.toValues)(all, columns)}
     ${formatReturning(returnFields)}
   `;
@@ -109,7 +118,7 @@ const update = (table, values, where, returnFields) => {
         throw new Error("No unrestricted updates.");
     }
     return `
-    UPDATE ${table}
+    UPDATE ${(0, exports.formatTable)(table)}
     SET ${formatSet(values)}
         , ${(0, exports.setUpdatedNow)()}
     WHERE ${formatWhere(where)}
@@ -123,17 +132,17 @@ const upsert = (table, items, onConflictKeys, updateKeys, returnFields) => {
         throw new Error("Can't upsert empty array.");
     }
     return `
-    INSERT INTO ${table} ${(0, exports.toColumns)(all)}
+    INSERT INTO ${(0, exports.formatTable)(table)} ${(0, exports.toColumns)(all)}
     VALUES ${(0, exports.toValues)(all)}
-    ON CONFLICT ${(0, exports.toArray)((0, lodash_1.map)((0, array_1.ensureArray)(onConflictKeys), exports.column))} DO
+    ON CONFLICT ${(0, exports.toArray)((0, lodash_1.map)((0, array_1.ensureArray)(onConflictKeys), exports.formatColumn))} DO
     ${(0, fn_1.fallback)(
     // Update specified keys
-    (0, logic_1.ifDo_)(!(0, lodash_1.isEmpty)(updateKeys), () => ` UPDATE SET ${(0, lodash_1.without)((0, lodash_1.map)((0, array_1.ensureArray)(updateKeys), exports.column), "updated_at")
+    (0, logic_1.ifDo_)(!(0, lodash_1.isEmpty)(updateKeys), () => ` UPDATE SET ${(0, lodash_1.without)((0, lodash_1.map)((0, array_1.ensureArray)(updateKeys), exports.formatColumn), "updated_at")
         .map(k => `${k} = excluded.${k}`)
         .join(", ")}, ${(0, exports.setUpdatedNow)()}`), 
     // In order for RETURNING * to work, there needs to be an update (DO NOTHING doesn't work)
     // therefore we set the updated_at to itself (no change)
-    (0, logic_1.ifDo_)(!!returnFields, () => ` UPDATE SET updated_at = ${table}.updated_at`), 
+    (0, logic_1.ifDo_)(!!returnFields, () => ` UPDATE SET updated_at = ${(0, exports.formatTable)(table)}.updated_at`), 
     // Else do nothing
     () => " NOTHING")}
     ${formatReturning(returnFields)}

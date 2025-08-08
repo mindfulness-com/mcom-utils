@@ -1,8 +1,8 @@
 import { Primitive, PrimitiveRecord } from "./types";
 import { Maybe } from "./maybe";
 import { Fn } from "./fn";
-export declare const column: (name: string) => string;
-export declare const table: (name: string) => string;
+export declare const formatColumn: (name: string) => string;
+export declare const formatTable: (name: string) => string;
 export { Primitive, PrimitiveRecord } from "./types";
 export declare const literal: (value: Primitive | Primitive[]) => string;
 export declare const toArray: (items: Primitive[]) => string;

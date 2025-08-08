@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.11.0...v2.0.0) (2025-08-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* escape table names in sql statements (also renames column and table functions)
+
+### Features
+
+* escape table names in sql statements (also renames column and table functions) ([668a07e](https://github.com/mindfulness-com/mcom-utils/commit/668a07ebd9aa6bfa13c98d7fc22f732150c569f5))
+
 ## [1.11.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.10.1...v1.11.0) (2025-08-07)
 
 

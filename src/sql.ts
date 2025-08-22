@@ -155,6 +155,14 @@ export const withSystemLastUpdate = <T>(values: T) => ({
 
 export const setUpdatedNow = (): string => "updated_at = now()";
 
+const stripUpdatedAt = <T>({
+  updated_at,
+  ...values
+}: Partial<T> & { updated_at?: Date }): Omit<
+  Partial<T> & { updated_at?: Date },
+  "updated_at"
+> => values;
+
 const formatKey = (key: string) => (key === "order" ? '"order"' : key);
 
 const formatSet = <T>(values: T) =>
@@ -179,7 +187,7 @@ export const update = <T>(
 
   return `
     UPDATE ${formatTable(table)}
-    SET ${formatSet(values)}
+    SET ${formatSet(stripUpdatedAt(values))}
         , ${setUpdatedNow()}
     WHERE ${formatWhere(where)}
     ${formatReturning(returnFields)}

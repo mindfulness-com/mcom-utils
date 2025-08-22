@@ -158,6 +158,24 @@ describe("sql", () => {
       `),
       );
     });
+
+    test("doesn't duplicate 'updated_at' clause", () => {
+      expect(
+        ignoreWhitesace(
+          update<{ id: string; value: string; updated_at: Date }>(
+            "table",
+            { value: "A", updated_at: new Date("2019-08-08T00:00:00.000Z") },
+            { id: "an-id" },
+          ),
+        ),
+      ).toBe(
+        ignoreWhitesace(`
+        UPDATE table
+        SET value = 'A', updated_at = now()
+        WHERE id = 'an-id'
+      `),
+      );
+    });
   });
 
   describe("upsert", () => {

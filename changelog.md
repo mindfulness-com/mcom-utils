@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.1](https://github.com/mindfulness-com/mcom-utils/compare/v2.0.0...v2.0.1) (2025-08-22)
+
+
+### Bug Fixes
+
+* don't allow duplicated updated_at values in update statement ([1df19b1](https://github.com/mindfulness-com/mcom-utils/commit/1df19b120a4f553e43755a025e31422a5635af3b))
+
 ## [2.0.0](https://github.com/mindfulness-com/mcom-utils/compare/v1.11.0...v2.0.0) (2025-08-08)
 
 

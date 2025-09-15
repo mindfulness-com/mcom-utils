@@ -64,8 +64,8 @@
     "@types/microseconds": "0.2.2",
     "@types/mock-require": "3.0.0",
     "@types/pg-escape": "0.2.3",
-    "@typescript-eslint/eslint-plugin": "8.38.0",
-    "@typescript-eslint/parser": "8.38.0",
+    "@typescript-eslint/eslint-plugin": "8.44.0",
+    "@typescript-eslint/parser": "8.44.0",
     "chokidar-cli": "3.0.0",
     "commit-and-tag-version": "12.5.2",
     "eslint": "9.32.0",
@@ -79,7 +79,7 @@
     "ts-deferred": "1.0.4",
     "ts-jest": "29.4.0",
     "ts-node": "10.9.2",
-    "typedoc": "0.28.8",
-    "typescript": "5.8.3"
+    "typedoc": "0.28.13",
+    "typescript": "5.9.2"
   }
 }

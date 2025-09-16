@@ -17,9 +17,12 @@ const compat = new FlatCompat({
 });
 
 export default [
+  // Ignore generated / irrelevant files
   {
     ignores: ["**/*.d.ts", "**/node_modules", "**/docs", "**/dist"],
   },
+
+  // Base recommended configs
   ...compat.extends(
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
@@ -33,18 +36,28 @@ export default [
     },
     languageOptions: {
       parser: tsParser,
-      ecmaVersion: 2018,
+      ecmaVersion: 2020,
       sourceType: "module",
     },
     settings: {
+      // Parsers
       "import/parsers": {
-        "@typescript-eslint/parser": [".ts"],
+        "@typescript-eslint/parser": [".ts", ".tsx"],
       },
+      // Resolvers
       "import/resolver": {
+        typescript: {
+          alwaysTryTypes: true,       // lets ESLint read TS types
+          project: "./tsconfig.json", // points to your TS config
+        },
         node: {
-          extensions: [".js", ".ts"],
+          extensions: [".js", ".jsx", ".ts", ".tsx", ".mjs"],
+          moduleDirectory: ["node_modules", "src/"],
+          tryExtensions: [".js", ".jsx", ".ts", ".tsx", ".mjs", ".d.ts"],
         },
       },
+      // Ignore false positives for Lodash
+      "import/ignore": ["lodash", "lodash/fp"],
     },
     rules: {
       "prettier/prettier": "error",
@@ -65,6 +78,8 @@ export default [
       "@typescript-eslint/ban-ts-comment": "error",
     },
   },
+
+  // JS / mjs files
   {
     files: ["**/*.js", "**/*.mjs"],
     plugins: {
@@ -74,6 +89,8 @@ export default [
       "@typescript-eslint/no-var-requires": "off",
     },
   },
+
+  // Test files
   {
     files: ["**/*.spec.ts"],
     rules: {

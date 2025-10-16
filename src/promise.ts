@@ -2,58 +2,10 @@
 
 import { map, filter, every } from "lodash";
 import { Fn, not } from "./fn";
-import { all as ball } from "bluebird";
 import { isDefined } from "./maybe";
 import { assertError } from "./error";
 
 type Resolvable<R> = R | PromiseLike<R> | void | PromiseLike<void>;
-
-export function all<T1, T2, T3, T4, T5, T6, T7>(
-  values: [
-    Resolvable<T1>,
-    Resolvable<T2>,
-    Resolvable<T3>,
-    Resolvable<T4>,
-    Resolvable<T5>,
-    Resolvable<T6>,
-    Resolvable<T7>,
-  ],
-): Promise<[T1, T2, T3, T4, T5, T6, T7]>;
-export function all<T1, T2, T3, T4, T5, T6>(
-  values: [
-    Resolvable<T1>,
-    Resolvable<T2>,
-    Resolvable<T3>,
-    Resolvable<T4>,
-    Resolvable<T5>,
-    Resolvable<T6>,
-  ],
-): Promise<[T1, T2, T3, T4, T5, T6]>;
-export function all<T1, T2, T3, T4, T5>(
-  values: [
-    Resolvable<T1>,
-    Resolvable<T2>,
-    Resolvable<T3>,
-    Resolvable<T4>,
-    Resolvable<T5>,
-  ],
-): Promise<[T1, T2, T3, T4, T5]>;
-export function all<T1, T2, T3, T4>(
-  values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>],
-): Promise<[T1, T2, T3, T4]>;
-export function all<T1, T2, T3>(
-  values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>],
-): Promise<[T1, T2, T3]>;
-export function all<T1, T2>(
-  values: [Resolvable<T1>, Resolvable<T2>],
-): Promise<[T1, T2]>;
-export function all<T1>(values: [Resolvable<T1>]): Promise<[T1]>;
-export function all<T>(values: Resolvable<T>[]): Promise<T[]>;
-// eslint-disable-next-line  @typescript-eslint/no-explicit-any
-export function all(values: any): Promise<any> {
-  // @ts-ignore
-  return ball(values);
-}
 
 export function some<T1, T2, T3, T4, T5, T6, T7>(
   values: [
@@ -113,12 +65,13 @@ export async function some<T>(
   log?: Fn<Error, void>,
 ): Promise<Resolvable<T>[]> {
   const errors: Error[] = [];
-  const res = await all(
+  const res = await Promise.all(
     values.map(async p => {
       try {
         return await p;
       } catch (err) {
         log?.(assertError(err));
+        errors.push(assertError(err));
         return undefined;
       }
     }),
@@ -132,13 +85,13 @@ export async function some<T>(
 export const mapAll = async <T, R>(
   things: T[],
   toPromise: (thing: T) => Promise<R>,
-): Promise<R[]> => await all(map(things, toPromise));
+): Promise<R[]> => await Promise.all(map(things, toPromise));
 
 export const most = async <T>(
   promises: Promise<T>[],
   onError?: Fn<Error, void>,
 ): Promise<T[]> => {
-  const results = await all(
+  const results = await Promise.all(
     promises.map(async p => {
       try {
         return await p;

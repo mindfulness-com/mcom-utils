@@ -11,28 +11,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.waitFor = exports.mapMost = exports.most = exports.mapAll = void 0;
-exports.all = all;
 exports.some = some;
 exports.usingAll = usingAll;
 const lodash_1 = require("lodash");
 const fn_1 = require("./fn");
-const bluebird_1 = require("bluebird");
 const maybe_1 = require("./maybe");
 const error_1 = require("./error");
-// eslint-disable-next-line  @typescript-eslint/no-explicit-any
-function all(values) {
-    // @ts-ignore
-    return (0, bluebird_1.all)(values);
-}
 function some(values, log) {
     return __awaiter(this, void 0, void 0, function* () {
         const errors = [];
-        const res = yield all(values.map((p) => __awaiter(this, void 0, void 0, function* () {
+        const res = yield Promise.all(values.map((p) => __awaiter(this, void 0, void 0, function* () {
             try {
                 return yield p;
             }
             catch (err) {
                 log === null || log === void 0 ? void 0 : log((0, error_1.assertError)(err));
+                errors.push((0, error_1.assertError)(err));
                 return undefined;
             }
         })));
@@ -42,10 +36,10 @@ function some(values, log) {
         return res;
     });
 }
-const mapAll = (things, toPromise) => __awaiter(void 0, void 0, void 0, function* () { return yield all((0, lodash_1.map)(things, toPromise)); });
+const mapAll = (things, toPromise) => __awaiter(void 0, void 0, void 0, function* () { return yield Promise.all((0, lodash_1.map)(things, toPromise)); });
 exports.mapAll = mapAll;
 const most = (promises, onError) => __awaiter(void 0, void 0, void 0, function* () {
-    const results = yield all(promises.map((p) => __awaiter(void 0, void 0, void 0, function* () {
+    const results = yield Promise.all(promises.map((p) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             return yield p;
         }

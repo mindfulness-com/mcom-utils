@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.0](https://github.com/mindfulness-com/mcom-utils/compare/v2.0.1...v3.0.0) (2025-10-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **packages:** update dependency uuid to v13 (#353)
+
+### Features
+
+* **packages:** update dependency uuid to v13 ([#353](https://github.com/mindfulness-com/mcom-utils/issues/353)) ([c3fdb09](https://github.com/mindfulness-com/mcom-utils/commit/c3fdb09161d7f2988bf7351810d578d152376b7c))
+
 ## [2.0.1](https://github.com/mindfulness-com/mcom-utils/compare/v2.0.0...v2.0.1) (2025-08-22)
 
 

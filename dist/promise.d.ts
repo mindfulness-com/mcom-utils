@@ -1,34 +1,5 @@
 import { Fn } from "./fn";
 type Resolvable<R> = R | PromiseLike<R> | void | PromiseLike<void>;
-export declare function all<T1, T2, T3, T4, T5, T6, T7>(values: [
-    Resolvable<T1>,
-    Resolvable<T2>,
-    Resolvable<T3>,
-    Resolvable<T4>,
-    Resolvable<T5>,
-    Resolvable<T6>,
-    Resolvable<T7>
-]): Promise<[T1, T2, T3, T4, T5, T6, T7]>;
-export declare function all<T1, T2, T3, T4, T5, T6>(values: [
-    Resolvable<T1>,
-    Resolvable<T2>,
-    Resolvable<T3>,
-    Resolvable<T4>,
-    Resolvable<T5>,
-    Resolvable<T6>
-]): Promise<[T1, T2, T3, T4, T5, T6]>;
-export declare function all<T1, T2, T3, T4, T5>(values: [
-    Resolvable<T1>,
-    Resolvable<T2>,
-    Resolvable<T3>,
-    Resolvable<T4>,
-    Resolvable<T5>
-]): Promise<[T1, T2, T3, T4, T5]>;
-export declare function all<T1, T2, T3, T4>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>]): Promise<[T1, T2, T3, T4]>;
-export declare function all<T1, T2, T3>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>]): Promise<[T1, T2, T3]>;
-export declare function all<T1, T2>(values: [Resolvable<T1>, Resolvable<T2>]): Promise<[T1, T2]>;
-export declare function all<T1>(values: [Resolvable<T1>]): Promise<[T1]>;
-export declare function all<T>(values: Resolvable<T>[]): Promise<T[]>;
 export declare function some<T1, T2, T3, T4, T5, T6, T7>(values: [
     Resolvable<T1>,
     Resolvable<T2>,

@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isUUID = exports.memorableId = exports.fileSafeId = exports.shortId = exports.publicId = exports.generate = void 0;
-const uuid_1 = require("uuid");
 const nanoid_1 = require("nanoid");
 // Good for checking collision propability
 // https://zelark.github.io/nano-id-cc/
@@ -10,7 +9,14 @@ const alphabets = {
     memorable: "123456789ABCDEFGHJKLMNPQRSTUVWXYZ",
     filename: "0123456789abcdefghijklmnopqrstuvwxyz",
 };
-const generate = () => (0, uuid_1.v4)();
+const uuidv4 = () => {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
+        const r = crypto.getRandomValues(new Uint8Array(1))[0] & 15;
+        const v = c === "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+};
+const generate = () => uuidv4();
 exports.generate = generate;
 const publicId = () => (0, nanoid_1.customAlphabet)(alphabets.default, 10)();
 exports.publicId = publicId;

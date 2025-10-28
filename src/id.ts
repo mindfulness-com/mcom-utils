@@ -1,4 +1,3 @@
-import { v4 } from "uuid";
 import { customAlphabet } from "nanoid";
 
 // Good for checking collision propability
@@ -10,7 +9,15 @@ const alphabets = {
   filename: "0123456789abcdefghijklmnopqrstuvwxyz",
 };
 
-export const generate = (): string => v4();
+const uuidv4 = (): string => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
+    const r = crypto.getRandomValues(new Uint8Array(1))[0] & 15;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
+
+export const generate = (): string => uuidv4();
 export const publicId = (): string => customAlphabet(alphabets.default, 10)();
 
 export const shortId = (length = 10): string =>

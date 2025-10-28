@@ -11,6 +11,7 @@ describe("id", () => {
   describe("generate", () => {
     test("creates new GUID ids", () => {
       const id = generate();
+      console.log(id);
       expect(id).toBeDefined();
       expect(id.length).toBe(36);
     });

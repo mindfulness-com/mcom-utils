@@ -121,7 +121,7 @@ export const toColumns = <T = PrimitiveRecord>(items: T[]) => {
 
 const formatReturning = (fields: Maybe<string | string[]>) =>
   fields && !isEmpty(fields)
-    ? `RETURNING ${ensureArray(fields).join(", ")}`
+    ? `RETURNING ${ensureArray(fields).map(formatColumn).join(", ")}`
     : "";
 
 export const insert = <T = PrimitiveRecord>(

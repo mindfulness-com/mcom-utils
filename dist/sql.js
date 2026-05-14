@@ -26,12 +26,17 @@ const date_1 = require("./date");
 const string_1 = require("./string");
 const reservedColumns = ["order"];
 const formatColumn = (name) => {
-    const col = (0, string_1.snakeCase)(name);
-    // Special columns should be in quotes
-    if (reservedColumns.includes(col)) {
-        return `"${col}"`;
+    if (name === "*") {
+        return name;
     }
-    return col;
+    else {
+        const col = (0, string_1.snakeCase)(name);
+        // Special columns should be in quotes
+        if (reservedColumns.includes(col)) {
+            return `"${col}"`;
+        }
+        return col;
+    }
 };
 exports.formatColumn = formatColumn;
 const reservedTables = ["user"];

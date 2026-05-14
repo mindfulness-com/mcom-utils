@@ -27,12 +27,16 @@ import { snakeCase } from "./string";
 const reservedColumns = ["order"];
 
 export const formatColumn = (name: string): string => {
-  const col = snakeCase(name);
-  // Special columns should be in quotes
-  if (reservedColumns.includes(col)) {
-    return `"${col}"`;
+  if (name === "*") {
+    return name;
+  } else {
+    const col = snakeCase(name);
+    // Special columns should be in quotes
+    if (reservedColumns.includes(col)) {
+      return `"${col}"`;
+    }
+    return col;
   }
-  return col;
 };
 
 const reservedTables = ["user"];

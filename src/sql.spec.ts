@@ -438,6 +438,10 @@ describe("sql", () => {
       expect(literal(null)).toEqual("NULL");
       expect(literal(undefined)).toEqual("");
     });
+
+    test("should allow % characters", () => {
+      expect(literal("seven-strengths%")).toEqual("'seven-strengths%'");
+    });
   });
 
   describe("formatTable", () => {

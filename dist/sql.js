@@ -94,7 +94,7 @@ const toColumns = (items) => {
 };
 exports.toColumns = toColumns;
 const formatReturning = (fields) => fields && !(0, lodash_1.isEmpty)(fields)
-    ? `RETURNING ${(0, array_1.ensureArray)(fields).join(", ")}`
+    ? `RETURNING ${(0, array_1.ensureArray)(fields).map(exports.formatColumn).join(", ")}`
     : "";
 const insert = (table, items, returnFields) => {
     const all = (0, array_1.ensureArray)(items);

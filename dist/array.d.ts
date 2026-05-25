@@ -42,4 +42,4 @@ export declare function insertAfter<T>(arr: Array<T>, items: Array<T>, item: T):
  * @param {Array<T>} arr - The array of items
  * @returns {T} - The first item in the array
  */
-export declare const justOne: <T>(input: T | T[]) => T | undefined;
+export declare const justOne: (input: any) => unknown;

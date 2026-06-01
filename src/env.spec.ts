@@ -4,6 +4,7 @@ import {
   getEnv,
   getEnvVarBool,
   getEnvVar,
+  getEnvPEM,
   tryGetEnvVar,
   isEnvVarSet,
   InfraEnv,
@@ -90,6 +91,44 @@ describe("env", () => {
 
       process.env.NODE_ENV = "error";
       expect(getEnv).toThrow();
+    });
+  });
+
+  describe("getEnvPEM", () => {
+    afterEach(() => {
+      delete process.env.TEST_PEM;
+    });
+
+    test("returns the PEM value as-is", () => {
+      process.env.TEST_PEM = "-----BEGIN RSA PRIVATE KEY-----";
+      expect(getEnvPEM("TEST_PEM")).toBe("-----BEGIN RSA PRIVATE KEY-----");
+    });
+
+    test("replaces escaped \\\\n sequences with real newlines", () => {
+      process.env.TEST_PEM =
+        "-----BEGIN RSA PRIVATE KEY-----\\nMIIEo\\n-----END RSA PRIVATE KEY-----";
+      expect(getEnvPEM("TEST_PEM")).toBe(
+        "-----BEGIN RSA PRIVATE KEY-----\nMIIEo\n-----END RSA PRIVATE KEY-----",
+      );
+    });
+
+    test("replacement is case-insensitive", () => {
+      process.env.TEST_PEM = "line1\\Nline2";
+      expect(getEnvPEM("TEST_PEM")).toBe("line1\nline2");
+    });
+
+    test("throws when env var is not set", () => {
+      delete process.env.TEST_PEM;
+      expect(() => getEnvPEM("TEST_PEM")).toThrow(
+        "Missing environment variable PEM key: TEST_PEM",
+      );
+    });
+
+    test("throws when env var is an empty string", () => {
+      process.env.TEST_PEM = "";
+      expect(() => getEnvPEM("TEST_PEM")).toThrow(
+        "Missing environment variable PEM key: TEST_PEM",
+      );
     });
   });
 

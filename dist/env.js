@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.envOption = exports.getEnvVarBool = exports.getEnvVar = exports.isEnvVarSet = exports.tryGetEnvVar = exports.getEnv = exports.getInfraSuffix = exports.onlyInLocalEnv = exports.skipInLocalEnv = exports.onlyOnProdInfraEnv = exports.skipOnProdInfraEnv = exports.isLocalInfraEnv = exports.isProdInfraEnv = exports.isNonProdInfraEnv = exports.getInfraEnv = exports.InfraEnv = exports.onlyRunIn = exports.isProduction = exports.isDevelopment = exports.Env = void 0;
+exports.getEnvPEM = exports.envOption = exports.getEnvVarBool = exports.getEnvVar = exports.isEnvVarSet = exports.tryGetEnvVar = exports.getEnv = exports.getInfraSuffix = exports.onlyInLocalEnv = exports.skipInLocalEnv = exports.onlyOnProdInfraEnv = exports.skipOnProdInfraEnv = exports.isLocalInfraEnv = exports.isProdInfraEnv = exports.isNonProdInfraEnv = exports.getInfraEnv = exports.InfraEnv = exports.onlyRunIn = exports.isProduction = exports.isDevelopment = exports.Env = void 0;
 const lodash_1 = require("lodash");
 var Env;
 (function (Env) {
@@ -80,4 +80,17 @@ const getEnvVarBool = (name) => {
 exports.getEnvVarBool = getEnvVarBool;
 const envOption = (options) => options[(0, exports.getInfraEnv)()] || options["dev"];
 exports.envOption = envOption;
+// PEM secret files
+const getEnvPEM = (name) => {
+    let pem = process.env[name];
+    if (pem) {
+        // Replace newlines from environment variable formatting
+        pem = pem.replace(/\\n/gi, "\n");
+    }
+    if (!pem) {
+        throw new Error(`Missing environment variable PEM key: ${name}`);
+    }
+    return pem;
+};
+exports.getEnvPEM = getEnvPEM;
 //# sourceMappingURL=env.js.map

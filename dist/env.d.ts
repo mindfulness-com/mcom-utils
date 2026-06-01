@@ -33,3 +33,4 @@ export declare const envOption: <T>(options: {
     prod: T;
     local?: T;
 }) => T;
+export declare const getEnvPEM: (name: string) => string;

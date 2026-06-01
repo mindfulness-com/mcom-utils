@@ -93,3 +93,18 @@ export const envOption = <T>(options: {
   prod: T;
   local?: T;
 }): T => options[getInfraEnv()] || options["dev"];
+
+// PEM secret files
+export const getEnvPEM = (name: string): string => {
+  let pem = process.env[name];
+
+  if (pem) {
+    // Replace newlines from environment variable formatting
+    pem = pem.replace(/\\n/gi, "\n");
+  }
+
+  if (!pem) {
+    throw new Error(`Missing environment variable PEM key: ${name}`);
+  }
+  return pem;
+};

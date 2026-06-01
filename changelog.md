@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.1.0](https://github.com/mindfulness-com/mcom-utils/compare/v3.0.1...v3.1.0) (2026-06-01)
+
+
+### Features
+
+* getEnvPEM ([913221c](https://github.com/mindfulness-com/mcom-utils/commit/913221ce7aac6cdcc67e5288d56c25740fedc3fc))
+
+
+### Bug Fixes
+
+* format column in format returning ([2e097e9](https://github.com/mindfulness-com/mcom-utils/commit/2e097e9530ea71ddbc07c8cb48210325a3630324))
+
 ## [3.0.1](https://github.com/mindfulness-com/mcom-utils/compare/v3.0.0...v3.0.1) (2025-10-28)
 
 ## [3.0.0](https://github.com/mindfulness-com/mcom-utils/compare/v2.0.1...v3.0.0) (2025-10-16)

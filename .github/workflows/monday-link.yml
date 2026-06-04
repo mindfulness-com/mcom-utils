@@ -1,0 +1,21 @@
+name: Link PR to Monday
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, closed]
+
+jobs:
+  link:
+    uses: mindfulness-com/github-monday-automation/.github/workflows/monday-link.yml@main
+
+    with:
+      pr_title: ${{ github.event.pull_request.title }}
+      pr_body: ${{ github.event.pull_request.body }}
+      pr_url: ${{ github.event.pull_request.html_url }}
+      repo_name: ${{ github.repository }}
+      pr_action: ${{ github.event.action }}
+      pr_number: ${{ github.event.pull_request.number }}
+
+    secrets:
+      MONDAY_API_TOKEN: ${{ secrets.MONDAY_API_TOKEN }}
+

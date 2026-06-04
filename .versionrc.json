@@ -1,4 +1,7 @@
 {
   "infile": "changelog.md",
-  "releaseCommitMessageFormat": "chore: [ci skip] version bump v{{currentTag}}"
+  "releaseCommitMessageFormat": "chore: [ci skip] version bump v{{currentTag}}",
+  "scripts": {
+    "postchangelog": "node -e \"const fs=require('fs');['changelog.md','CHANGELOG.md'].forEach(f=>{try{const c=fs.readFileSync(f,'utf8');fs.writeFileSync(f,c.replace(/(?<!\\[)(?<!\\()(?<![\\w\\/])([0-9]{7,12})(?![\\w\\/])(?!\\])(?!\\))/g,'[\\$1](https://mindfulness431943.monday.com/boards/5028983776/pulses/\\$1)'))}catch(e){}})\""
+  }
 }

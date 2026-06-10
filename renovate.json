@@ -27,5 +27,6 @@
       "matchPackageNames": ["query-string"],
       "allowedVersions": "<8.0.0 || >=10.0.0"
     }
-  ]
+  ],
+  "ignoreDeps": ["mindfulness-com/github-monday-automation"]
 }

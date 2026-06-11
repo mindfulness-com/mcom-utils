@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: node:20
+    - image: node:24
 
 version: 2.1
 orbs:
